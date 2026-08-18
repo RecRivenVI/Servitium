@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; worker-src 'self' blob:">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="vendor/xterm/xterm.css">
+  <link rel="stylesheet" href="terminal.css">
+</head>
+<body>
+  <div id="toolbar" role="toolbar">
+    <input id="search" type="search" aria-label="Search terminal">
+    <button id="find" type="button">Find</button>
+    <button id="bottom" type="button" hidden>Bottom</button>
+    <button id="clear" type="button">Clear</button>
+    <button id="copy" type="button">Copy all</button>
+    <button id="export" type="button">Export</button>
+  </div>
+  <div id="terminal" aria-label="Minecraft server terminal"></div>
+  <script src="vendor/xterm/xterm.js"></script>
+  <script src="vendor/xterm/addon-fit.js"></script>
+  <script src="vendor/xterm/addon-search.js"></script>
+  <script src="vendor/xterm/addon-webgl.js"></script>
+  <script src="terminal.js"></script>
+</body>
+</html>

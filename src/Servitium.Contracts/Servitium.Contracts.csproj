@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" />
+    <PackageReference Include="Grpc.Core.Api" />
+    <PackageReference Include="Grpc.Tools" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="error-codes.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Localization\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Ui\ui-contract.json" CopyToOutputDirectory="PreserveNewest" />
+    <Protobuf Include="Protos\agent-control.proto" GrpcServices="Both" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\server-properties-schema.json" />
+  </ItemGroup>
+</Project>

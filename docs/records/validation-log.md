@@ -313,6 +313,296 @@ GET /pack/overrides/%E4%B8%AD%E6%96%87%E7%9B%AE%E5%BD%95/%E6%B5%8B%E8%AF%95%20%E
 
 ---
 
+## 2026-08-03 — 阶段 10 统一验证连续运行
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 10 |
+| 命令 | `./eng/Validate.ps1`，连续执行 3 次 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1；OpenJDK 25.0.3 x64 |
+| 结果 | 通过；3/3 次完成，无跳过、无随机失败 |
+| 耗时 | 第 1 次约 51 秒；第 2 次约 50 秒；第 3 次约 51 秒 |
+| 产物 | `artifacts/test-results/validate-20260803-052508/`、`validate-20260803-052621/`、`validate-20260803-052718/` |
+
+**阶段结果**
+
+| # | 阶段 | 结果 |
+| --- | --- | --- |
+| 1 | 环境检查 | 3 次通过 |
+| 2 | 锁定依赖还原 | 3 次通过 |
+| 3 | 生成代码一致性 | 3 次通过 |
+| 4 | Release 构建 | 3 次通过，0 警告、0 错误 |
+| 5 | 分析器 | 3 次通过 |
+| 6 | 格式 | 3 次通过 |
+| 9 | 单元测试 | 3 次通过，含 Java UNT-001 |
+| 10 | 架构测试 | 3 次通过，7/7 |
+| 11 | 集成测试 | 3 次通过，Server 1/1、Agent 2/2、Java INT-003 |
+| 17 | 覆盖率门禁 | 3 次通过；Domain/Application 与整体当前均为 100% |
+| 18 | 依赖漏洞 | 3 次通过；无已知漏洞 |
+| 21 | 文档一致性 | 3 次通过；57 份 `docs/` Markdown、262 条需求、387 个验收项 |
+
+本记录是阶段 10 的开发配置验证，不是阶段 18 的 `BackendGate` 验收证据。
+
+---
+
+## 2026-08-03 — 阶段 11 统一验证连续运行
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 11 |
+| 命令 | `./eng/Validate.ps1 -Profile Development`，连续执行 3 次 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1；OpenJDK 25.0.3 x64 |
+| 结果 | 通过；3/3 次完成，无跳过、无随机失败 |
+| 产物 | `artifacts/test-results/validate-20260803-060512/`、`validate-20260803-060559/`、`validate-20260803-060642/` |
+
+**阶段结果**
+
+| 检查 | 结果 |
+| --- | --- |
+| 环境、锁定还原、生成一致性 | 3 次通过；60 错误码、95 双语键、30 页面、22 事件、54 Agent 指令 |
+| Release 构建、分析器、格式 | 3 次通过；0 警告、0 错误、无格式差异 |
+| 单元测试 | 3 次通过；Domain 30、Application 6、Java UNT-001；无跳过 |
+| 架构测试 | 3 次通过；Domain 11、Application 1；无跳过 |
+| 集成测试 | 3 次通过；Server 1、Agent 2、Java INT-003；无跳过 |
+| 覆盖率 | 3 次通过；末次整体 88.07%、Domain 90.29%、Application 97.03% |
+| 依赖漏洞与文档 | 3 次通过；无已知漏洞；57 份 `docs/` Markdown、262 条需求、387 个验收项一致 |
+
+失败的预运行 `validate-20260803-060340/` 已登记为 PB-012；不计入连续通过序列。本记录仍不是阶段 18 `BackendGate` 验收。
+
+---
+
+## 2026-08-03 — 阶段 12–17 核心链路预交接验证
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12–17（均为部分完成） |
+| 命令 | `dotnet build Servitium.sln -c Release --no-restore`；`./eng/Test.ps1 -Category Unit/Architecture/Integration -Configuration Release`；`./eng/Check-Coverage.ps1 -Configuration Release`；`./eng/Check-Dependencies.ps1`；`./eng/Generate.ps1 -Verify`；WinUI `--self-test` |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Windows App Runtime 1.8；OpenJDK 25.0.3 x64 |
+| 结果 | 当前预检通过；无跳过；完整 `Validate.ps1` 连续运行另行记录 |
+| 产物 | `artifacts/test-results/{unit,architecture,integration,coverage}`；`artifacts/test-runs/winui-selftest-4796693d0a4e45c8b25ec4a8b6e1eeeb` |
+
+**结果摘要**
+
+| 检查 | 结果 |
+| --- | --- |
+| Release 构建与格式 | 15 个项目通过，0 警告、0 错误；`dotnet format --verify-no-changes` 通过；源码/测试无 `NotImplementedException` |
+| 单元与架构 | Domain 30、Application 6、Java UNT-001；Domain 架构 11、Application 架构 1，全部通过 |
+| 集成 | Infrastructure 18、Server 6、Agent 38、Java INT-003，全部通过且无跳过 |
+| 进程纵向链路 | 独立 Server/Agent、实际 Java 子进程、ZIP 导入、EULA、字面命令、停止和外部目录保留通过 |
+| 覆盖率 | 整体 73.79%；Domain/Application 均不低于 85%；没有降低阈值 |
+| 依赖与生成 | 15 个项目无已知漏洞；60 错误码、95 双语键、30 页面、22 事件、54 Agent 指令一致 |
+| WinUI 启动探针 | Server PID 71884、Desktop PID 110648，连接隔离 Server 后退出码 0；探针结束后进程均已停止 |
+
+验证期间发现并修复 PB-013 至 PB-019。失败的覆盖率预运行包括 39.37% 的重复路径报告、67.82% 的真实低覆盖报告以及一次极短寿命进程竞态；它们不计为通过，修复后才得到 73.79% 结果。本记录不是阶段 18 `BackendGate`，也不包含真实样本、管理员环境、第二 Windows 平台或用户验收。
+
+## 2026-08-03 — 阶段 12–17 交接前统一验证连续运行
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12–17（均为部分完成） |
+| 命令 | `./eng/Validate.ps1 -Profile Development -Configuration Release`，连续执行 3 次 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1；Windows App Runtime 1.8；OpenJDK 25.0.3 x64 |
+| 结果 | 通过；3/3 次完成，无跳过、无随机失败 |
+| 耗时 | 约 79 秒、76 秒、75 秒 |
+| 产物 | `artifacts/test-results/validate-20260803-082749/`、`validate-20260803-082912/`、`validate-20260803-083033/` |
+
+**阶段结果**
+
+| 检查 | 结果 |
+| --- | --- |
+| 环境、锁定还原、生成一致性 | 3 次通过；60 错误码、95 双语键、30 页面、22 事件、54 Agent 指令 |
+| Release 构建、分析器、格式 | 3 次通过；15 个项目，0 警告、0 错误、无格式差异 |
+| 单元测试 | 3 次通过；Domain 30、Application 6、Java UNT-001；无跳过 |
+| 架构测试 | 3 次通过；Domain 11、Application 1；无跳过 |
+| 集成测试 | 3 次通过；Infrastructure 18、Server 6、Agent 38、Java INT-003；无跳过 |
+| 覆盖率 | 3 次通过；整体 73.79%，Domain/Application 均满足 85% |
+| 依赖漏洞与文档 | 3 次通过；15 个项目无已知漏洞；57 份文档、262 条需求、387 个验收项一致 |
+
+这是当前可安全自动执行的 Development 验证，不是阶段 18 `BackendGate`。真实服务端 ZIP、真实绝对目录、真实 Prism ZIP、真实 HMCL 客户端、管理员环境、第二 Windows 平台和用户验收均未执行。
+
+## 2026-08-03 — Java 列表副作用修复后交接验证
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 13 及 12–17 回归（均不改变正式阶段状态） |
+| 命令 | `dotnet build Servitium.sln -c Release --no-restore`；Server/Agent 相关集成测试；`./eng/Validate.ps1 -Profile Development -Configuration Release` 连续执行 3 次 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1；Windows App Runtime 1.8；OpenJDK 25.0.3 x64 |
+| 结果 | 修复 PB-020 后通过；完整验证 3/3 次完成，无跳过、无随机失败 |
+| 产物 | `artifacts/test-results/validate-20260803-085335/`、`validate-20260803-085453/`、`validate-20260803-085611/` |
+
+**结果摘要**
+
+| 检查 | 结果 |
+| --- | --- |
+| Java 列表回归 | INT-305 断言 GET 发送 `ListJava`；INT-300 进程链路读取时只返回已登记项 |
+| Release 构建与格式 | 15 个项目，0 警告、0 错误；格式无差异 |
+| Debug WinUI | `dotnet build src/Servitium.Desktop/Servitium.Desktop.csproj -c Debug -p:Platform=x64 --no-restore` 通过；PID 64728 连接 `http://127.0.0.1:5344` 的 `--self-test` 退出码为 0；另启动可见工作台供用户操作 |
+| 单元与架构 | Domain 30、Application 6、Java UNT-001；Domain 架构 11、Application 架构 1 |
+| 集成 | Infrastructure 18、Server 7、Agent 38、Java INT-003；无跳过 |
+| 覆盖率、依赖、文档 | 整体 74.00%，Domain/Application 满足 85%；15 个项目无已知漏洞；57 份文档、262 条需求、387 个验收项一致 |
+
+交接环境运行时首次构建因 Server PID 47744 与 Agent PID 107708 锁定 Release DLL 而失败；停止已核对进程并保留数据后重跑通过。`validate-20260803-085018/` 因新增测试格式失败，`validate-20260803-085140/` 因问题记录误写不存在的 `REQ-JAV-*` 编号而在文档检查失败；两次均在修复后重新执行，未计入通过序列。此处仍不是阶段 18 `BackendGate` 或真实样本验收。
+
+## 2026-08-03 — 大型归档上传限制回归
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12、13、17 回归（正式状态仍为部分完成） |
+| 命令 | Release 构建与格式检查；Server/Agent 集成测试；`./eng/Validate.ps1 -Profile Development -Configuration Release` 连续执行 3 次 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1；Windows App Runtime 1.8；OpenJDK 25.0.3 x64 |
+| 结果 | PB-021 修复后通过；完整验证 3/3 次完成，无跳过、无随机失败 |
+| 产物 | `artifacts/test-results/validate-20260803-162514/`、`validate-20260803-162715/`、`validate-20260803-162919/` |
+
+**结果摘要**
+
+| 检查 | 结果 |
+| --- | --- |
+| 上传策略 | SEC-166 验证三个端点的 8 GiB 文件与 16 MiB multipart 开销限制及统一表单配置；SEC-167 验证 Kestrel 413 映射为 `file-too-large` |
+| 大型合成服务端 ZIP | INT-501 以 31 MiB 不压缩负载贯通真实 Server/Agent 进程上传、传输、解压与实例登记；导入文件长度断言通过 |
+| 大型合成 Prism 与 HMCL ZIP | INT-1300、INT-1310 在独立随机回环 Kestrel 进程上传同级合成 Prism ZIP；预览与 Release 创建均返回 201 |
+| Release 构建与格式 | 15 个项目，0 警告、0 错误；WinUI 3 x64 构建成功；无格式差异 |
+| 单元、架构与集成 | Domain 30、Application 6、Java UNT-001；架构 11+1；Infrastructure 18、Server 10、Agent 38、Java INT-003；均无跳过 |
+| 覆盖率、依赖、文档 | 整体 74.02%，Domain/Application 满足 85%；15 个项目无已知漏洞；57 份文档、262 条需求、387 个验收项一致 |
+| 记录落盘复检 | 更新动态记录后执行 `./eng/Validate.ps1 -Profile Development -Configuration Release -Stages 3,6,21` 通过，报告为 `artifacts/test-results/validate-20260803-163403/`；隔离 Server 健康检查 200、Agent gRPC 连接为 Established |
+
+初次编译因新测试的 CA2000 资源处置规则失败，初次格式验证因新文件编码失败，均修复后重新运行。独立进程回归曾两次因测试夹具未显式覆盖默认监听地址而超时；改用命令行参数数组指定随机回环地址后通过。`validate-20260803-162224/` 在覆盖率已通过后被外层 120 秒调用时限终止，未执行依赖和文档阶段，因此不计入完整通过序列。上述失败均未通过降低断言、跳过测试或放宽产品安全限制处理。
+
+只读取了隔离 Server 日志中的请求长度和 Kestrel 异常；未打开、解压、转换或执行用户真实服务端 ZIP、Prism ZIP 或 HMCL 客户端数据。真实样本测试、阶段 18、管理员环境与用户验收仍未执行。
+
+## 2026-08-04 — 正式 Desktop 扩展后的 Development 诊断验证
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12–22 诊断，不构成阶段门禁 |
+| 命令 | `pwsh -NoProfile -File eng/Validate.ps1 -Profile Development -Configuration Release`；修复格式后运行 `pwsh -NoProfile -File eng/Validate.ps1 -Profile Development -Configuration Release -Stages 9,10,11,17,18,21` |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；OpenJDK 25.0.3 x64 |
+| 结果 | 首次运行在阶段 6 因格式差异失败；执行仓库格式化并修复无法自动处理的分析器项后格式无差异。第二次诊断中单元、架构、集成测试通过，阶段 17 因整体行覆盖率 64.84% 低于 70% 失败 |
+| 产物 | `artifacts/test-results/validate-20260804-045136/`、`artifacts/test-results/validate-20260804-050049/`、`artifacts/test-results/coverage/20260804-050146/` |
+
+**已通过的实际结果**
+
+| 检查 | 结果 |
+| --- | --- |
+| Release 构建、分析器 | 全解决方案通过，0 警告、0 错误 |
+| 生成一致性 | 145 个 OpenAPI 路径、181 个操作、60 个错误码、637 个本地化键、30 个页面、22 个事件、54 个 Agent 命令一致 |
+| 单元测试 | Domain 30、Application 7、Desktop 25；合计 62，0 跳过 |
+| 架构测试 | Domain 11、Application 1；合计 12，0 跳过 |
+| 集成测试 | Infrastructure 22、Server 32、Agent 120、Client 8；合计 182，另有 Java INT-003，0 跳过 |
+| 覆盖率采集测试 | 全部执行通过；最终聚合整体 64.84%，门禁失败并登记 PB-027 |
+
+带 `-Stages` 的运行仅用于失败诊断，未执行其后依赖漏洞和文档一致性阶段，不是完整验证证据。真实样本、管理员环境和第二 Windows 平台均未执行。
+
+## 2026-08-04 — 正式契约、Desktop 与覆盖率回归
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12–17、20、22 代码收敛，尚不构成阶段 18/23 Gate |
+| 命令 | 相关 `dotnet test`；`dotnet build Servitium.sln -c Release --no-restore --maxcpucount:1`；`eng/Generate.ps1 -Verify`；`eng/Check-Coverage.ps1 -Configuration Release`；`eng/Check-Docs.ps1` |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；OpenJDK 25.0.3 x64 |
+| 结果 | 相关回归、构建、生成、覆盖率和集中更新前的文档检查通过；连续完整验证待执行 |
+| 产物 | `artifacts/test-results/coverage/20260804-131514/` |
+
+**实际结果**
+
+| 检查 | 结果 |
+| --- | --- |
+| OpenAPI 与 Client | CTR-120、CTR-100、CTR-121 通过；145 路径、181 操作具有请求、成功与 Problem Details 契约，生成 Client 操作集合双向一致 |
+| 通知与 Desktop | Desktop 36/36；覆盖定时/进程内暂停、取消、队列恢复、设置重载、PG-062 Prism、五步向导、文件批量、过滤导出、本地化和权限预检查 |
+| 后端纵向 | Application 11/11；Agent 指令分派 63/63；Server INT-1492/INT-1493 覆盖实例、生命周期、RCON、玩家、指标、文件、配置、模组和计划端点 |
+| 生命周期稳定性 | 最初暴露输入流关闭与数据库监视任务竞态；修复后崩溃/自动重启测试连续 5 轮共 10/10 通过，未使用固定等待或放宽清理断言 |
+| Release 构建 | 解决方案构建通过，0 警告、0 错误；Client 13/13 |
+| 覆盖率 | Domain 41、Application 11、Infrastructure 36、Server 51、Agent 187 全通过；整体 70.83%，Domain/Application 均不低于 85%，0 跳过 |
+| 生成与文档 | 60 错误码、771 本地化键、30 页面、22 事件、54 Agent 命令、181 OpenAPI 操作和 2 份 Desktop 资源一致；集中更新前文档检查为 58/262/387 |
+
+完整验证前的首次格式检查因新增文件编码、IDE 样式和动态 `TheoryData` 初始化失败，登记 PB-033；运行统一格式器并把动态枚举改为单一测试内逐值断言后，Agent 测试项目格式检查通过。该失败不计入后续完整验证通过序列。
+
+本轮测试只使用生成的合成归档、临时目录、隔离 SQLite 与随机回环端口。未读取四个参考路径中的用户数据，未执行四项真实样本、Windows 服务/ACL、管理员环境、第二 Windows 平台或阶段 18/23/24 正式验收。
+
+连续完整验证的前两次 `validate-20260804-134134/`、`validate-20260804-134617/` 通过；原第 3 次 `validate-20260804-135009/` 在阶段 11 因 INT-805 于 Server 宿主释放前删除 SQLite 目录失败，登记 PB-034，故前两次不构成最终连续 3 次证据。修正清理顺序后 `ServerOperationExecutorTests` 连续 5 轮共 10/10 通过，最终完整序列从修复后重新计数。
+
+随后为 Desktop 进程自测接入隔离数据根；直接构造 `AppServices` 的纯 xUnit 尝试因 WinRT `ResourceLoader` 环境缺失失败，登记 PB-035 并改为纯路径解析回归。该失败不计入完整验证；真实 Desktop 组合根将在隔离进程启动检查中验证。
+
+隔离数据根改动后的第 1 次 `validate-20260804-141307/` 通过；第 2 次 `validate-20260804-141753/` 在阶段 17 因 PB-036 单次 Agent 自动重启 coverage 超时失败。相同 `XPlat Code Coverage` 配置下独立 Agent 全量运行 `agent-coverage-repro/run-1`、`run-2`、`run-3` 均 127/127，通过后从零重跑最终完整序列。
+
+## 2026-08-04 — 最终连续 Development 验证与进程启动检查
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 12–17 后端、20 Client、22 Desktop；不构成阶段 18/23/24 Gate |
+| 命令 | `pwsh -NoProfile -File eng/Validate.ps1 -Profile Development -Configuration Release`（连续三次）；`dotnet build tests/Servitium.Desktop.Tests/Servitium.Desktop.Tests.csproj -c Release --property:Platform=x64 --no-restore`；`dotnet test tests/Servitium.Desktop.Tests/Servitium.Desktop.Tests.csproj -c Release --no-build --no-restore --property:Platform=x64`；Server/Agent/Desktop 隔离进程自检 |
+| 环境 | Windows 10.0.28000 x64；PowerShell 7.6.4；.NET SDK 10.0.301；Node.js 22.23.1/npm 10.9.8；OpenJDK 25.0.3 x64 |
+| 结果 | 三次完整 Development 验证通过；12 个注册阶段均通过、无跳过；Desktop 进程自检退出码 0 |
+| 产物 | `artifacts/test-results/validate-20260804-142612/`、`validate-20260804-143007/`、`validate-20260804-143405/`；`artifacts/test-runs/startup-20260804-a1f8e5fb06a74a0a8adcca04b3659aa0/` |
+
+**阶段与测试结果**
+
+| 检查 | 实际结果 |
+| --- | --- |
+| 最终阶段 17 覆盖率 | Domain 41、Application 11、Infrastructure 36、Server 51、Agent 127；整体 70.85%；Domain/Application 均满足 85% |
+| Desktop 单元回归 | 38/38，通过 0，跳过 0；含未打包 JSON 本地化回退与 Desktop 自测数据根测试 |
+| Agent 进程自检 | `Servitium.Agent.exe --environment Development --self-test`，PID 85840，退出码 0 |
+| Server 启动检查 | 显式 `--urls http://127.0.0.1:1253`，PID 72924；15 个迁移完成；`/health/ready` HTTP 200；未使用真实数据 |
+| Desktop 连接检查 | `Servitium.Desktop.exe --server http://127.0.0.1:1253 --self-test`，PID 118520，退出码 0；读取隔离 Server 认证状态 |
+| CSRF 负向 | 初始化请求未带 CSRF 实际返回 HTTP 400、稳定码 `csrf-token-missing`；随后同一 Cookie/请求头流程创建合成所有者 |
+
+**边界**
+
+- PB-037、PB-038 的第一次失败均保留在问题记录中，修复后自检和回归通过；没有把失败尝试计入通过。
+- Server、Agent、Desktop 均已停止；未执行阶段 18、23、24、管理员服务/ACL、第二 Windows 平台或四项真实样本测试。
+
+## 2026-08-04 — PB-036 重现后的最终连续序列
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 1、2、3、4、5、6、9、10、11、17、18、21；Development，不构成阶段 18/23/24 Gate |
+| 命令 | 清理已识别的 MSBuild 节点后，连续运行 `pwsh -NoProfile -File eng/Validate.ps1 -Profile Development -Configuration Release` 三次 |
+| 结果 | `validate-20260804-151435/`、`validate-20260804-151831/`、`validate-20260804-152227/` 全部通过；每次 12 个阶段均通过、无跳过；覆盖率分别为 70.88%、70.85%、70.85% |
+| 中间失败 | `validate-20260804-151029/` 阶段 17 的 Agent 自动重启等待超时，126/127 通过；按 PB-036 规则未计入连续序列，未修改测试截止或断言 |
+| 产物 | `artifacts/test-results/validate-20260804-151029/`、`151435/`、`151831/`、`152227/` |
+
+三次通过均实际运行依赖漏洞扫描与文档一致性检查；最终阶段 17 每轮 Domain 41、Application 11、Infrastructure 36、Server 51、Agent 127，0 跳过。四项真实样本、管理员环境、第二 Windows 平台、阶段 18/23/24 和交付仍未执行。
+
+记录落盘后的第一次组合复核曾执行 `Generate.ps1 -Verify; Check-Docs.ps1; dotnet format ... --verify-no-changes`：`Check-Docs` 实际通过，但 `Generate` 因隔离 Server PID 72924 锁定 apphost 失败，格式检查同时报告 `LocalizationService.cs` 缺少 BOM；该次不计入通过。停止隔离 Server、由 `dotnet format` 修复编码后，三项命令重新独立执行均通过。
+
+---
+
+## 2026-08-04 — 隔离交互测试前端启动检查
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 阶段 12–22，交互测试环境准备 |
+| 命令 | `dotnet build tests/Servitium.Desktop.Tests/Servitium.Desktop.Tests.csproj -c Release --property:Platform=x64 --no-restore --nologo`；`dotnet test tests/Servitium.Desktop.Tests/Servitium.Desktop.Tests.csproj -c Release --property:Platform=x64 --no-build --no-restore --nologo --logger "console;verbosity=minimal"`；`dotnet format Servitium.sln --verify-no-changes --no-restore --verbosity minimal`；启动 `Servitium.Server.exe --environment Development --urls http://127.0.0.1:9100` 与 `Servitium.Desktop.exe --server http://127.0.0.1:9100 --isolated-test` |
+| 环境 | Windows；Release x64；Server 数据目录 `artifacts/test-runs/interactive-d7aa986cc884407e98e1aab0f15af486/server`；Desktop 数据目录 `artifacts/test-runs/interactive-d7aa986cc884407e98e1aab0f15af486/desktop` |
+| 结果 | 通过；Desktop 测试 38/38，无跳过；Server `/health/ready` 返回 200；Server PID 90100、Desktop PID 119444 保持运行 |
+| 产物 | `artifacts/test-runs/interactive-d7aa986cc884407e98e1aab0f15af486/` |
+
+**失败详情**
+
+- 无。
+
+## 2026-08-04 — PB-039 修复后的实际 WinUI UIA 检查
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 阶段 22 Desktop 响应式布局与本地化回归；不构成阶段 22、23、24 Gate |
+| 命令 | `dotnet build src/Servitium.Desktop/Servitium.Desktop.csproj -c Release --property:Platform=x64 --no-restore --nologo`；`dotnet test tests/Servitium.Desktop.Tests/Servitium.Desktop.Tests.csproj -c Release --property:Platform=x64 --no-restore --nologo --logger "console;verbosity=minimal"`；`pwsh -NoProfile -File eng/Check-DesktopUi.ps1 -ServerAddress http://127.0.0.1:9100 -DataRoot artifacts/test-runs/interactive-d7aa986cc884407e98e1aab0f15af486/desktop` |
+| 环境 | Windows x64；当前实际窗口 DPI 150%；合成隔离 Server `http://127.0.0.1:9100`；Server/ Desktop 数据均位于 `artifacts/test-runs/interactive-d7aa986cc884407e98e1aab0f15af486/` |
+| 结果 | Desktop Release 构建 0 警告/0 错误；Desktop 38/38 无跳过；UIA 实际启动 compact 560、normal 960、wide 1400 有效宽度，通过控件边界、可见性、重叠、焦点、可调用性、稳定值禁显和空初始化拒绝；最新报告 `artifacts/test-results/desktop-ui/20260804-163934/` |
+| 截图 | `compact.png`、`normal.png`、`wide.png` 已保存于上述报告目录；截图由 Win32 `CopyFromScreen` 在窗口置前后采集，人工核对当前 150% DPI 的导航、表单宽度、命令层级和本地化文案 |
+| 边界 | 未修改系统显示缩放，100%、125%、200% DPI 未执行；未读取真实 ZIP、真实目录、真实 Prism 包或 HMCL 客户端数据；四项真实样本、阶段 18/23/24 和完整 30 页人工视觉验收仍未通过 |
+
+## 2026-08-04 — PB-040 修复后的客户端与合成 Desktop UIA 检查
+
+| 项 | 内容 |
+| --- | --- |
+| 阶段 | 阶段 20、22；不构成阶段 22、23、24 Gate |
+| 命令 | `dotnet test tests/Servitium.Client.ContractTests/Servitium.Client.ContractTests.csproj -c Release --no-restore --nologo --logger "console;verbosity=minimal"`；修复后 Desktop Release 构建；合成 Server `http://127.0.0.1:9201` 上的 Desktop UIA 启动与导航检查 |
+| 结果 | Client 15/15 通过，无跳过；修复后的 Desktop 构建（`App.xaml.cs` 最后页面测试开关改动之前）0 警告/0 错误；合成会话恢复后显示“连接已就绪” |
+| UIA 结果 | PG-040、PG-010、PG-020、PG-060、PG-030、PG-041、PG-044、PG-032 共 8 个顶层导航页面均有可见可交互控件；无模态遮挡、窗口外控件或 `False`/`zh-Hans`/`en-US` 原始值泄漏；PG-041 的长页面字段通过滚动进入视口 |
+| DPI | 当前实际 Windows 150%（Dpi=144）；100%、125%、200% 未运行 |
+| 产物 | `artifacts/test-results/desktop-ui/pg041-scrollintoview.png`；合成数据根目录 `artifacts/test-runs/desktop-pages-20260804/` |
+| 边界 | 未读取真实 ZIP、真实绝对路径、真实 Prism 包、HMCL 客户端或正式数据；PB-039 仍开放，30 页逐页视觉、最新 `--ui-page-test` 改动的构建与完整 `eng/Validate.ps1` 尚未执行；四项真实样本测试保持暂停 |
+
 ## 后续格式示例
 
 阶段 10 起，每次运行 `eng/Validate.ps1` 按下列格式记录：

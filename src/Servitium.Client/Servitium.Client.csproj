@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <ProjectReference Include="..\Servitium.Contracts\Servitium.Contracts.csproj" />
+  </ItemGroup>
+</Project>

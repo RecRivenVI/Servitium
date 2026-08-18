@@ -1,0 +1,7 @@
+:root { color-scheme: light dark; }
+html, body { height: 100%; }
+body { margin: 0; display: grid; grid-template-rows: 1fr auto; background: Canvas; color: CanvasText; }
+#editor { min-height: 0; }
+#status { display: flex; justify-content: flex-end; gap: 14px; padding: 3px 10px; font: 12px "Segoe UI", sans-serif; border-top: 1px solid GrayText; }
+#status button { border: 0; background: transparent; color: inherit; font: inherit; }
+#dirty:not(:empty)::before { content: "● "; }

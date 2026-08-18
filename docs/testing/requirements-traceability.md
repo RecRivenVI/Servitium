@@ -22,345 +22,354 @@
 * `functional-specification.md` 中定义的每条需求在本文件中都有一行（可以是「未开始」，但不能缺行）；
 * 本文件中不存在未在 `functional-specification.md` 中定义的需求编号。
 
+状态只描述本行当前证据：`进行中` 表示生产代码与列出的自动测试族已有证据，但对应阶段 Gate、真实样本、平台矩阵或用户验收尚未全部完成；`已实现未测试` 明确表示代码存在但该需求规定的正式验证尚未运行。任何一行都不会因为共享测试族通过而自动提升为阶段通过。
+
 ## 2. 平台与跨领域（REQ-PLT）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-PLT-001 | 11 | | ARC-020 | 未开始 | |
-| REQ-PLT-010 | 12 | | INT-220 | 未开始 | |
-| REQ-PLT-020 | 12 | | INT-170 | 未开始 | |
-| REQ-PLT-021 | 12 | | INT-230 | 未开始 | |
-| REQ-PLT-022 | 11、12 | | UNT-200、INT-240 | 未开始 | |
-| REQ-PLT-030 | 12 | | INT-180 | 未开始 | |
-| REQ-PLT-040 | 13 | | INT-320 | 未开始 | |
-| REQ-PLT-050 | 18 | | CAP-001 … CAP-007 | 未开始 | |
+| REQ-PLT-001 | 11 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-010 | 12 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-020 | 12 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-021 | 12 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-022 | 11、12 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-030 | 12 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-040 | 13 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 进行中 | 平台、时间、幂等、分页与正式协议代码存在；正式容量和 Gate 另行判定 |
+| REQ-PLT-050 | 18 | `src/Servitium.Domain/Common`、`Application/Common`、`Server/OpenApi`、`Servitium.Client/Generated` | `ArchitectureTests`、`HealthEndpointTests`、`ServitiumApiClientTests`、UNT-200、INT-230、INT-240、CTR-120 | 已实现未测试 | 容量目标相关代码存在；CAP-001 … CAP-007 正式容量测试未执行 |
 
 ## 3. 身份、认证与授权（REQ-IDN）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-IDN-001 | 11、12 | | UNT-110、INT-110、SEC-002 | 未开始 | |
-| REQ-IDN-002 | 12 | | SEC-001 | 未开始 | |
-| REQ-IDN-003 | 12 | | INT-110 | 未开始 | |
-| REQ-IDN-010 | 12 | | INT-120、SEC-012 | 未开始 | |
-| REQ-IDN-011 | 12 | | INT-120 | 未开始 | |
-| REQ-IDN-012 | 12 | | INT-120 | 未开始 | |
-| REQ-IDN-013 | 12 | | INT-110 | 未开始 | |
-| REQ-IDN-020 | 12 | | INT-120、SEC-020 | 未开始 | |
-| REQ-IDN-021 | 12 | | INT-120、SEC-021 | 未开始 | |
-| REQ-IDN-022 | 12 | | INT-120 | 未开始 | |
-| REQ-IDN-025 | 12 | | INT-130、SEC-030 … SEC-032 | 未开始 | |
-| REQ-IDN-026 | 12 | | INT-130 | 未开始 | |
-| REQ-IDN-027 | 12 | | INT-120 | 未开始 | |
-| REQ-IDN-030 | 11、12 | | UNT-190、INT-150、SEC-070 | 未开始 | |
-| REQ-IDN-031 | 12 | | ARC-030、ARC-031 | 未开始 | |
-| REQ-IDN-032 | 12、14 | | INT-160、INT-640、SEC-080、SEC-081 | 未开始 | |
-| REQ-IDN-040 | 12 | | SEC-010、SEC-011 | 未开始 | |
-| REQ-IDN-041 | 12 | | INT-110 | 未开始 | |
-| REQ-IDN-050 | 12 | | INT-190 | 未开始 | |
-| REQ-IDN-051 | 12、16 | | INT-190、INT-1150 | 未开始 | |
-| REQ-IDN-052 | 16 | | INT-1140 | 未开始 | |
-| REQ-IDN-053 | 12、21 | | INT-190、WEB-001 | 未开始 | |
-| REQ-IDN-054 | 12 | | SEC-040 | 未开始 | |
-| REQ-IDN-055 | 12 | | SEC-040 … SEC-043 | 未开始 | |
-| REQ-IDN-056 | 12 | | INT-190、SEC-044 | 未开始 | |
-| REQ-IDN-057 | 12 | | INT-190 | 未开始 | |
-| REQ-IDN-058 | 21 | | WEB-012 | 未开始 | |
+| REQ-IDN-001 | 11、12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-002 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-003 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-010 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-011 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-012 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-013 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-020 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-021 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-022 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-025 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-026 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-027 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-030 | 11、12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-031 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-032 | 12、14 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-040 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-041 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-050 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-051 | 12、16 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-052 | 16 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-053 | 12、21 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-054 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-055 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-056 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-057 | 12 | `Application/Identity`、`Infrastructure/Identity`、`Server/Endpoints/IdentityEndpoints.cs`、`Server/Security`、`Desktop/Services/SessionService.cs` | `IdentityApplicationServiceTests`、`IdentityEndpointTests`、`OidcDiscoveryEndpointTests`、`IdentityCascadeTests`、UNT-220 … UNT-222 | 进行中 | 身份、OIDC、本机换票、授权与撤销传播代码存在并有当前环境自动测试；管理员 ACL 与正式 Gate 未执行 |
+| REQ-IDN-058 | 21 | — | — | 未开始 | React Web 按本轮范围未开始 |
 
 ## 4. 节点（REQ-NOD）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-NOD-001 | 13 | | INT-340 | 未开始 | |
-| REQ-NOD-002 | 13、14 | | INT-440 | 未开始 | |
-| REQ-NOD-010 | 13 | | INT-300、SEC-290 | 未开始 | |
-| REQ-NOD-011 | 13 | | INT-340 | 未开始 | |
-| REQ-NOD-012 | 13 | | INT-450 | 未开始 | |
-| REQ-NOD-013 | 13 | | INT-330 | 未开始 | |
-| REQ-NOD-020 | 13 | | INT-310、SEC-310 | 未开始 | |
-| REQ-NOD-021 | 13 | | SEC-300、SEC-301 | 未开始 | |
-| REQ-NOD-030 | 13、21 | | WEB-002 | 未开始 | |
-| REQ-NOD-031 | 13、15 | | CAP-006 | 未开始 | |
-| REQ-NOD-040 | 13 | | INT-320 | 未开始 | |
-| REQ-NOD-041 | 13 | | INT-330 | 未开始 | |
-| REQ-NOD-042 | 13、21 | | WEB-002 | 未开始 | |
+| REQ-NOD-001 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-002 | 13、14 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-010 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-011 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-012 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-013 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-020 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-021 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-030 | 13、21 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-031 | 13、15 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-040 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-041 | 13 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
+| REQ-NOD-042 | 13、21 | `Application/Nodes`、`Infrastructure/Nodes`、`Server/AgentGateway`、`Server/Endpoints/NodeEndpoints.cs`、`Agent/ControlPlane` | `NodeControlStoreTests`、`NodeEndpointTests`、`ControlPlaneEndToEndTests`、INT-300 … INT-450 | 进行中 | 节点注册、连接、对账、轮换、吊销与移除代码存在并有合成测试；平台矩阵未执行 |
 
 ## 5. Java 运行时（REQ-JRE）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-JRE-001 | 13 | | INT-350 | 未开始 | |
-| REQ-JRE-002 | 13 | | INT-350 | 未开始 | |
-| REQ-JRE-010 | 13 | | INT-360 | 未开始 | |
-| REQ-JRE-011 | 13 | | INT-370 | 未开始 | |
-| REQ-JRE-012 | 13 | | INT-360 | 未开始 | |
-| REQ-JRE-020 | 13 | | INT-370 | 未开始 | |
-| REQ-JRE-030 | 13、14 | | INT-500 | 未开始 | |
-| REQ-JRE-040 | 13 | | INT-380 | 未开始 | |
-| REQ-JRE-041 | 13 | | INT-380 | 未开始 | |
+| REQ-JRE-001 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-002 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-010 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-011 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-012 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-020 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-030 | 13、14 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-040 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
+| REQ-JRE-041 | 13 | `Agent/Java/JavaRuntimeRegistry.cs`、`Agent/Archives`、`Server/Endpoints/NodeEndpoints.cs` | `JavaRuntimeRegistryTests`、`PathAndArchiveSecurityTests`、INT-350、INT-370、INT-430、SEC-200 | 进行中 | Java 探测、登记、导入、绑定与删除代码存在并有合成测试；两个 Windows 平台未执行 |
 
 ## 6. 实例（REQ-INS）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-INS-001 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-002 | 13、21 | | WEB-003 | 未开始 | |
-| REQ-INS-003 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-004 | 13、21 | | WEB-003 | 未开始 | |
-| REQ-INS-010 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-011 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-012 | 13 | | INT-400 | 未开始 | |
-| REQ-INS-013 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-014 | 11、13 | | UNT-140、INT-410 | 未开始 | |
-| REQ-INS-015 | 11、13 | | INT-420 | 未开始 | |
-| REQ-INS-020 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-021 | 13 | | INT-390 | 未开始 | |
-| REQ-INS-030 | 13、14 | | INT-430、INT-690 | 未开始 | |
-| REQ-INS-040 | 11、14 | | UNT-100、INT-500 | 未开始 | |
-| REQ-INS-041 | 14 | | INT-510 | 未开始 | |
-| REQ-INS-042 | 14 | | INT-500 | 未开始 | |
-| REQ-INS-043 | 14 | | INT-520、SEC-230 | 未开始 | |
-| REQ-INS-050 | 14、17 | | INT-1480 | 未开始 | |
-| REQ-INS-051 | 14、17 | | INT-1480 | 未开始 | |
-| REQ-INS-060 | 14 | | INT-650 | 未开始 | |
-| REQ-INS-061 | 14 | | INT-660 | 未开始 | |
-| REQ-INS-062 | 14 | | INT-560 | 未开始 | |
-| REQ-INS-063 | 14 | | INT-550 | 未开始 | |
-| REQ-INS-064 | 14 | | INT-570 | 未开始 | |
-| REQ-INS-065 | 14 | | SEC-240 | 未开始 | |
-| REQ-INS-066 | 14 | | INT-540 | 未开始 | |
-| REQ-INS-070 | 14 | | INT-670 | 未开始 | |
-| REQ-INS-071 | 14 | | INT-670 | 未开始 | |
-| REQ-INS-080 | 11、14 | | UNT-120 | 未开始 | |
-| REQ-INS-081 | 11、14 | | UNT-130、SEC-210 … SEC-222 | 未开始 | |
+| REQ-INS-001 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-002 | 13、21 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-003 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-004 | 13、21 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-010 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-011 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-012 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-013 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-014 | 11、13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-015 | 11、13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-020 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-021 | 13 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-030 | 13、14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-040 | 11、14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-041 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-042 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-043 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-050 | 14、17 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-051 | 14、17 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-060 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-061 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-062 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-063 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-064 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-065 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-066 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-070 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-071 | 14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-080 | 11、14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
+| REQ-INS-081 | 11、14 | `Domain/Instances`、`Agent/Instances`、`Agent/Lifecycle`、`Server/Endpoints/InstanceEndpoints.cs`、`Desktop/ViewModels` | `InstanceRegistryTests`、`InstanceLifecycleTests`、`ControlPlaneEndToEndTests`、`CoreEndpointWorkflowTests`、INT-390 … INT-690 | 进行中 | 实例三种创建、生命周期、设置、指标、玩家、RCON 与批量代码存在并有合成测试；真实路径和平台验证未执行 |
 
 ## 7. 终端与进程（REQ-TRM）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-TRM-001 | 14 | | INT-600 | 未开始 | |
-| REQ-TRM-002 | 14 | | INT-580 | 未开始 | |
-| REQ-TRM-003 | 14 | | INT-520、INT-530、SEC-230、SEC-231 | 未开始 | |
-| REQ-TRM-010 | 14 | | INT-500 | 未开始 | |
-| REQ-TRM-011 | 14、21 | | WEB-025 | 未开始 | |
-| REQ-TRM-012 | 14 | | INT-620 | 未开始 | |
-| REQ-TRM-020 | 14 | | INT-600 | 未开始 | |
-| REQ-TRM-021 | 14 | | INT-600 | 未开始 | |
-| REQ-TRM-022 | 14、21 | | INT-580、WEB-025 | 未开始 | |
-| REQ-TRM-023 | 14 | | INT-590 | 未开始 | |
-| REQ-TRM-024 | 14 | | INT-500 | 未开始 | |
-| REQ-TRM-030 | 14 | | INT-610、INT-630 | 未开始 | |
-| REQ-TRM-031 | 14 | | INT-630 | 未开始 | |
-| REQ-TRM-032 | 21、22 | | WEB-025、DUI-022 | 未开始 | |
-| REQ-TRM-033 | 14、21 | | WEB-025 | 未开始 | |
-| REQ-TRM-040 | 14 | | INT-700 | 未开始 | |
+| REQ-TRM-001 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-002 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-003 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-010 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-011 | 14、21 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-012 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-020 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-021 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-022 | 14、21 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-023 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-024 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-030 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-031 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-032 | 21、22 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-033 | 14、21 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
+| REQ-TRM-040 | 14 | `Agent/Processes`、`Agent/Terminals`、`Server/AgentGateway/TerminalStreamBroker.cs`、`Client/Realtime`、`Desktop/Services/TerminalWindowService.cs` | `InstanceLifecycleTests`、`MinecraftProtocolClientTests`、`CoreEndpointWorkflowTests`、INT-500 … INT-700 | 进行中 | ConPTY/管道、终端流、缓冲、日志与 Desktop 终端代码存在；正式视觉、性能和平台验证未执行 |
 
 ## 8. 文件管理（REQ-FIL）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-FIL-001 | 15、21 | | INT-800、WEB-006 | 未开始 | |
-| REQ-FIL-002 | 15、21 | | INT-800、WEB-006 | 未开始 | |
-| REQ-FIL-003 | 15、21 | | INT-800、WEB-006 | 未开始 | |
-| REQ-FIL-004 | 15、21 | | INT-800、WEB-006 | 未开始 | |
-| REQ-FIL-005 | 15、21 | | INT-800、WEB-006 | 未开始 | |
-| REQ-FIL-010 | 15 | | INT-800、INT-810 | 未开始 | |
-| REQ-FIL-011 | 15 | | INT-800、INT-810、INT-990 | 未开始 | |
-| REQ-FIL-012 | 15 | | INT-800、INT-810 | 未开始 | |
-| REQ-FIL-013 | 15 | | INT-800、INT-810 | 未开始 | |
-| REQ-FIL-014 | 15 | | INT-800、INT-810 | 未开始 | |
-| REQ-FIL-015 | 15 | | INT-800、INT-810 | 未开始 | |
-| REQ-FIL-020 | 15、21 | | INT-820、INT-830、WEB-026 | 未开始 | |
-| REQ-FIL-021 | 15、21 | | INT-820、INT-830、WEB-026 | 未开始 | |
-| REQ-FIL-022 | 15、21 | | INT-820、INT-830、WEB-026 | 未开始 | |
-| REQ-FIL-030 | 15 | | INT-840 | 未开始 | |
-| REQ-FIL-031 | 15 | | INT-850、SEC-190 … SEC-193 | 未开始 | |
-| REQ-FIL-032 | 15 | | INT-850 | 未开始 | |
-| REQ-FIL-033 | 15 | | INT-850 | 未开始 | |
-| REQ-FIL-040 | 15 | | INT-860、INT-870 | 未开始 | |
-| REQ-FIL-041 | 15 | | INT-860、INT-870 | 未开始 | |
-| REQ-FIL-042 | 15 | | INT-860 | 未开始 | |
-| REQ-FIL-043 | 15 | | INT-860 | 未开始 | |
-| REQ-FIL-050 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-051 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-052 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-053 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-054 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-055 | 15 | | INT-890 | 未开始 | |
-| REQ-FIL-060 | 15 | | CAP-006 | 未开始 | |
-| REQ-FIL-061 | 15 | | CAP-006 | 未开始 | |
-| REQ-FIL-062 | 15 | | CAP-006 | 未开始 | |
-| REQ-FIL-063 | 15 | | INT-800 | 未开始 | |
-| REQ-FIL-064 | 15 | | INT-880 | 未开始 | |
-| REQ-FIL-070 | 13、15 | | SEC-140 | 未开始 | |
-| REQ-FIL-071 | 13、15 | | SEC-150 | 未开始 | |
-| REQ-FIL-072 | 13 | | INT-390、SEC-160 … SEC-164 | 未开始 | |
+| REQ-FIL-001 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-002 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-003 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-004 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-005 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-010 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-011 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-012 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-013 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-014 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-015 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-020 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-021 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-022 | 15、21 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-030 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-031 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-032 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-033 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-040 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-041 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-042 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-043 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-050 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-051 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-052 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-053 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-054 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-055 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-060 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-061 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-062 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-063 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-064 | 15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-070 | 13、15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-071 | 13、15 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
+| REQ-FIL-072 | 13 | `Agent/Files`、`Agent/Archives`、`Infrastructure/Networking`、`Server/Endpoints/FileEndpoints.cs`、`Client/ServitiumApiClient.Files.cs`、`Desktop/Models/FileManagerModels.cs` | `InstanceFileServiceTests`、`AgentUploadSessionServiceTests`、`AgentFileTaskCoordinatorTests`、`FileUploadSessionTests`、INT-710 … INT-990、SEC-140 … SEC-193 | 进行中 | 文件、续传、下载、归档、预览、路径与 SSRF 代码存在并有合成测试；真实样本与 ACL 实机未执行 |
 
 ## 9. 配置管理（REQ-CFG）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-CFG-001 | 15 | | INT-940 | 未开始 | |
-| REQ-CFG-002 | 15 | | INT-940、INT-900 | 未开始 | |
-| REQ-CFG-003 | 15 | | INT-900、INT-910、INT-920、INT-930 | 未开始 | |
-| REQ-CFG-010 | 15、21 | | INT-940、WEB-007 | 未开始 | |
-| REQ-CFG-011 | 15、21 | | UNT-340、WEB-007 | 未开始 | |
-| REQ-CFG-012 | 15、21 | | INT-900、WEB-007 | 未开始 | |
-| REQ-CFG-013 | 15、21 | | INT-940、WEB-007 | 未开始 | |
-| REQ-CFG-014 | 15、21 | | INT-890、WEB-007 | 未开始 | |
-| REQ-CFG-020 | 15 | | INT-900、INT-910、WEB-027 | 未开始 | 关键风险 RSK-003 |
-| REQ-CFG-021 | 15 | | INT-930 | 未开始 | |
-| REQ-CFG-022 | 15 | | INT-920 | 未开始 | |
-| REQ-CFG-023 | 15 | | INT-890 | 未开始 | |
+| REQ-CFG-001 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-002 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-003 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-010 | 15、21 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-011 | 15、21 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-012 | 15、21 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-013 | 15、21 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-014 | 15、21 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-020 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-021 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-022 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
+| REQ-CFG-023 | 15 | `Agent/Configurations`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、`Client/ServitiumApiClient.Configuration.cs`、Desktop 配置页面动作 | `InstanceConfigurationServiceTests`、`PreservingPropertiesDocumentTests`、`PreservingStructuredDocumentTests`、INT-890 … INT-940、UNT-340 | 进行中 | 四种格式、识别、校验、备份恢复与 Desktop 操作代码存在并有合成测试；受保护验收要求的真实样本未执行 |
 
 ## 10. 模组与插件（REQ-MOD）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-MOD-001 | 15 | | INT-950 | 未开始 | |
-| REQ-MOD-002 | 15 | | INT-950 | 未开始 | |
-| REQ-MOD-003 | 15 | | INT-950 | 未开始 | |
-| REQ-MOD-004 | 15 | | INT-950 | 未开始 | |
-| REQ-MOD-010 | 15、21 | | INT-960、WEB-008 | 未开始 | |
-| REQ-MOD-011 | 15、21 | | INT-960、WEB-008 | 未开始 | |
-| REQ-MOD-012 | 15、21 | | INT-960、WEB-008 | 未开始 | |
-| REQ-MOD-013 | 15、21 | | INT-960、WEB-008 | 未开始 | |
-| REQ-MOD-014 | 15、21 | | INT-970、WEB-008 | 未开始 | |
+| REQ-MOD-001 | 15 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-002 | 15 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-003 | 15 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-004 | 15 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-010 | 15、21 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-011 | 15、21 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-012 | 15、21 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-013 | 15、21 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
+| REQ-MOD-014 | 15、21 | `Agent/Mods/InstanceModService.cs`、`Server/Endpoints/ConfigurationAndModEndpoints.cs`、Client 与 Desktop 模组动作 | `InstanceModServiceTests`、`ControlPlaneEndToEndTests`、INT-950 … INT-970 | 进行中 | 元数据降级、启停、上传、删除与锁定拒绝代码存在并有合成测试；真实模组矩阵未执行 |
 | REQ-MOD-020 | — | — | — | 不实现 | 明确排除项 |
 
 ## 11. 计划任务（REQ-SCH）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-SCH-001 | 16 | | INT-1000 | 未开始 | |
-| REQ-SCH-010 | 16 | | INT-1000 | 未开始 | |
-| REQ-SCH-011 | 16 | | INT-1000 | 未开始 | |
-| REQ-SCH-012 | 16 | | INT-1000 | 未开始 | |
-| REQ-SCH-013 | 16 | | INT-1000 | 未开始 | |
-| REQ-SCH-020 | 16 | | UNT-400、INT-1010 | 未开始 | |
-| REQ-SCH-021 | 16 | | UNT-400、INT-1010 | 未开始 | |
-| REQ-SCH-022 | 16 | | UNT-400、INT-1010 | 未开始 | |
-| REQ-SCH-023 | 16 | | UNT-400、INT-1010 | 未开始 | |
-| REQ-SCH-030 | 16 | | INT-1020 | 未开始 | |
-| REQ-SCH-031 | 16 | | INT-1020 | 未开始 | |
-| REQ-SCH-040 | 16 | | INT-1030、INT-1040 | 未开始 | |
-| REQ-SCH-041 | 16 | | INT-1030、INT-1040 | 未开始 | |
-| REQ-SCH-042 | 16 | | INT-1030、INT-1040 | 未开始 | |
-| REQ-SCH-043 | 16 | | INT-1030、INT-1070 | 未开始 | |
-| REQ-SCH-050 | 16 | | INT-1050、REC-005 | 未开始 | 关键能力 |
+| REQ-SCH-001 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-010 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-011 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-012 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-013 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-020 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-021 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-022 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-023 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-030 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-031 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-040 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-041 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-042 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-043 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
+| REQ-SCH-050 | 16 | `Domain/Scheduling`、`Agent/Scheduling/LocalScheduler.cs`、`Server/Endpoints/ScheduleEndpoints.cs`、Client 与 Desktop 计划动作 | `LocalSchedulerTests`、`TriggerCalculatorTests`、`ControlPlaneEndToEndTests`、UNT-400、INT-1000 … INT-1070 | 进行中 | 三类触发、六类动作、重叠、历史、本地自治和 Desktop 操作代码存在并有自动测试；服务环境恢复未执行 |
 
 ## 12. 用户、仪表盘与治理（REQ-USR）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-USR-001 | 12、16 | | INT-140、INT-1080 | 未开始 | |
-| REQ-USR-002 | 12、16 | | INT-140、INT-1080 | 未开始 | |
-| REQ-USR-003 | 12、16 | | INT-140、INT-1080 | 未开始 | |
-| REQ-USR-004 | 12、16 | | INT-140、INT-1080 | 未开始 | |
-| REQ-USR-005 | 12、16 | | INT-140、INT-1080 | 未开始 | |
-| REQ-USR-010 | 12、16 | | INT-150、INT-1090 | 未开始 | |
-| REQ-USR-011 | 12、16 | | INT-150、INT-1090 | 未开始 | |
-| REQ-USR-012 | 12、16 | | INT-150、INT-1090 | 未开始 | |
-| REQ-USR-020 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-021 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-022 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-023 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-024 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-025 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-030 | 16 | | INT-1100 | 未开始 | |
-| REQ-USR-031 | 16 | | INT-1100 | 未开始 | |
-| REQ-USR-032 | 16 | | INT-1110、INT-1120、SEC-350 | 未开始 | |
-| REQ-USR-040 | 16、21 | | INT-1170、WEB-029 | 未开始 | |
-| REQ-USR-041 | 16、21 | | INT-1170、WEB-029 | 未开始 | |
-| REQ-USR-042 | 16、21 | | INT-1170、WEB-029 | 未开始 | |
-| REQ-USR-043 | 16、21 | | INT-1170、WEB-029 | 未开始 | |
-| REQ-USR-044 | 16、21 | | INT-1140、WEB-012 | 未开始 | |
-| REQ-USR-045 | 16、21 | | INT-1170、WEB-011 | 未开始 | |
-| REQ-USR-046 | 16、21 | | SEC-120、WEB-011 | 未开始 | |
-| REQ-USR-050 | 16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-051 | 16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-052 | 12、16、21 | | INT-250、SEC-100、WEB-012 | 未开始 | |
-| REQ-USR-053 | 16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-054 | 12、16、21 | | SEC-130、WEB-012 | 未开始 | |
-| REQ-USR-055 | 16、21 | | INT-1130、INT-1390、WEB-012 | 未开始 | |
-| REQ-USR-056 | 12、16、21 | | SEC-110、WEB-012 | 未开始 | |
-| REQ-USR-057 | 16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-058 | 12、16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-059 | 16、21 | | INT-1140、SEC-121、WEB-012 | 未开始 | |
-| REQ-USR-060 | 16、21 | | INT-1130、WEB-012 | 未开始 | |
-| REQ-USR-061 | 16、21 | | INT-1180、WEB-012 | 未开始 | |
-| REQ-USR-062 | 16、21 | | INT-1190、INT-1200、SEC-330、WEB-012 | 未开始 | |
+| REQ-USR-001 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-002 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-003 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-004 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-005 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-010 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-011 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-012 | 12、16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-020 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-021 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-022 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-023 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-024 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-025 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-030 | 16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-031 | 16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-032 | 16 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-040 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-041 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-042 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-043 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-044 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-045 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-046 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-050 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-051 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-052 | 12、16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-053 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-054 | 12、16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-055 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-056 | 12、16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-057 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-058 | 12、16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-059 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-060 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-061 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
+| REQ-USR-062 | 16、21 | `Domain/Identity`、`Infrastructure/Auditing`、`Server/Endpoints/SystemManagementEndpoints.cs`、`Server/Governance`、Client 与 Desktop 治理页面 | `IdentityCascadeTests`、`AuditEndpointTests`、`SystemSettingsTests`、`DashboardLayoutTests`、INT-1080 … INT-1200 | 进行中 | 用户授权、设置、双日志、维护与 Dashboard 代码存在并有自动测试；正式 Gate 和 Web 未执行 |
 
 ## 13. Desktop（REQ-DSK）
 
+用户真实启动截图在本轮发现 PB-039：共享导航折叠、页面容器/列宽、表单宽度和稳定值展示曾造成阻断。随后登记并修复 PB-040 的事件流 CSRF 握手和空可选 GUID 查询问题；以下 Desktop 需求仍保持“进行中”，不把代码存在或有限 UIA 通过误写为阶段 22、23 或用户验收通过。修复后的 `eng/Check-DesktopUi.ps1` 只提供当前 Windows 150% DPI 下 compact/normal/wide 的实际 UIA 与截图证据；另有 8 个顶层导航页面的合成会话 UIA 检查；100%、125%、200% DPI 和逐页人工视觉验收尚未执行。
+
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-DSK-001 | 22 | | DUI-001 | 未开始 | |
-| REQ-DSK-002 | 12、22 | | INT-200、DUI-021、SEC-050 … SEC-052 | 未开始 | |
-| REQ-DSK-003 | 22 | | DUI-021 | 未开始 | |
-| REQ-DSK-010 | 12、22 | | INT-200 | 未开始 | |
-| REQ-DSK-020 | 20、22 | | DUI-029 | 未开始 | |
-| REQ-DSK-021 | 20、22 | | DUI-030 | 未开始 | |
-| REQ-DSK-030 | 22 | | DUI-002 | 未开始 | |
-| REQ-DSK-031 | 22 | | DUI-003 | 未开始 | |
-| REQ-DSK-032 | 22 | | DUI-004 | 未开始 | |
-| REQ-DSK-033 | 22 | | DUI-004 | 未开始 | |
-| REQ-DSK-040 | 22 | | DUI-005、DUT-110 | 未开始 | |
-| REQ-DSK-041 | 22 | | DUI-005、DUT-110 | 未开始 | |
-| REQ-DSK-042 | 22 | | DUI-006、DUT-120 | 未开始 | |
-| REQ-DSK-043 | 22 | | DUI-006、DUT-120 | 未开始 | |
-| REQ-DSK-050 | 20、23 | | CON-001 … CON-006 | 未开始 | |
+| REQ-DSK-001 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels`、`eng/Check-DesktopUi.ps1` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify`、`artifacts/test-results/desktop-ui/20260804-163934/` | 进行中 | 共享 Client、页面契约和响应式布局修复已存在；当前 150% DPI 的 compact/normal/wide UIA、8 个顶层导航页面合成 UIA、控件边界/重叠/焦点/空初始化拒绝通过；PB-039、100/125/200% DPI、逐页视觉、辅助功能、性能和用户验收未完成 |
+| REQ-DSK-002 | 12、22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；PB-040 的事件流 CSRF 回归已覆盖；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-003 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-010 | 12、22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-020 | 20、22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-021 | 20、22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-030 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-031 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-032 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-033 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-040 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-041 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-042 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-043 | 22 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
+| REQ-DSK-050 | 20、23 | `Servitium.Client`、`Servitium.Desktop/App`、`Desktop/Services`、`Desktop/Views`、`Desktop/ViewModels` | `Servitium.Client.ContractTests` 15/15、`DesktopFoundationTests` 38/38、`eng/Generate.ps1 -Verify` | 进行中 | 共享 Client 与正式 Desktop 代码存在并有契约/行为测试；视觉、辅助功能、性能和用户验收未执行 |
 
 ## 14. HMCL 分发（REQ-HMC）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-HMC-001 | 17 | | INT-1300 | 未开始 | |
-| REQ-HMC-002 | 17 | | INT-1300 | 未开始 | |
-| REQ-HMC-003 | 17 | | INT-1310、INT-1320、SEC-165 | 未开始 | |
-| REQ-HMC-004 | 17 | | INT-1300、INT-1330 | 未开始 | |
-| REQ-HMC-005 | 17 | | INT-1350 | 未开始 | |
-| REQ-HMC-010 | 17 | | INT-1330、INT-1340 | 未开始 | |
-| REQ-HMC-011 | 17 | | INT-1330、INT-1340 | 未开始 | |
-| REQ-HMC-012 | 17 | | INT-1330、INT-1340 | 未开始 | |
-| REQ-HMC-020 | 17 | | INT-1360 | 未开始 | |
-| REQ-HMC-021 | 17 | | INT-1370 | 未开始 | |
-| REQ-HMC-022 | 17 | | INT-1380 | 未开始 | |
-| REQ-HMC-030 | 17 | | INT-1390、SEC-280、SEC-281 | 未开始 | 强制 `no-cache` |
-| REQ-HMC-031 | 17 | | INT-1400、INT-1410 | 未开始 | |
-| REQ-HMC-032 | 17 | | INT-1420 | 未开始 | |
-| REQ-HMC-040 | 17 | | INT-1430、INT-1440 | 未开始 | |
-| REQ-HMC-041 | 17 | | INT-1430 | 未开始 | |
-| REQ-HMC-042 | 17 | | INT-1400 | 未开始 | |
-| REQ-HMC-050 | 17 | | INT-1450 | 未开始 | |
-| REQ-HMC-060 | 17 | | INT-1470、INT-1480 | 未开始 | |
-| REQ-HMC-070 | 17、24 | | E2E-B02、U-120 … U-130 | 未开始 | 真实客户端 |
+| REQ-HMC-001 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-002 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-003 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-004 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-005 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-010 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-011 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-012 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-020 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-021 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-022 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-030 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-031 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-032 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-040 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-041 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-042 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-050 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-060 | 17 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 进行中 | Prism 转换、不可变 Release、Channel、令牌、回滚、回收、统计和分发代码存在并有合成测试；真实 HMCL 未执行 |
+| REQ-HMC-070 | 17、24 | `Domain/Distribution`、`Infrastructure/Distribution`、`Server/Hmcl`、`Agent/Distribution`、Client Distribution 与 Desktop PG-061 … PG-063 | `HmclDistributionAlgorithmTests`、`HmclDistributionTests`、`AgentHmclDistributionServiceTests`、INT-1300 … INT-1480、SEC-165 … SEC-281 | 已实现未测试 | 分发生产链路与合成协议测试存在；真实 HMCL 客户端和用户验收按要求未执行 |
 
 ## 15. 安全（REQ-SEC）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-SEC-010 | 12 | | SEC-060 … SEC-062、ARC-033 | 未开始 | |
-| REQ-SEC-020 | 12 | | SEC-100 | 未开始 | |
-| REQ-SEC-021 | 12 | | SEC-120 | 未开始 | |
-| REQ-SEC-030 | 12、15 | | SEC-190 … SEC-193 | 未开始 | OIDC 与 URL 下载两个入口均执行 |
-| REQ-SEC-040 | 12、22 | | SEC-050 … SEC-052 | 未开始 | |
-| REQ-SEC-050 | 13、15、17 | | SEC-160 … SEC-165 | 未开始 | |
-| REQ-SEC-060 | 12、16 | | SEC-330 | 未开始 | |
-| REQ-SEC-070 | 12、17 | | SEC-270 | 未开始 | |
-| REQ-SEC-080 | 12、16 | | SEC-350、SEC-351、ARC-032 | 未开始 | |
+| REQ-SEC-010 | 12 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-020 | 12 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-021 | 12 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-030 | 12、15 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-040 | 12、22 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-050 | 13、15、17 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-060 | 12、16 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-070 | 12、17 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
+| REQ-SEC-080 | 12、16 | `Server/Security`、`Agent/Paths`、`Agent/Archives`、`Infrastructure/Networking`、统一授权与审计路径 | 安全负向测试 SEC-003 … SEC-520、`PathAndArchiveSecurityTests`、`IdentityEndpointTests`、`HmclDistributionTests` | 进行中 | 安全生产边界和当前合成拒绝路径已测试；管理员 ACL、服务和平台矩阵未执行 |
 
 ## 16. 本地化（REQ-I18N）
 
 | 需求 | 阶段 | 实现位置 | 测试 | 状态 | 备注 |
 | --- | --- | --- | --- | --- | --- |
-| REQ-I18N-001 | 11、20 | | CTR-120 | 未开始 | |
-| REQ-I18N-002 | 20 | | CTR-120、CON-005 | 未开始 | |
-| REQ-I18N-003 | 12 | | LOC-003 | 未开始 | |
-| REQ-I18N-004 | 20 | | CTR-120、LOC-001 | 未开始 | |
+| REQ-I18N-001 | 11、20 | `src/Servitium.Contracts/Localization/{zh-Hans,en-US}.json`、`src/Servitium.Desktop/Resources` | `Generate.ps1 -Verify`、CTR-120、DesktopFoundationTests 38/38 | 进行中 | 两种语言来源与 Desktop 资源已生成；Web、正式语言验收和阶段 Gate 未完成 |
+| REQ-I18N-002 | 20 | `src/Servitium.Contracts/Localization`、`src/Servitium.Desktop/Services/LocalizationService.cs`、`Desktop/Views/ContractPage.cs`、`Desktop/ViewModels/PageActionDispatcher*.cs` | `Generate.ps1 -Verify`、CTR-120、CON-005、DesktopFoundationTests 38/38、`artifacts/test-results/desktop-ui/20260804-163934/` | 进行中 | Client/Desktop 共享来源已消费；稳定状态、布尔值、语言代码、错误码和 Owner/Server 文案在当前 150% UIA 启动检查中未泄漏；100/125/200% DPI、逐页语言和 React Web 按本轮范围未开始 |
+| REQ-I18N-003 | 12 | `ErrorCodes.cs`、`ApplicationResult<T>`、Server ProblemDetails 映射 | `Generate.ps1 -Verify`、LOC-003、IdentityEndpointTests、Client contract tests | 进行中 | 稳定码、ProblemDetails 和本地化参数结果已有自动证据；正式 Gate 未完成 |
+| REQ-I18N-004 | 20 | `eng/Generate.ps1`、两种语言 JSON、Desktop Resources、`Desktop/Views/ContractPage.cs` | `Generate.ps1 -Verify`、CTR-120、LOC-001、DesktopFoundationTests 38/38、`eng/Check-DesktopUi.ps1` | 进行中 | 当前 zh-Hans/en-US 各 776 键一致且空值被拒绝；有限 UIA 检查覆盖当前 150% DPI 的稳定值展示；100/125/200% DPI、逐页人工语言、Web 与正式 Gate 未完成 |
 
 ## 17. 更新记录
 
 | 日期 | 更新内容 | 更新者 |
 | --- | --- | --- |
 | 2026-08-02 | 建立矩阵骨架并预填阶段与测试映射（阶段 00） | 文档基线 |
+| 2026-08-03 | 阶段 10 完成工程、测试和验证基础设施；本阶段无独立产品需求状态变更 | 编码 Agent |
+| 2026-08-03 | 登记阶段 11 领域、用例、契约与测试位置；跨阶段需求保持进行中 | 编码 Agent |
+| 2026-08-03 | 登记阶段 12–17 已实际执行的合成链路、拒绝路径与当前正式缺口；真实样本和阶段 18 均保持未完成 | 编码 Agent |
+| 2026-08-03 | 登记 PB-021 归档请求体限制、稳定 413 与三条超过旧 30 MB 限制的合成上传回归；真实样本状态不变 | 编码 Agent |
+| 2026-08-04 | 逐项把 262 条需求关联到当前生产源码与实际测试族；纯 Web 保持未开始，容量目标与真实 HMCL 标为已实现未测试，所有正式 Gate 和用户验收状态不变 | 编码 Agent |

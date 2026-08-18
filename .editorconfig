@@ -1,0 +1,37 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+indent_style = space
+trim_trailing_whitespace = true
+
+[*.{cs,csproj,props,targets,sln}]
+indent_size = 4
+
+[*.cs]
+charset = utf-8-bom
+dotnet_analyzer_diagnostic.severity = warning
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = false:warning
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_var_elsewhere = false:warning
+
+[tests/**/*.cs]
+# 测试命名规范明确要求使用下划线分隔场景与期望。
+dotnet_diagnostic.CA1707.severity = none
+
+[src/**/Migrations/*.cs]
+# EF Core 迁移由 dotnet-ef 生成并通过模型快照验证，不手工调整生成结果。
+generated_code = true
+
+[*.{json,md,yml,yaml,xml}]
+indent_size = 2
+
+[*.ps1]
+end_of_line = crlf
+indent_size = 4
+
+[*.java]
+indent_size = 4

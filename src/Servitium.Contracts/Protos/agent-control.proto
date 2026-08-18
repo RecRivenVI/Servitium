@@ -1,0 +1,196 @@
+syntax = "proto3";
+
+package servitium.agent.v1;
+
+option csharp_namespace = "Servitium.Contracts.Agent.V1";
+
+import "google/protobuf/timestamp.proto";
+
+// Agent 主动建立的唯一双向流，承载握手、指令、事件与所有子流。
+service AgentControl {
+  rpc Connect(stream AgentMessage) returns (stream ServerMessage);
+}
+
+message AgentMessage {
+  oneof body {
+    Hello hello = 1;
+    CommandResponse command_response = 2;
+    AgentEvent event = 3;
+    StreamChunk stream_chunk = 4;
+    StreamControl stream_control = 5;
+    Heartbeat heartbeat = 6;
+  }
+}
+
+message ServerMessage {
+  oneof body {
+    Welcome welcome = 1;
+    CommandRequest command_request = 2;
+    StreamChunk stream_chunk = 3;
+    StreamControl stream_control = 4;
+    HeartbeatAck heartbeat_ack = 5;
+    EventAck event_ack = 6;
+  }
+}
+
+message Hello {
+  string credential_or_registration_token = 1;
+  string agent_version = 2;
+  uint32 protocol_major = 3;
+  uint32 protocol_minor = 4;
+  string operating_system = 5;
+  string architecture = 6;
+  string machine_fingerprint = 7;
+  string node_name = 8;
+}
+
+message Welcome {
+  string node_id = 1;
+  uint32 protocol_major = 2;
+  uint32 protocol_minor = 3;
+  google.protobuf.Timestamp server_time = 4;
+  bytes node_configuration = 5;
+}
+
+message CommandRequest {
+  string command_id = 1;
+  CommandType type = 2;
+  bytes payload = 3;
+  uint32 timeout_seconds = 4;
+}
+
+message CommandResponse {
+  string command_id = 1;
+  bool succeeded = 2;
+  bytes payload = 3;
+  AgentError error = 4;
+  bool accepted = 5;
+}
+
+message AgentError {
+  string code = 1;
+  string detail = 2;
+  map<string, string> parameters = 3;
+}
+
+enum CommandType {
+  COMMAND_TYPE_UNSPECIFIED = 0;
+  CREATE_INSTANCE = 1;
+  UPDATE_INSTANCE = 2;
+  UNREGISTER_INSTANCE = 3;
+  DELETE_WORKING_DIRECTORY = 4;
+  START_INSTANCE = 5;
+  STOP_INSTANCE = 6;
+  RESTART_INSTANCE = 7;
+  FORCE_STOP_INSTANCE = 8;
+  SEND_COMMAND = 9;
+  ACCEPT_EULA = 10;
+  GET_INSTANCE_STATUS = 11;
+  QUERY_PLAYERS = 12;
+  RCON_COMMAND = 13;
+  RUN_UPDATE_ACTION = 14;
+  READ_INSTANCE_LOG = 15;
+  EXPORT_SESSION_LOG = 16;
+  DISCOVER_JAVA = 20;
+  REGISTER_JAVA = 21;
+  IMPORT_JAVA = 22;
+  UNREGISTER_JAVA = 23;
+  LIST_JAVA = 24;
+  LIST_DIRECTORY = 30;
+  GET_FILE_SYSTEM_STATUS = 31;
+  CREATE_DIRECTORY = 32;
+  CREATE_FILE = 33;
+  RENAME = 34;
+  COPY = 35;
+  MOVE = 36;
+  DELETE = 37;
+  COMPRESS = 38;
+  EXTRACT = 39;
+  READ_TEXT = 40;
+  WRITE_TEXT = 41;
+  DOWNLOAD_FROM_URL = 42;
+  CANCEL_FILE_TASK = 43;
+  COMPLETE_FILE_UPLOAD = 44;
+  DELETE_BATCH = 45;
+  GET_FILE_DOWNLOAD_INFO = 46;
+  STORE_FILE_UPLOAD_PART = 47;
+  COMPLETE_CHUNKED_FILE_UPLOAD = 48;
+  CANCEL_FILE_UPLOAD = 49;
+  LIST_CONFIGURATIONS = 50;
+  READ_CONFIGURATION = 51;
+  WRITE_CONFIGURATION = 52;
+  LIST_CONFIG_BACKUPS = 53;
+  RESTORE_CONFIG_BACKUP = 54;
+  LIST_MODS = 60;
+  GET_MOD_METADATA = 61;
+  TOGGLE_MOD = 62;
+  DELETE_MOD = 63;
+  LIST_MOD_CONFIG_FILES = 64;
+  COMPLETE_MOD_UPLOAD = 65;
+  LIST_SCHEDULES = 70;
+  UPSERT_SCHEDULE = 71;
+  DELETE_SCHEDULE = 72;
+  SET_SCHEDULE_ENABLED = 73;
+  RUN_SCHEDULE_NOW = 74;
+  LIST_SCHEDULE_RUNS = 75;
+  UPDATE_NODE_CONFIG = 80;
+  GET_METRICS = 81;
+  ROTATE_CREDENTIAL = 82;
+  RECONCILE = 83;
+  COLLECT_DIRECTORY_FOR_RELEASE = 90;
+  SYNC_FROM_RELEASE = 91;
+}
+
+message AgentEvent {
+  string type = 1;
+  string scope = 2;
+  google.protobuf.Timestamp occurred_at = 3;
+  bytes payload = 4;
+  uint64 sequence = 5;
+}
+
+message EventAck {
+  uint64 sequence = 1;
+}
+
+enum StreamKind {
+  STREAM_KIND_UNSPECIFIED = 0;
+  TERMINAL = 1;
+  FILE_UPLOAD = 2;
+  FILE_DOWNLOAD = 3;
+  CONTENT_COLLECT = 4;
+  CONTENT_SYNC = 5;
+}
+
+message StreamChunk {
+  string stream_id = 1;
+  uint64 sequence = 2;
+  bytes data = 3;
+  bool end_of_stream = 4;
+}
+
+message StreamControl {
+  string stream_id = 1;
+  StreamKind kind = 2;
+  StreamControlAction action = 3;
+  uint64 window_update = 4;
+  string resource_id = 5;
+}
+
+enum StreamControlAction {
+  STREAM_CONTROL_ACTION_UNSPECIFIED = 0;
+  OPEN = 1;
+  CLOSE = 2;
+  WINDOW_UPDATE = 3;
+  ABORT = 4;
+}
+
+message Heartbeat {
+  uint64 sequence = 1;
+  google.protobuf.Timestamp sent_at = 2;
+}
+
+message HeartbeatAck {
+  uint64 sequence = 1;
+  google.protobuf.Timestamp received_at = 2;
+}

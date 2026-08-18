@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+  <data name="action.add-card" xml:space="preserve"><value>Add card</value></data>
+  <data name="action.apply-filters" xml:space="preserve"><value>Apply filters</value></data>
+  <data name="action.attach-directory" xml:space="preserve"><value>Register absolute path</value></data>
+  <data name="action.backup-database" xml:space="preserve"><value>Back up database</value></data>
+  <data name="action.bind-oidc" xml:space="preserve"><value>Bind external identity</value></data>
+  <data name="action.cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="action.change-password" xml:space="preserve"><value>Change password</value></data>
+  <data name="action.change-visibility" xml:space="preserve"><value>Change visibility</value></data>
+  <data name="action.close-tab" xml:space="preserve"><value>Close current tab</value></data>
+  <data name="action.complete-setup" xml:space="preserve"><value>Complete setup</value></data>
+  <data name="action.compress" xml:space="preserve"><value>Compress</value></data>
+  <data name="action.configure-totp" xml:space="preserve"><value>Configure two-factor authentication</value></data>
+  <data name="action.convert-prism" xml:space="preserve"><value>Convert Prism instance</value></data>
+  <data name="action.copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="action.create" xml:space="preserve"><value>Create</value></data>
+  <data name="action.create-and-publish" xml:space="preserve"><value>Create and publish</value></data>
+  <data name="action.create-api-key" xml:space="preserve"><value>Create API key</value></data>
+  <data name="action.create-channel" xml:space="preserve"><value>Create channel</value></data>
+  <data name="action.create-directory" xml:space="preserve"><value>New folder</value></data>
+  <data name="action.create-empty" xml:space="preserve"><value>Create empty instance</value></data>
+  <data name="action.create-file" xml:space="preserve"><value>New file</value></data>
+  <data name="action.create-release" xml:space="preserve"><value>Create release</value></data>
+  <data name="action.create-token" xml:space="preserve"><value>Create registration token</value></data>
+  <data name="action.customize" xml:space="preserve"><value>Customize layout</value></data>
+  <data name="action.cut" xml:space="preserve"><value>Cut</value></data>
+  <data name="action.delete" xml:space="preserve"><value>Delete</value></data>
+  <data name="action.delete-channel" xml:space="preserve"><value>Delete channel</value></data>
+  <data name="action.delete-runtime-files" xml:space="preserve"><value>Delete runtime files</value></data>
+  <data name="action.delete-working-directory" xml:space="preserve"><value>Delete managed working directory</value></data>
+  <data name="action.details" xml:space="preserve"><value>View details</value></data>
+  <data name="action.disable" xml:space="preserve"><value>Disable</value></data>
+  <data name="action.discard" xml:space="preserve"><value>Discard changes</value></data>
+  <data name="action.discover" xml:space="preserve"><value>Discover</value></data>
+  <data name="action.download" xml:space="preserve"><value>Download</value></data>
+  <data name="action.download-from-url" xml:space="preserve"><value>Download from URL</value></data>
+  <data name="action.download-manifest" xml:space="preserve"><value>Download manifest</value></data>
+  <data name="action.edit" xml:space="preserve"><value>Edit</value></data>
+  <data name="action.edit-channel" xml:space="preserve"><value>Edit channel</value></data>
+  <data name="action.edit-text" xml:space="preserve"><value>Edit text</value></data>
+  <data name="action.enable" xml:space="preserve"><value>Enable</value></data>
+  <data name="action.export" xml:space="preserve"><value>Export</value></data>
+  <data name="action.export-diagnostics" xml:space="preserve"><value>Export diagnostics</value></data>
+  <data name="action.export-session-log" xml:space="preserve"><value>Export session log</value></data>
+  <data name="action.external-sign-in" xml:space="preserve"><value>Sign in with external identity</value></data>
+  <data name="action.extract" xml:space="preserve"><value>Extract</value></data>
+  <data name="action.force-stop" xml:space="preserve"><value>Force stop</value></data>
+  <data name="action.go-home" xml:space="preserve"><value>Go home</value></data>
+  <data name="action.grant" xml:space="preserve"><value>Grant</value></data>
+  <data name="action.import" xml:space="preserve"><value>Import</value></data>
+  <data name="action.import-server-archive" xml:space="preserve"><value>Import server archive</value></data>
+  <data name="action.inspect" xml:space="preserve"><value>Inspect</value></data>
+  <data name="action.manage-grants" xml:space="preserve"><value>Manage grants</value></data>
+  <data name="action.move" xml:space="preserve"><value>Move</value></data>
+  <data name="action.new-tab" xml:space="preserve"><value>New directory tab</value></data>
+  <data name="action.open" xml:space="preserve"><value>Open</value></data>
+  <data name="action.open-channel" xml:space="preserve"><value>Open channel</value></data>
+  <data name="action.open-configuration" xml:space="preserve"><value>Open configuration</value></data>
+  <data name="action.open-console" xml:space="preserve"><value>Open console</value></data>
+  <data name="action.open-file-manager" xml:space="preserve"><value>Open in file manager</value></data>
+  <data name="action.open-log-files" xml:space="preserve"><value>View log files</value></data>
+  <data name="action.open-settings" xml:space="preserve"><value>Instance settings</value></data>
+  <data name="action.open-terminal" xml:space="preserve"><value>Open independent terminal</value></data>
+  <data name="action.paste" xml:space="preserve"><value>Paste</value></data>
+  <data name="action.pause" xml:space="preserve"><value>Pause</value></data>
+  <data name="action.preview" xml:space="preserve"><value>Preview</value></data>
+  <data name="action.preview-prism" xml:space="preserve"><value>Preview Prism instance</value></data>
+  <data name="action.publish" xml:space="preserve"><value>Publish</value></data>
+  <data name="action.reconnect" xml:space="preserve"><value>Reconnect</value></data>
+  <data name="action.refresh" xml:space="preserve"><value>Refresh</value></data>
+  <data name="action.register" xml:space="preserve"><value>Register</value></data>
+  <data name="action.remove-card" xml:space="preserve"><value>Remove card</value></data>
+  <data name="action.remove-node" xml:space="preserve"><value>Remove node</value></data>
+  <data name="action.remove-totp" xml:space="preserve"><value>Remove two-step verification</value></data>
+  <data name="action.rename" xml:space="preserve"><value>Rename</value></data>
+  <data name="action.reset-dashboard" xml:space="preserve"><value>Reset dashboard</value></data>
+  <data name="action.reset-totp" xml:space="preserve"><value>Reset two-step verification</value></data>
+  <data name="action.restart" xml:space="preserve"><value>Restart</value></data>
+  <data name="action.restore" xml:space="preserve"><value>Restore</value></data>
+  <data name="action.resume" xml:space="preserve"><value>Resume</value></data>
+  <data name="action.revoke" xml:space="preserve"><value>Revoke</value></data>
+  <data name="action.revoke-all-sessions" xml:space="preserve"><value>Revoke all sessions</value></data>
+  <data name="action.revoke-api-key" xml:space="preserve"><value>Revoke API key</value></data>
+  <data name="action.revoke-session" xml:space="preserve"><value>Revoke session</value></data>
+  <data name="action.rollback" xml:space="preserve"><value>Roll back</value></data>
+  <data name="action.rotate-credential" xml:space="preserve"><value>Rotate node credential</value></data>
+  <data name="action.rotate-token" xml:space="preserve"><value>Rotate access token</value></data>
+  <data name="action.run-now" xml:space="preserve"><value>Run now</value></data>
+  <data name="action.save" xml:space="preserve"><value>Save</value></data>
+  <data name="action.save-text" xml:space="preserve"><value>Save text</value></data>
+  <data name="action.send-command" xml:space="preserve"><value>Send command</value></data>
+  <data name="action.sign-in" xml:space="preserve"><value>Sign in</value></data>
+  <data name="action.start" xml:space="preserve"><value>Start</value></data>
+  <data name="action.stop" xml:space="preserve"><value>Stop</value></data>
+  <data name="action.sync-content" xml:space="preserve"><value>Sync integrated content</value></data>
+  <data name="action.test" xml:space="preserve"><value>Test connection</value></data>
+  <data name="action.toggle-view" xml:space="preserve"><value>Switch editor view</value></data>
+  <data name="action.unbind-identity" xml:space="preserve"><value>Unbind external identity</value></data>
+  <data name="action.unbind-oidc" xml:space="preserve"><value>Unbind external identity</value></data>
+  <data name="action.unregister" xml:space="preserve"><value>Remove registration</value></data>
+  <data name="action.upload" xml:space="preserve"><value>Upload</value></data>
+  <data name="action.use-recovery-code" xml:space="preserve"><value>Use recovery code</value></data>
+  <data name="action.verify" xml:space="preserve"><value>Verify</value></data>
+  <data name="action.view-backups" xml:space="preserve"><value>View backups</value></data>
+  <data name="action.view-history" xml:space="preserve"><value>View history</value></data>
+  <data name="action.view-java" xml:space="preserve"><value>Java runtimes</value></data>
+  <data name="action.view-node-instances" xml:space="preserve"><value>View node instances</value></data>
+  <data name="action.view-runtime-instances" xml:space="preserve"><value>View using instances</value></data>
+  <data name="app.description" xml:space="preserve"><value>Minecraft Java server hosting and integrated content distribution</value></data>
+  <data name="app.window-title" xml:space="preserve"><value>Servitium</value></data>
+  <data name="auth.login.title" xml:space="preserve"><value>Sign in</value></data>
+  <data name="auth.setup.title" xml:space="preserve"><value>Initial setup</value></data>
+  <data name="auth.totp.title" xml:space="preserve"><value>Two-step verification</value></data>
+  <data name="common.all" xml:space="preserve"><value>All</value></data>
+  <data name="common.apply" xml:space="preserve"><value>Apply</value></data>
+  <data name="common.browse" xml:space="preserve"><value>Browse</value></data>
+  <data name="common.cancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="common.close" xml:space="preserve"><value>Close</value></data>
+  <data name="common.confirm" xml:space="preserve"><value>Confirm</value></data>
+  <data name="common.confirm-name" xml:space="preserve"><value>Type the display name to confirm</value></data>
+  <data name="common.directory" xml:space="preserve"><value>Directory</value></data>
+  <data name="common.empty" xml:space="preserve"><value>There is no data to display</value></data>
+  <data name="common.error" xml:space="preserve"><value>Error</value></data>
+  <data name="common.instances" xml:space="preserve"><value>Instances</value></data>
+  <data name="common.load-more" xml:space="preserve"><value>Load more</value></data>
+  <data name="common.loading" xml:space="preserve"><value>Loading</value></data>
+  <data name="common.nodes" xml:space="preserve"><value>Nodes</value></data>
+  <data name="common.none" xml:space="preserve"><value>None</value></data>
+  <data name="common.not-found.title" xml:space="preserve"><value>Page not found</value></data>
+  <data name="common.not-selected" xml:space="preserve"><value>Not selected</value></data>
+  <data name="common.operation-accepted" xml:space="preserve"><value>Operation queued</value></data>
+  <data name="common.operation-completed" xml:space="preserve"><value>Operation completed</value></data>
+  <data name="common.operations.title" xml:space="preserve"><value>Operations</value></data>
+  <data name="common.permission-denied" xml:space="preserve"><value>The current account does not have permission to access this page.</value></data>
+  <data name="common.public.title" xml:space="preserve"><value>Public information</value></data>
+  <data name="common.result" xml:space="preserve"><value>Result</value></data>
+  <data name="common.sessions" xml:space="preserve"><value>Sessions</value></data>
+  <data name="common.trace-id" xml:space="preserve"><value>Trace ID</value></data>
+  <data name="common.type-name-confirm" xml:space="preserve"><value>Type the following name to confirm:</value></data>
+  <data name="common.unknown" xml:space="preserve"><value>Unknown</value></data>
+  <data name="common.unsaved-changes" xml:space="preserve"><value>There are unsaved changes.</value></data>
+  <data name="config.editor.title" xml:space="preserve"><value>Edit configuration</value></data>
+  <data name="config.list.title" xml:space="preserve"><value>Configurations</value></data>
+  <data name="configgroup.gameplay" xml:space="preserve"><value>Gameplay</value></data>
+  <data name="configgroup.network" xml:space="preserve"><value>Network</value></data>
+  <data name="configgroup.other" xml:space="preserve"><value>Other</value></data>
+  <data name="configgroup.performance" xml:space="preserve"><value>Performance</value></data>
+  <data name="configgroup.security" xml:space="preserve"><value>Security</value></data>
+  <data name="configgroup.world" xml:space="preserve"><value>World</value></data>
+  <data name="danger.change-visibility-impact" xml:space="preserve"><value>Changing visibility alters client access. Switching to token protection requires distributing the new installation link.</value></data>
+  <data name="danger.delete-channel-impact" xml:space="preserve"><value>The channel will be removed asynchronously. Immutable content is reclaimed only according to retention rules.</value></data>
+  <data name="danger.delete-directory-impact" xml:space="preserve"><value>The Servitium-managed working directory {0} will be deleted recursively. This cannot be undone; the server always rejects external registered directories.</value></data>
+  <data name="danger.delete-files-impact" xml:space="preserve"><value>Delete the selected {0} files or directories. Agent revalidates every path and never crosses the instance working directory.</value></data>
+  <data name="danger.delete-java-files-impact" xml:space="preserve"><value>This runtime is used by {0} instances. Only Servitium-imported runtime files can be deleted.</value></data>
+  <data name="danger.delete-schedule-impact" xml:space="preserve"><value>Type the scheduled task name to permanently delete the task and its future executions.</value></data>
+  <data name="danger.delete-user-impact" xml:space="preserve"><value>The user and their sessions, API keys, and instance grants will be removed. This cannot be undone.</value></data>
+  <data name="danger.enable-advanced-commands-impact" xml:space="preserve"><value>Advanced raw commands bypass the structured launch wizard. The first argument is still restricted to a registered java.exe, but incorrect arguments can damage instance data.</value></data>
+  <data name="danger.forcestop-impact" xml:space="preserve"><value>Force stop terminates the entire process tree immediately and may corrupt world data that has not been written to disk.</value></data>
+  <data name="danger.non-loopback-listen-impact" xml:space="preserve"><value>Non-loopback exposure requires trusted TLS or an explicitly trusted reverse proxy. Incorrect settings can expose the control plane.</value></data>
+  <data name="danger.oidc-impact" xml:space="preserve"><value>Changing the OIDC issuer, client, or identity mapping can prevent bound users from signing in. Confirm that a recovery path is available.</value></data>
+  <data name="danger.publish-delete-impact" xml:space="preserve"><value>This publication contains deletions ({0}). The corresponding player files will be removed on update; review the difference before continuing.</value></data>
+  <data name="danger.remove-node-impact" xml:space="preserve"><value>This node currently has {0} listed instance registrations. Removing the node keeps those registrations and disconnects the Agent.</value></data>
+  <data name="danger.remove-totp-impact" xml:space="preserve"><value>Two-step verification and all recovery codes will be removed. Active sessions may be revoked.</value></data>
+  <data name="danger.reset-dashboard-impact" xml:space="preserve"><value>Your dashboard card layout will be restored to the product default.</value></data>
+  <data name="danger.revoke-all-sessions-impact" xml:space="preserve"><value>All active sessions for this user become invalid immediately.</value></data>
+  <data name="danger.revoke-grants-impact" xml:space="preserve"><value>Revoke user “{1}” from {0} instances. The change propagates immediately and may interrupt this user&apos;s active operations.</value></data>
+  <data name="danger.revoke-session-impact" xml:space="preserve"><value>The selected session becomes invalid immediately.</value></data>
+  <data name="danger.rotate-node-credential-impact" xml:space="preserve"><value>The current Agent credential becomes invalid immediately and the node must reconnect with the new credential.</value></data>
+  <data name="danger.rotate-token-impact" xml:space="preserve"><value>Existing private Channel addresses will stop working immediately. Players must reinstall or reconfigure with an address containing the new token.</value></data>
+  <data name="danger.sync-content-impact" xml:space="preserve"><value>The instance must be stopped. Servitium will create a backup and apply the configured channel release.</value></data>
+  <data name="danger.unbind-identity-impact" xml:space="preserve"><value>The external identity will no longer be accepted for this account. Ensure another sign-in method remains available.</value></data>
+  <data name="danger.unregister-impact" xml:space="preserve"><value>Only the instance registration, related schedules, and grants will be removed. The working directory {0} and all of its files will be preserved.</value></data>
+  <data name="danger.unregister-java-impact" xml:space="preserve"><value>This runtime is used by {0} instances. In-use runtimes are rejected and files are retained.</value></data>
+  <data name="dashboard.activity-log.title" xml:space="preserve"><value>Activity log</value></data>
+  <data name="dashboard.audit-log.title" xml:space="preserve"><value>Audit log</value></data>
+  <data name="dashboard.card.clock" xml:space="preserve"><value>Clock</value></data>
+  <data name="dashboard.card.embed" xml:space="preserve"><value>Embedded content</value></data>
+  <data name="dashboard.card.image" xml:space="preserve"><value>Image</value></data>
+  <data name="dashboard.card.link" xml:space="preserve"><value>Link</value></data>
+  <data name="dashboard.card.spacer" xml:space="preserve"><value>Spacer</value></data>
+  <data name="dashboard.card.text" xml:space="preserve"><value>Text</value></data>
+  <data name="dashboard.editor.card-kind" xml:space="preserve"><value>New card type</value></data>
+  <data name="dashboard.editor.height" xml:space="preserve"><value>Card height</value></data>
+  <data name="dashboard.editor.hidden" xml:space="preserve"><value>Hide this card</value></data>
+  <data name="dashboard.editor.instructions" xml:space="preserve"><value>Drag cards to reorder them. Adjust the twelve-column width and height, hide cards, or add content cards, then save the layout.</value></data>
+  <data name="dashboard.editor.width" xml:space="preserve"><value>Card width</value></data>
+  <data name="dashboard.overview.title" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="editor.unsaved-impact" xml:space="preserve"><value>Leaving this page discards content that has not been saved from the editor. This cannot be undone.</value></data>
+  <data name="editor.unsaved-status" xml:space="preserve"><value>There are unsaved changes</value></data>
+  <data name="editor.unsaved-title" xml:space="preserve"><value>Discard unsaved changes?</value></data>
+  <data name="error.account-disabled" xml:space="preserve"><value>The account is disabled.</value></data>
+  <data name="error.agent-timeout" xml:space="preserve"><value>The Agent command timed out.</value></data>
+  <data name="error.already-initialized" xml:space="preserve"><value>The system is already initialized.</value></data>
+  <data name="error.api-key-disabled" xml:space="preserve"><value>API keys are disabled.</value></data>
+  <data name="error.archive-too-large" xml:space="preserve"><value>The expanded archive exceeds the size limit.</value></data>
+  <data name="error.archive-unsafe" xml:space="preserve"><value>The archive did not pass the safety inspection.</value></data>
+  <data name="error.certificate-invalid" xml:space="preserve"><value>The TLS certificate is invalid.</value></data>
+  <data name="error.config-format-unsupported" xml:space="preserve"><value>The configuration format is unsupported.</value></data>
+  <data name="error.config-parse-failed" xml:space="preserve"><value>The configuration could not be parsed.</value></data>
+  <data name="error.conflict" xml:space="preserve"><value>The request conflicts with the current state.</value></data>
+  <data name="error.csrf-token-missing" xml:space="preserve"><value>The CSRF token is missing or invalid.</value></data>
+  <data name="error.disk-space-insufficient" xml:space="preserve"><value>There is not enough free disk space.</value></data>
+  <data name="error.eula-not-accepted" xml:space="preserve"><value>The Minecraft EULA has not been accepted.</value></data>
+  <data name="error.file-locked" xml:space="preserve"><value>The file is in use.</value></data>
+  <data name="error.file-too-large" xml:space="preserve"><value>The file exceeds the size limit.</value></data>
+  <data name="error.forbidden" xml:space="preserve"><value>You do not have permission to perform this action.</value></data>
+  <data name="error.hmcl-channel-slug-taken" xml:space="preserve"><value>The Channel slug is already in use.</value></data>
+  <data name="error.hmcl-content-missing" xml:space="preserve"><value>A declared content object is missing.</value></data>
+  <data name="error.hmcl-no-active-release" xml:space="preserve"><value>The Channel has no active Release.</value></data>
+  <data name="error.hmcl-release-validation-failed" xml:space="preserve"><value>The Release did not pass publication validation.</value></data>
+  <data name="error.hmcl-token-invalid" xml:space="preserve"><value>The Channel access token is invalid.</value></data>
+  <data name="error.idempotency-conflict" xml:space="preserve"><value>The idempotency key was used for a different request.</value></data>
+  <data name="error.instance-not-owned" xml:space="preserve"><value>Servitium cannot delete an external working directory.</value></data>
+  <data name="error.instance-not-stopped" xml:space="preserve"><value>The instance is not stopped.</value></data>
+  <data name="error.instance-path-conflict" xml:space="preserve"><value>The working directory conflicts with another instance.</value></data>
+  <data name="error.instance-path-invalid" xml:space="preserve"><value>The working directory path is invalid.</value></data>
+  <data name="error.internal-error" xml:space="preserve"><value>An internal error occurred.</value></data>
+  <data name="error.java-runtime-in-use" xml:space="preserve"><value>The Java runtime is still used by an instance.</value></data>
+  <data name="error.java-runtime-invalid" xml:space="preserve"><value>The Java runtime is invalid.</value></data>
+  <data name="error.java-runtime-not-imported" xml:space="preserve"><value>Only imported Java runtime files can be deleted.</value></data>
+  <data name="error.local-auth-remote-server" xml:space="preserve"><value>Local Windows sign-in is unavailable for a remote Server. Use a password or OIDC instead.</value></data>
+  <data name="error.local-auth-unavailable" xml:space="preserve"><value>The local Windows sign-in channel is unavailable. Verify that Server is running and the current account is linked.</value></data>
+  <data name="error.node-has-instances" xml:space="preserve"><value>The Node still has registered instances.</value></data>
+  <data name="error.node-incompatible" xml:space="preserve"><value>The Node protocol version is incompatible.</value></data>
+  <data name="error.node-offline" xml:space="preserve"><value>The Node is offline.</value></data>
+  <data name="error.not-found" xml:space="preserve"><value>The resource was not found.</value></data>
+  <data name="error.oidc-discovery-failed" xml:space="preserve"><value>The OIDC discovery document could not be read.</value></data>
+  <data name="error.oidc-nonce-mismatch" xml:space="preserve"><value>The OIDC nonce does not match.</value></data>
+  <data name="error.oidc-state-invalid" xml:space="preserve"><value>The OIDC state is invalid or already consumed.</value></data>
+  <data name="error.oidc-subject-conflict" xml:space="preserve"><value>The external identity is bound to another user.</value></data>
+  <data name="error.operation-not-cancellable" xml:space="preserve"><value>The operation can no longer be cancelled.</value></data>
+  <data name="error.operation-timeout" xml:space="preserve"><value>The operation did not complete within the local wait limit. Check the Operations page for its final state.</value></data>
+  <data name="error.owner-immutable" xml:space="preserve"><value>The Owner cannot be disabled, deleted, or demoted.</value></data>
+  <data name="error.path-escapes-root" xml:space="preserve"><value>The path escapes the allowed root.</value></data>
+  <data name="error.path-name-invalid" xml:space="preserve"><value>The path name is invalid.</value></data>
+  <data name="error.path-reparse-point" xml:space="preserve"><value>The path contains a reparse point.</value></data>
+  <data name="error.rate-limited" xml:space="preserve"><value>Too many requests were made.</value></data>
+  <data name="error.raw-command-disabled" xml:space="preserve"><value>Advanced raw command mode is disabled.</value></data>
+  <data name="error.raw-command-invalid" xml:space="preserve"><value>The advanced raw command violates a safety constraint.</value></data>
+  <data name="error.redirect-limit-exceeded" xml:space="preserve"><value>The HTTP redirect limit was exceeded.</value></data>
+  <data name="error.registration-token-invalid" xml:space="preserve"><value>The Node registration token is invalid.</value></data>
+  <data name="error.schedule-limit-reached" xml:space="preserve"><value>The scheduled task limit has been reached.</value></data>
+  <data name="error.schedule-name-taken" xml:space="preserve"><value>The scheduled task name is already in use.</value></data>
+  <data name="error.tls-required" xml:space="preserve"><value>A non-loopback listener requires trusted TLS or a trusted reverse proxy.</value></data>
+  <data name="error.totp-invalid" xml:space="preserve"><value>The TOTP code is invalid.</value></data>
+  <data name="error.totp-required" xml:space="preserve"><value>TOTP verification is required.</value></data>
+  <data name="error.unauthenticated" xml:space="preserve"><value>Sign in to continue.</value></data>
+  <data name="error.upload-part-checksum-mismatch" xml:space="preserve"><value>The upload part checksum does not match.</value></data>
+  <data name="error.upload-session-expired" xml:space="preserve"><value>The upload session expired.</value></data>
+  <data name="error.url-not-allowed" xml:space="preserve"><value>The URL target is not allowed.</value></data>
+  <data name="error.user-name-taken" xml:space="preserve"><value>The user name is already in use.</value></data>
+  <data name="error.validation-failed" xml:space="preserve"><value>Input validation failed.</value></data>
+  <data name="error.weak-password" xml:space="preserve"><value>The password does not meet the strength requirement.</value></data>
+  <data name="error.webview-unavailable" xml:space="preserve"><value>The local terminal or editor component could not start. Verify that WebView2 Runtime is installed and inspect the Desktop log.</value></data>
+  <data name="field.absolute-path" xml:space="preserve"><value>Absolute path</value></data>
+  <data name="field.access-token" xml:space="preserve"><value>Access token</value></data>
+  <data name="field.action" xml:space="preserve"><value>Action</value></data>
+  <data name="field.actions" xml:space="preserve"><value>Action sequence</value></data>
+  <data name="field.actor" xml:space="preserve"><value>Actor</value></data>
+  <data name="field.address-mappings" xml:space="preserve"><value>Public address mappings</value></data>
+  <data name="field.advanced-arguments" xml:space="preserve"><value>Advanced Java argument array</value></data>
+  <data name="field.advanced-mode" xml:space="preserve"><value>Advanced raw command mode</value></data>
+  <data name="field.advanced-raw-commands" xml:space="preserve"><value>Allow advanced raw commands</value></data>
+  <data name="field.archive" xml:space="preserve"><value>Archive</value></data>
+  <data name="field.author" xml:space="preserve"><value>Author</value></data>
+  <data name="field.auto-restart" xml:space="preserve"><value>Automatic restart</value></data>
+  <data name="field.auto-start" xml:space="preserve"><value>Automatic start</value></data>
+  <data name="field.auto-start-delay" xml:space="preserve"><value>Automatic start delay (seconds)</value></data>
+  <data name="field.category" xml:space="preserve"><value>Category</value></data>
+  <data name="field.code" xml:space="preserve"><value>Verification code</value></data>
+  <data name="field.collision-policy" xml:space="preserve"><value>Name conflict policy</value></data>
+  <data name="field.command" xml:space="preserve"><value>Command</value></data>
+  <data name="field.compression-task-concurrency" xml:space="preserve"><value>Concurrent archive tasks</value></data>
+  <data name="field.confirm-password" xml:space="preserve"><value>Confirm password</value></data>
+  <data name="field.content" xml:space="preserve"><value>Content</value></data>
+  <data name="field.control-plane-address" xml:space="preserve"><value>Control plane address</value></data>
+  <data name="field.current-password" xml:space="preserve"><value>Current password</value></data>
+  <data name="field.default-instance-path" xml:space="preserve"><value>Default instance path</value></data>
+  <data name="field.descending" xml:space="preserve"><value>Descending order</value></data>
+  <data name="field.description" xml:space="preserve"><value>Description</value></data>
+  <data name="field.display-name" xml:space="preserve"><value>Display name</value></data>
+  <data name="field.download-rate" xml:space="preserve"><value>Download rate limit (bytes/s)</value></data>
+  <data name="field.enabled" xml:space="preserve"><value>Enabled</value></data>
+  <data name="field.encoding" xml:space="preserve"><value>Encoding</value></data>
+  <data name="field.entry-name-encoding" xml:space="preserve"><value>Archive entry-name encoding</value></data>
+  <data name="field.environment-variables" xml:space="preserve"><value>Environment variables</value></data>
+  <data name="field.expires-at" xml:space="preserve"><value>Expires at</value></data>
+  <data name="field.extract-encoding" xml:space="preserve"><value>Extraction entry-name encoding</value></data>
+  <data name="field.file-task-concurrency" xml:space="preserve"><value>Concurrent file tasks</value></data>
+  <data name="field.format" xml:space="preserve"><value>Format</value></data>
+  <data name="field.from" xml:space="preserve"><value>From</value></data>
+  <data name="field.game-version" xml:space="preserve"><value>Minecraft version</value></data>
+  <data name="field.graceful-shutdown" xml:space="preserve"><value>Graceful Agent shutdown</value></data>
+  <data name="field.grant-state" xml:space="preserve"><value>Grant state</value></data>
+  <data name="field.instance" xml:space="preserve"><value>Instance</value></data>
+  <data name="field.instances" xml:space="preserve"><value>Instances</value></data>
+  <data name="field.java-data-directory" xml:space="preserve"><value>Java data directory</value></data>
+  <data name="field.java-runtime" xml:space="preserve"><value>Java runtime</value></data>
+  <data name="field.jvm-arguments" xml:space="preserve"><value>Additional JVM arguments</value></data>
+  <data name="field.kind" xml:space="preserve"><value>Kind</value></data>
+  <data name="field.language" xml:space="preserve"><value>Language</value></data>
+  <data name="field.launch" xml:space="preserve"><value>Launch arguments</value></data>
+  <data name="field.linked-instance" xml:space="preserve"><value>Linked instance</value></data>
+  <data name="field.listen" xml:space="preserve"><value>Listen address</value></data>
+  <data name="field.loader" xml:space="preserve"><value>Loader</value></data>
+  <data name="field.loader-id" xml:space="preserve"><value>Loader</value></data>
+  <data name="field.loader-version" xml:space="preserve"><value>Loader version</value></data>
+  <data name="field.maximum-heap" xml:space="preserve"><value>Maximum heap (MiB)</value></data>
+  <data name="field.maximum-restart-attempts" xml:space="preserve"><value>Maximum restart attempts</value></data>
+  <data name="field.maximum-schedules" xml:space="preserve"><value>Maximum schedules per instance</value></data>
+  <data name="field.metric-interval" xml:space="preserve"><value>Metric interval (seconds)</value></data>
+  <data name="field.minimum-heap" xml:space="preserve"><value>Minimum heap (MiB)</value></data>
+  <data name="field.name" xml:space="preserve"><value>Name</value></data>
+  <data name="field.new-password" xml:space="preserve"><value>New password</value></data>
+  <data name="field.node" xml:space="preserve"><value>Node</value></data>
+  <data name="field.notes" xml:space="preserve"><value>Notes</value></data>
+  <data name="field.object-type" xml:space="preserve"><value>Object type</value></data>
+  <data name="field.oidc" xml:space="preserve"><value>OIDC</value></data>
+  <data name="field.optifine-version" xml:space="preserve"><value>OptiFine version</value></data>
+  <data name="field.outcome" xml:space="preserve"><value>Outcome</value></data>
+  <data name="field.overlap-policy" xml:space="preserve"><value>Overlap policy</value></data>
+  <data name="field.overwrite" xml:space="preserve"><value>Allow target overwrite</value></data>
+  <data name="field.password" xml:space="preserve"><value>Password</value></data>
+  <data name="field.path" xml:space="preserve"><value>Path</value></data>
+  <data name="field.primary-port" xml:space="preserve"><value>Primary server port</value></data>
+  <data name="field.prism-archive" xml:space="preserve"><value>Prism instance ZIP</value></data>
+  <data name="field.private-source-authorities" xml:space="preserve"><value>Allowed private source authorities</value></data>
+  <data name="field.public-address" xml:space="preserve"><value>Public address</value></data>
+  <data name="field.query" xml:space="preserve"><value>Search</value></data>
+  <data name="field.query-enabled" xml:space="preserve"><value>Server query enabled</value></data>
+  <data name="field.query-host" xml:space="preserve"><value>Server query host</value></data>
+  <data name="field.query-port" xml:space="preserve"><value>Server query port</value></data>
+  <data name="field.rcon-enabled" xml:space="preserve"><value>RCON enabled</value></data>
+  <data name="field.rcon-password" xml:space="preserve"><value>New RCON password</value></data>
+  <data name="field.rcon-port" xml:space="preserve"><value>RCON port</value></data>
+  <data name="field.recovery-code" xml:space="preserve"><value>Recovery code</value></data>
+  <data name="field.registration-lifetime" xml:space="preserve"><value>Token lifetime (minutes)</value></data>
+  <data name="field.registration-name" xml:space="preserve"><value>Expected node name</value></data>
+  <data name="field.registration-token" xml:space="preserve"><value>One-time registration token</value></data>
+  <data name="field.remaining-runs" xml:space="preserve"><value>Remaining runs</value></data>
+  <data name="field.resource" xml:space="preserve"><value>Resource</value></data>
+  <data name="field.restart-interval" xml:space="preserve"><value>Restart interval (seconds)</value></data>
+  <data name="field.restart-reset" xml:space="preserve"><value>Restart counter reset (seconds)</value></data>
+  <data name="field.retention" xml:space="preserve"><value>Retention</value></data>
+  <data name="field.retention-count" xml:space="preserve"><value>Retained releases</value></data>
+  <data name="field.role" xml:space="preserve"><value>Role</value></data>
+  <data name="field.run-credential-alias" xml:space="preserve"><value>Run credential alias</value></data>
+  <data name="field.search" xml:space="preserve"><value>Search</value></data>
+  <data name="field.server-arguments" xml:space="preserve"><value>Server arguments</value></data>
+  <data name="field.shortcut-commands" xml:space="preserve"><value>Shortcut commands</value></data>
+  <data name="field.shutdown-wait" xml:space="preserve"><value>Shutdown wait (seconds)</value></data>
+  <data name="field.slug" xml:space="preserve"><value>Stable slug</value></data>
+  <data name="field.sort" xml:space="preserve"><value>Sort by</value></data>
+  <data name="field.source-kind" xml:space="preserve"><value>Source kind</value></data>
+  <data name="field.status" xml:space="preserve"><value>Status</value></data>
+  <data name="field.stop-command" xml:space="preserve"><value>Stop command</value></data>
+  <data name="field.stop-timeout" xml:space="preserve"><value>Stop timeout seconds</value></data>
+  <data name="field.tags" xml:space="preserve"><value>Tags</value></data>
+  <data name="field.target-file" xml:space="preserve"><value>Target file name</value></data>
+  <data name="field.target-kind" xml:space="preserve"><value>Launch target kind</value></data>
+  <data name="field.terminal-ansi" xml:space="preserve"><value>Interpret ANSI output</value></data>
+  <data name="field.terminal-buffer-bytes" xml:space="preserve"><value>Terminal buffer bytes</value></data>
+  <data name="field.terminal-buffer-lines" xml:space="preserve"><value>Terminal buffer lines</value></data>
+  <data name="field.terminal-columns" xml:space="preserve"><value>Initial terminal columns</value></data>
+  <data name="field.terminal-conpty" xml:space="preserve"><value>Use ConPTY</value></data>
+  <data name="field.terminal-input-encoding" xml:space="preserve"><value>Terminal input encoding</value></data>
+  <data name="field.terminal-newline" xml:space="preserve"><value>Terminal newline mode</value></data>
+  <data name="field.terminal-output-encoding" xml:space="preserve"><value>Terminal output encoding</value></data>
+  <data name="field.terminal-rows" xml:space="preserve"><value>Initial terminal rows</value></data>
+  <data name="field.time-range" xml:space="preserve"><value>Time range</value></data>
+  <data name="field.tls" xml:space="preserve"><value>TLS certificate</value></data>
+  <data name="field.to" xml:space="preserve"><value>To</value></data>
+  <data name="field.trigger" xml:space="preserve"><value>Trigger</value></data>
+  <data name="field.trusted-proxy" xml:space="preserve"><value>Trusted proxy</value></data>
+  <data name="field.type" xml:space="preserve"><value>Type</value></data>
+  <data name="field.update-channel" xml:space="preserve"><value>Integrated-content Channel ID</value></data>
+  <data name="field.update-kind" xml:space="preserve"><value>Update action</value></data>
+  <data name="field.update-source" xml:space="preserve"><value>Update source path</value></data>
+  <data name="field.update-target" xml:space="preserve"><value>Update target path</value></data>
+  <data name="field.upload" xml:space="preserve"><value>Upload file</value></data>
+  <data name="field.upload-rate" xml:space="preserve"><value>Upload rate limit (bytes/s)</value></data>
+  <data name="field.url" xml:space="preserve"><value>URL</value></data>
+  <data name="field.url-download-concurrency" xml:space="preserve"><value>Concurrent URL downloads</value></data>
+  <data name="field.user-name" xml:space="preserve"><value>User name</value></data>
+  <data name="field.version" xml:space="preserve"><value>Version</value></data>
+  <data name="field.visibility" xml:space="preserve"><value>Visibility</value></data>
+  <data name="field.windows-sid" xml:space="preserve"><value>Windows SID</value></data>
+  <data name="field.working-directory" xml:space="preserve"><value>Working directory</value></data>
+  <data name="file.clipboard-ready" xml:space="preserve"><value>The selected items are ready in the file clipboard</value></data>
+  <data name="file.manager.title" xml:space="preserve"><value>File manager</value></data>
+  <data name="hmcl.action.create-release" xml:space="preserve"><value>Create Release</value></data>
+  <data name="hmcl.action.publish" xml:space="preserve"><value>Publish</value></data>
+  <data name="hmcl.channel.title" xml:space="preserve"><value>Channel details</value></data>
+  <data name="hmcl.exclusion.fixed-directory-exclusion" xml:space="preserve"><value>Fixed excluded directory</value></data>
+  <data name="hmcl.exclusion.fixed-exclusion" xml:space="preserve"><value>Fixed excluded file</value></data>
+  <data name="hmcl.exclusion.special-client-or-log-file" xml:space="preserve"><value>Client state or log file</value></data>
+  <data name="hmcl.overview.title" xml:space="preserve"><value>Distribution</value></data>
+  <data name="hmcl.preview.added" xml:space="preserve"><value>Will be added</value></data>
+  <data name="hmcl.preview.archive-safe" xml:space="preserve"><value>Archive safety inspection passed</value></data>
+  <data name="hmcl.preview.candidate-count" xml:space="preserve"><value>{0} candidate files</value></data>
+  <data name="hmcl.preview.deleted" xml:space="preserve"><value>Will be deleted</value></data>
+  <data name="hmcl.preview.included" xml:space="preserve"><value>Candidate content</value></data>
+  <data name="hmcl.preview.loader-changed" xml:space="preserve"><value>The game version or loader will change</value></data>
+  <data name="hmcl.preview.prism-only" xml:space="preserve"><value>Use Inspect for a Prism source. Regular archive and instance sources are inspected by the Server creation operation.</value></data>
+  <data name="hmcl.preview.replaced" xml:space="preserve"><value>Will be replaced</value></data>
+  <data name="hmcl.preview.required" xml:space="preserve"><value>Upload and inspect the Prism instance ZIP first.</value></data>
+  <data name="hmcl.release-details.title" xml:space="preserve"><value>Release details</value></data>
+  <data name="hmcl.release-new.title" xml:space="preserve"><value>New Release</value></data>
+  <data name="instance.action.attach-directory" xml:space="preserve"><value>Register absolute path</value></data>
+  <data name="instance.action.convert-prism" xml:space="preserve"><value>Convert Prism instance</value></data>
+  <data name="instance.action.import-server-archive" xml:space="preserve"><value>Import server archive</value></data>
+  <data name="instance.create.external-message" xml:space="preserve"><value>The directory remains maintained by its external owner. Servitium never recursively deletes an external working directory.</value></data>
+  <data name="instance.create.external-title" xml:space="preserve"><value>External working directory</value></data>
+  <data name="instance.create.owned-message" xml:space="preserve"><value>This method creates a Servitium-managed working directory. Unregistering and deleting the directory remain separate actions.</value></data>
+  <data name="instance.create.owned-title" xml:space="preserve"><value>Servitium-managed directory</value></data>
+  <data name="instance.create.review-summary" xml:space="preserve"><value>Instance name: {0}
+Creation method: {1}
+Node: {2}
+Java: {3}
+Stop command: {4}
+Stop timeout: {5} seconds</value></data>
+  <data name="instance.create.step.basic" xml:space="preserve"><value>2. Basic information</value></data>
+  <data name="instance.create.step.location" xml:space="preserve"><value>3. Node and content</value></data>
+  <data name="instance.create.step.review" xml:space="preserve"><value>5. Final review</value></data>
+  <data name="instance.create.step.runtime" xml:space="preserve"><value>4. Java and runtime</value></data>
+  <data name="instance.create.step.source" xml:space="preserve"><value>1. Creation method</value></data>
+  <data name="instance.create.title" xml:space="preserve"><value>New instance</value></data>
+  <data name="instance.list.title" xml:space="preserve"><value>Instances</value></data>
+  <data name="instance.my-list.title" xml:space="preserve"><value>My instances</value></data>
+  <data name="instance.settings.title" xml:space="preserve"><value>Instance settings</value></data>
+  <data name="language.en-us" xml:space="preserve"><value>English (United States)</value></data>
+  <data name="language.zh-hans" xml:space="preserve"><value>Simplified Chinese</value></data>
+  <data name="mod.list.title" xml:space="preserve"><value>Mods and plugins</value></data>
+  <data name="node.details.title" xml:space="preserve"><value>Node details</value></data>
+  <data name="node.java.title" xml:space="preserve"><value>Java runtimes</value></data>
+  <data name="node.list.title" xml:space="preserve"><value>Nodes</value></data>
+  <data name="node.registration.agent-instructions" xml:space="preserve"><value>Prepare an isolated data directory on the target Windows node, then start Agent. Replace &lt;ONE_TIME_TOKEN&gt; in the command template with the token above. Agent stores its rotated node credential after successful first registration. A trusted HTTPS endpoint is required outside loopback.</value></data>
+  <data name="node.registration.command-template" xml:space="preserve"><value>Agent launch command template</value></data>
+  <data name="node.registration.one-time-message" xml:space="preserve"><value>The plaintext token is shown only once. It cannot be viewed again after this dialog is closed; revoke it and create a new token if it is lost.</value></data>
+  <data name="node.registration.one-time-title" xml:space="preserve"><value>Save this token now</value></data>
+  <data name="notification.auto-restart-exhausted.body" xml:space="preserve"><value>The instance reached its automatic restart attempt limit.</value></data>
+  <data name="notification.auto-restart-exhausted.title" xml:space="preserve"><value>Automatic restart stopped</value></data>
+  <data name="notification.hmcl-integrity-alert.body" xml:space="preserve"><value>The distribution integrity check found a problem.</value></data>
+  <data name="notification.hmcl-integrity-alert.title" xml:space="preserve"><value>Distribution integrity warning</value></data>
+  <data name="notification.hmcl-published.body" xml:space="preserve"><value>A new integrated content release is now active.</value></data>
+  <data name="notification.hmcl-published.title" xml:space="preserve"><value>Channel published</value></data>
+  <data name="notification.instance-crashed.body" xml:space="preserve"><value>The instance exited unexpectedly. Review its console and logs.</value></data>
+  <data name="notification.instance-crashed.title" xml:space="preserve"><value>Instance crashed</value></data>
+  <data name="notification.node-offline.body" xml:space="preserve"><value>The node connection was lost and its instances are temporarily unavailable.</value></data>
+  <data name="notification.node-offline.title" xml:space="preserve"><value>Node offline</value></data>
+  <data name="notification.node-online.body" xml:space="preserve"><value>The node has reconnected.</value></data>
+  <data name="notification.node-online.title" xml:space="preserve"><value>Node restored</value></data>
+  <data name="notification.operation-completed.body" xml:space="preserve"><value>A background operation completed successfully.</value></data>
+  <data name="notification.operation-completed.title" xml:space="preserve"><value>Operation completed</value></data>
+  <data name="notification.operation-failed.body" xml:space="preserve"><value>A background operation did not complete successfully. Review its details.</value></data>
+  <data name="notification.operation-failed.title" xml:space="preserve"><value>Operation failed</value></data>
+  <data name="schedule.list.title" xml:space="preserve"><value>Scheduled tasks</value></data>
+  <data name="section.active-release" xml:space="preserve"><value>Active release</value></data>
+  <data name="section.activity" xml:space="preserve"><value>Recent activity</value></data>
+  <data name="section.api-keys" xml:space="preserve"><value>API keys</value></data>
+  <data name="section.appearance" xml:space="preserve"><value>Appearance</value></data>
+  <data name="section.audit-list" xml:space="preserve"><value>Security audit records</value></data>
+  <data name="section.backups" xml:space="preserve"><value>Backups</value></data>
+  <data name="section.basic" xml:space="preserve"><value>Basic information</value></data>
+  <data name="section.batch-actions" xml:space="preserve"><value>Batch actions</value></data>
+  <data name="section.bindings" xml:space="preserve"><value>Identity bindings</value></data>
+  <data name="section.branding" xml:space="preserve"><value>Branding</value></data>
+  <data name="section.breadcrumb" xml:space="preserve"><value>Location</value></data>
+  <data name="section.channels" xml:space="preserve"><value>Channels</value></data>
+  <data name="section.client-endpoints" xml:space="preserve"><value>Client endpoints</value></data>
+  <data name="section.configuration" xml:space="preserve"><value>Node configuration</value></data>
+  <data name="section.configuration-list" xml:space="preserve"><value>Configuration files</value></data>
+  <data name="section.console" xml:space="preserve"><value>Console</value></data>
+  <data name="section.controls" xml:space="preserve"><value>Instance controls</value></data>
+  <data name="section.create-channel" xml:space="preserve"><value>Create channel</value></data>
+  <data name="section.create-progress" xml:space="preserve"><value>Creation progress</value></data>
+  <data name="section.credential" xml:space="preserve"><value>Node credential</value></data>
+  <data name="section.danger-zone" xml:space="preserve"><value>Danger zone</value></data>
+  <data name="section.details" xml:space="preserve"><value>Details</value></data>
+  <data name="section.difference-preview" xml:space="preserve"><value>Publish difference</value></data>
+  <data name="section.directory-tabs" xml:space="preserve"><value>Directory tabs</value></data>
+  <data name="section.discovery" xml:space="preserve"><value>Discovery</value></data>
+  <data name="section.editor" xml:space="preserve"><value>Editor</value></data>
+  <data name="section.external-login" xml:space="preserve"><value>External sign-in</value></data>
+  <data name="section.file-list" xml:space="preserve"><value>Files</value></data>
+  <data name="section.files" xml:space="preserve"><value>Files</value></data>
+  <data name="section.filter-preview" xml:space="preserve"><value>Filter preview</value></data>
+  <data name="section.filters" xml:space="preserve"><value>Filters</value></data>
+  <data name="section.general" xml:space="preserve"><value>General</value></data>
+  <data name="section.grants" xml:space="preserve"><value>Instance grants</value></data>
+  <data name="section.history" xml:space="preserve"><value>History</value></data>
+  <data name="section.identity" xml:space="preserve"><value>Identity provider</value></data>
+  <data name="section.image-preview" xml:space="preserve"><value>Image preview</value></data>
+  <data name="section.import" xml:space="preserve"><value>Import</value></data>
+  <data name="section.inspection" xml:space="preserve"><value>Safety inspection</value></data>
+  <data name="section.instance-chart" xml:space="preserve"><value>Instance count trend</value></data>
+  <data name="section.instance-list" xml:space="preserve"><value>Instances</value></data>
+  <data name="section.instance-status" xml:space="preserve"><value>Instance status</value></data>
+  <data name="section.integrated-content" xml:space="preserve"><value>Integrated content</value></data>
+  <data name="section.integrity" xml:space="preserve"><value>Integrity</value></data>
+  <data name="section.language" xml:space="preserve"><value>Language</value></data>
+  <data name="section.launch" xml:space="preserve"><value>Launch configuration</value></data>
+  <data name="section.local-login" xml:space="preserve"><value>Local and password sign-in</value></data>
+  <data name="section.log-list" xml:space="preserve"><value>Log entries</value></data>
+  <data name="section.manifest" xml:space="preserve"><value>Manifest</value></data>
+  <data name="section.metadata" xml:space="preserve"><value>Metadata</value></data>
+  <data name="section.metrics" xml:space="preserve"><value>Metrics</value></data>
+  <data name="section.mod-list" xml:space="preserve"><value>Mods and plugins</value></data>
+  <data name="section.network" xml:space="preserve"><value>Network and TLS</value></data>
+  <data name="section.node" xml:space="preserve"><value>Target node</value></data>
+  <data name="section.node-list" xml:space="preserve"><value>Nodes</value></data>
+  <data name="section.node-overview" xml:space="preserve"><value>Node overview</value></data>
+  <data name="section.node-status" xml:space="preserve"><value>Node status</value></data>
+  <data name="section.not-found" xml:space="preserve"><value>Page not found</value></data>
+  <data name="section.operation-list" xml:space="preserve"><value>Operations</value></data>
+  <data name="section.operations" xml:space="preserve"><value>Operations</value></data>
+  <data name="section.owner-form" xml:space="preserve"><value>Owner account</value></data>
+  <data name="section.password" xml:space="preserve"><value>Password</value></data>
+  <data name="section.prerequisites" xml:space="preserve"><value>Setup prerequisites</value></data>
+  <data name="section.preview" xml:space="preserve"><value>Preview</value></data>
+  <data name="section.profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="section.progress" xml:space="preserve"><value>Progress</value></data>
+  <data name="section.public-content" xml:space="preserve"><value>Public content</value></data>
+  <data name="section.query" xml:space="preserve"><value>Query</value></data>
+  <data name="section.rcon" xml:space="preserve"><value>RCON</value></data>
+  <data name="section.recent-releases" xml:space="preserve"><value>Recent releases</value></data>
+  <data name="section.registration" xml:space="preserve"><value>Node registration</value></data>
+  <data name="section.release-history" xml:space="preserve"><value>Release history</value></data>
+  <data name="section.request-chart" xml:space="preserve"><value>Request trend</value></data>
+  <data name="section.resource-usage" xml:space="preserve"><value>Resource usage</value></data>
+  <data name="section.result" xml:space="preserve"><value>Result</value></data>
+  <data name="section.retention" xml:space="preserve"><value>Retention and reclamation</value></data>
+  <data name="section.review" xml:space="preserve"><value>Review</value></data>
+  <data name="section.runtime-list" xml:space="preserve"><value>Java runtimes</value></data>
+  <data name="section.security" xml:space="preserve"><value>Security</value></data>
+  <data name="section.security-note" xml:space="preserve"><value>Authorization note</value></data>
+  <data name="section.session-status" xml:space="preserve"><value>Session status</value></data>
+  <data name="section.sessions" xml:space="preserve"><value>Sessions</value></data>
+  <data name="section.settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="section.source" xml:space="preserve"><value>Source</value></data>
+  <data name="section.source-input" xml:space="preserve"><value>Source parameters</value></data>
+  <data name="section.statistics" xml:space="preserve"><value>Access statistics</value></data>
+  <data name="section.stop" xml:space="preserve"><value>Stop behavior</value></data>
+  <data name="section.summary" xml:space="preserve"><value>Summary</value></data>
+  <data name="section.system-info" xml:space="preserve"><value>System information</value></data>
+  <data name="section.system-status" xml:space="preserve"><value>System status</value></data>
+  <data name="section.task-list" xml:space="preserve"><value>Scheduled tasks</value></data>
+  <data name="section.task-progress" xml:space="preserve"><value>File task progress</value></data>
+  <data name="section.terminal" xml:space="preserve"><value>Terminal</value></data>
+  <data name="section.text-editor" xml:space="preserve"><value>Text editor</value></data>
+  <data name="section.text-options" xml:space="preserve"><value>Text options</value></data>
+  <data name="section.totp" xml:space="preserve"><value>Two-factor authentication</value></data>
+  <data name="section.upload" xml:space="preserve"><value>Upload</value></data>
+  <data name="section.usage-history" xml:space="preserve"><value>Usage history</value></data>
+  <data name="section.user-list" xml:space="preserve"><value>Users</value></data>
+  <data name="section.validation" xml:space="preserve"><value>Validation</value></data>
+  <data name="section.verification" xml:space="preserve"><value>Verification</value></data>
+  <data name="section.working-directory" xml:space="preserve"><value>Working directory</value></data>
+  <data name="serverprofile.delete-impact" xml:space="preserve"><value>This only removes the local connection profile. It does not stop Server, Agent, or instances, and it does not delete server data.</value></data>
+  <data name="settings.group-editor" xml:space="preserve"><value>Group settings</value></data>
+  <data name="settings.restart-required" xml:space="preserve"><value>This setting takes effect after Server restarts.</value></data>
+  <data name="settings.revision" xml:space="preserve"><value>Revision {0}</value></data>
+  <data name="settings.select-group" xml:space="preserve"><value>Select a settings group first.</value></data>
+  <data name="settings.system.title" xml:space="preserve"><value>System settings</value></data>
+  <data name="settingsfield.activity-retention-days" xml:space="preserve"><value>Activity retention days</value></data>
+  <data name="settingsfield.advanced-raw-commands-enabled" xml:space="preserve"><value>Enable advanced raw commands</value></data>
+  <data name="settingsfield.api-keys-enabled" xml:space="preserve"><value>Enable API keys</value></data>
+  <data name="settingsfield.archive-concurrency-limit" xml:space="preserve"><value>Archive concurrency limit</value></data>
+  <data name="settingsfield.audit-retention-days" xml:space="preserve"><value>Security audit retention days</value></data>
+  <data name="settingsfield.cors-origins" xml:space="preserve"><value>CORS origins</value></data>
+  <data name="settingsfield.database-backup-enabled" xml:space="preserve"><value>Enable database backups</value></data>
+  <data name="settingsfield.database-backup-retention-count" xml:space="preserve"><value>Database backup retention count</value></data>
+  <data name="settingsfield.default-language" xml:space="preserve"><value>Default language</value></data>
+  <data name="settingsfield.display-time-zone" xml:space="preserve"><value>Display time zone</value></data>
+  <data name="settingsfield.download-concurrency-limit" xml:space="preserve"><value>Download concurrency limit</value></data>
+  <data name="settingsfield.embed-allowed-origins" xml:space="preserve"><value>Allowed embed origins</value></data>
+  <data name="settingsfield.forwarded-for-header" xml:space="preserve"><value>Forwarded client address header</value></data>
+  <data name="settingsfield.ip-ban-minutes" xml:space="preserve"><value>IP ban duration (minutes)</value></data>
+  <data name="settingsfield.ip-failure-limit" xml:space="preserve"><value>IP sign-in failure limit</value></data>
+  <data name="settingsfield.ip-failure-window-minutes" xml:space="preserve"><value>IP failure window (minutes)</value></data>
+  <data name="settingsfield.listen-address" xml:space="preserve"><value>Listen address</value></data>
+  <data name="settingsfield.listen-port" xml:space="preserve"><value>Listen port</value></data>
+  <data name="settingsfield.login-description-en-us" xml:space="preserve"><value>English login description</value></data>
+  <data name="settingsfield.login-description-zh-hans" xml:space="preserve"><value>Chinese login description</value></data>
+  <data name="settingsfield.login-support-en-us" xml:space="preserve"><value>English support information</value></data>
+  <data name="settingsfield.login-support-zh-hans" xml:space="preserve"><value>Chinese support information</value></data>
+  <data name="settingsfield.login-title-en-us" xml:space="preserve"><value>English login title</value></data>
+  <data name="settingsfield.login-title-zh-hans" xml:space="preserve"><value>Chinese login title</value></data>
+  <data name="settingsfield.metric-retention-hours" xml:space="preserve"><value>Metric retention hours</value></data>
+  <data name="settingsfield.oidc-automatic-redirect" xml:space="preserve"><value>Automatically redirect to OIDC</value></data>
+  <data name="settingsfield.oidc-client-id" xml:space="preserve"><value>OIDC client ID</value></data>
+  <data name="settingsfield.oidc-client-secret" xml:space="preserve"><value>OIDC client secret</value></data>
+  <data name="settingsfield.oidc-enabled" xml:space="preserve"><value>Enable OIDC</value></data>
+  <data name="settingsfield.oidc-issuer" xml:space="preserve"><value>OIDC issuer</value></data>
+  <data name="settingsfield.oidc-provider-display-name" xml:space="preserve"><value>OIDC provider display name</value></data>
+  <data name="settingsfield.oidc-scopes" xml:space="preserve"><value>OIDC scopes</value></data>
+  <data name="settingsfield.oidc-subject-claim" xml:space="preserve"><value>OIDC subject claim</value></data>
+  <data name="settingsfield.oidc-user-name-claim" xml:space="preserve"><value>OIDC user name claim</value></data>
+  <data name="settingsfield.operation-retention-days" xml:space="preserve"><value>Operation retention days</value></data>
+  <data name="settingsfield.page-title" xml:space="preserve"><value>Page title</value></data>
+  <data name="settingsfield.path-base" xml:space="preserve"><value>Application path base</value></data>
+  <data name="settingsfield.private-source-allow-list" xml:space="preserve"><value>Private source allow list</value></data>
+  <data name="settingsfield.public-base-url" xml:space="preserve"><value>Public base URL</value></data>
+  <data name="settingsfield.public-page-enabled" xml:space="preserve"><value>Enable public page</value></data>
+  <data name="settingsfield.response-compression-enabled" xml:space="preserve"><value>Enable response compression</value></data>
+  <data name="settingsfield.service-log-retention-days" xml:space="preserve"><value>Service log retention days</value></data>
+  <data name="settingsfield.session-absolute-hours" xml:space="preserve"><value>Session absolute lifetime (hours)</value></data>
+  <data name="settingsfield.session-idle-hours" xml:space="preserve"><value>Session idle lifetime (hours)</value></data>
+  <data name="settingsfield.session-ip-validation-enabled" xml:space="preserve"><value>Enable session IP validation</value></data>
+  <data name="settingsfield.sidebar-position" xml:space="preserve"><value>Sidebar position</value></data>
+  <data name="settingsfield.tls-certificate-password" xml:space="preserve"><value>TLS certificate password</value></data>
+  <data name="settingsfield.tls-certificate-path" xml:space="preserve"><value>TLS certificate path</value></data>
+  <data name="settingsfield.tls-certificate-source" xml:space="preserve"><value>TLS certificate source</value></data>
+  <data name="settingsfield.tls-certificate-thumbprint" xml:space="preserve"><value>TLS certificate thumbprint</value></data>
+  <data name="settingsfield.totp-drift-steps" xml:space="preserve"><value>Allowed TOTP drift steps</value></data>
+  <data name="settingsfield.trusted-proxy-mode" xml:space="preserve"><value>Trusted reverse proxy mode</value></data>
+  <data name="settingsfield.trusted-proxy-networks" xml:space="preserve"><value>Trusted proxy networks</value></data>
+  <data name="settingsfield.upload-concurrency-limit" xml:space="preserve"><value>Upload concurrency limit</value></data>
+  <data name="settingsfield.user-failure-limit" xml:space="preserve"><value>User sign-in failure limit</value></data>
+  <data name="settingsfield.user-file-management-enabled" xml:space="preserve"><value>Allow user file management</value></data>
+  <data name="shell.back" xml:space="preserve"><value>Back</value></data>
+  <data name="shell.close-to-tray" xml:space="preserve"><value>Close to tray</value></data>
+  <data name="shell.connection" xml:space="preserve"><value>Connection</value></data>
+  <data name="shell.distribution" xml:space="preserve"><value>Distribution</value></data>
+  <data name="shell.exit" xml:space="preserve"><value>Exit Servitium</value></data>
+  <data name="shell.governance" xml:space="preserve"><value>Governance</value></data>
+  <data name="shell.language" xml:space="preserve"><value>Language</value></data>
+  <data name="shell.navigation" xml:space="preserve"><value>Navigation</value></data>
+  <data name="shell.primary" xml:space="preserve"><value>Primary</value></data>
+  <data name="shell.select-channel" xml:space="preserve"><value>Select channel</value></data>
+  <data name="shell.select-instance" xml:space="preserve"><value>Select instance</value></data>
+  <data name="shell.select-node" xml:space="preserve"><value>Select node</value></data>
+  <data name="shell.select-user" xml:space="preserve"><value>Select user</value></data>
+  <data name="shell.server-address" xml:space="preserve"><value>Server address</value></data>
+  <data name="shell.server-profile" xml:space="preserve"><value>Server profile</value></data>
+  <data name="shell.settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="shell.sign-out" xml:space="preserve"><value>Sign out</value></data>
+  <data name="shell.status-connecting" xml:space="preserve"><value>Connecting</value></data>
+  <data name="shell.status-disconnected" xml:space="preserve"><value>Disconnected</value></data>
+  <data name="shell.status-ready" xml:space="preserve"><value>Ready</value></data>
+  <data name="shell.status-signed-out" xml:space="preserve"><value>Signed out</value></data>
+  <data name="shell.terminal-font-size" xml:space="preserve"><value>Terminal font size</value></data>
+  <data name="shell.theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="state.active" xml:space="preserve"><value>Active</value></data>
+  <data name="state.busy" xml:space="preserve"><value>Busy</value></data>
+  <data name="state.cancelled" xml:space="preserve"><value>Cancelled</value></data>
+  <data name="state.connecting" xml:space="preserve"><value>Connecting</value></data>
+  <data name="state.crashed" xml:space="preserve"><value>Crashed</value></data>
+  <data name="state.creating" xml:space="preserve"><value>Creating</value></data>
+  <data name="state.current" xml:space="preserve"><value>Current session</value></data>
+  <data name="state.dirty" xml:space="preserve"><value>Unsaved changes</value></data>
+  <data name="state.disabled" xml:space="preserve"><value>Disabled</value></data>
+  <data name="state.disconnected" xml:space="preserve"><value>Disconnected</value></data>
+  <data name="state.downloading" xml:space="preserve"><value>Downloading</value></data>
+  <data name="state.empty" xml:space="preserve"><value>Empty</value></data>
+  <data name="state.enabled" xml:space="preserve"><value>Enabled</value></data>
+  <data name="state.error" xml:space="preserve"><value>Error</value></data>
+  <data name="state.failed" xml:space="preserve"><value>Failed</value></data>
+  <data name="state.granted" xml:space="preserve"><value>Granted</value></data>
+  <data name="state.incompatible" xml:space="preserve"><value>Incompatible</value></data>
+  <data name="state.initialized" xml:space="preserve"><value>Initialized</value></data>
+  <data name="state.inspecting" xml:space="preserve"><value>Inspecting</value></data>
+  <data name="state.instance-status" xml:space="preserve"><value>Instance status</value></data>
+  <data name="state.invalid" xml:space="preserve"><value>Invalid</value></data>
+  <data name="state.loading" xml:space="preserve"><value>Loading</value></data>
+  <data name="state.no-active-release" xml:space="preserve"><value>No active release</value></data>
+  <data name="state.not-granted" xml:space="preserve"><value>Not granted</value></data>
+  <data name="state.not-initialized" xml:space="preserve"><value>Not initialized</value></data>
+  <data name="state.offline" xml:space="preserve"><value>Offline</value></data>
+  <data name="state.online" xml:space="preserve"><value>Online</value></data>
+  <data name="state.pending" xml:space="preserve"><value>Pending</value></data>
+  <data name="state.processing" xml:space="preserve"><value>Processing</value></data>
+  <data name="state.ready" xml:space="preserve"><value>Ready</value></data>
+  <data name="state.redirect-countdown" xml:space="preserve"><value>Redirecting soon</value></data>
+  <data name="state.restart-required" xml:space="preserve"><value>Restart required</value></data>
+  <data name="state.revoked" xml:space="preserve"><value>Revoked</value></data>
+  <data name="state.running" xml:space="preserve"><value>Running</value></data>
+  <data name="state.saving" xml:space="preserve"><value>Saving</value></data>
+  <data name="state.starting" xml:space="preserve"><value>Starting</value></data>
+  <data name="state.stopped" xml:space="preserve"><value>Stopped</value></data>
+  <data name="state.stopping" xml:space="preserve"><value>Stopping</value></data>
+  <data name="state.submitting" xml:space="preserve"><value>Submitting</value></data>
+  <data name="state.succeeded" xml:space="preserve"><value>Succeeded</value></data>
+  <data name="state.uploading" xml:space="preserve"><value>Uploading</value></data>
+  <data name="state.valid" xml:space="preserve"><value>Valid</value></data>
+  <data name="state.validating" xml:space="preserve"><value>Validating</value></data>
+  <data name="terminal.console.title" xml:space="preserve"><value>Instance console</value></data>
+  <data name="terminal.window-limit" xml:space="preserve"><value>Up to 8 independent terminal windows can be open at once. Close an existing window first.</value></data>
+  <data name="terminal.window-title" xml:space="preserve"><value>{0} · {1} · Independent terminal</value></data>
+  <data name="theme.dark" xml:space="preserve"><value>Dark</value></data>
+  <data name="theme.light" xml:space="preserve"><value>Light</value></data>
+  <data name="theme.system" xml:space="preserve"><value>Use system setting</value></data>
+  <data name="transfer.drop-caption" xml:space="preserve"><value>Drop to add to the current task</value></data>
+  <data name="transfer.drop-ready" xml:space="preserve"><value>The dropped archive is selected; review the fields, then run the corresponding action.</value></data>
+  <data name="transfer.remaining" xml:space="preserve"><value>Remaining</value></data>
+  <data name="tray.about" xml:space="preserve"><value>About Servitium</value></data>
+  <data name="tray.cancel-pause" xml:space="preserve"><value>Cancel pause</value></data>
+  <data name="tray.close-explanation" xml:space="preserve"><value>Servitium will keep running in the system tray. Server, Agent, and Minecraft instances will not stop. You can change this behavior in local settings.</value></data>
+  <data name="tray.exit-confirmation" xml:space="preserve"><value>Only the Desktop client will exit. Server, Agent, and Minecraft instances will continue running. Continue?</value></data>
+  <data name="tray.instances" xml:space="preserve"><value>Instances</value></data>
+  <data name="tray.notification-settings" xml:space="preserve"><value>Notification categories</value></data>
+  <data name="tray.pause-30-minutes" xml:space="preserve"><value>Pause for 30 minutes</value></data>
+  <data name="tray.pause-notifications" xml:space="preserve"><value>Pause or resume notifications</value></data>
+  <data name="tray.pause-one-hour" xml:space="preserve"><value>Pause for 1 hour</value></data>
+  <data name="tray.pause-until-restart" xml:space="preserve"><value>Pause until Desktop restarts</value></data>
+  <data name="tray.show" xml:space="preserve"><value>Show main window</value></data>
+  <data name="user.account.title" xml:space="preserve"><value>Account settings</value></data>
+  <data name="user.grants.safety-message" xml:space="preserve"><value>Instance grants immediately change which instances this user can access and apply consistently to REST, realtime events, file streams, and Agent commands. A bulk revocation can interrupt active operations; verify the user and every selected instance before submitting.</value></data>
+  <data name="user.grants.safety-title" xml:space="preserve"><value>Instance grant safety</value></data>
+  <data name="user.grants.title" xml:space="preserve"><value>User instance grants</value></data>
+  <data name="user.list.title" xml:space="preserve"><value>User management</value></data>
+  <data name="value.audit-category.authentication" xml:space="preserve"><value>Authentication</value></data>
+  <data name="value.audit-category.authorization" xml:space="preserve"><value>Authorization</value></data>
+  <data name="value.audit-category.credential" xml:space="preserve"><value>Credential</value></data>
+  <data name="value.audit-category.destructive-action" xml:space="preserve"><value>Destructive action</value></data>
+  <data name="value.audit-category.security-setting" xml:space="preserve"><value>Security setting</value></data>
+  <data name="value.collision-policy.keep-both" xml:space="preserve"><value>Keep both with a new name</value></data>
+  <data name="value.collision-policy.overwrite" xml:space="preserve"><value>Overwrite existing item</value></data>
+  <data name="value.collision-policy.reject" xml:space="preserve"><value>Reject on conflict</value></data>
+  <data name="value.collision-policy.skip" xml:space="preserve"><value>Skip conflicting item</value></data>
+  <data name="value.entry-name-encoding.gbk" xml:space="preserve"><value>GBK</value></data>
+  <data name="value.entry-name-encoding.utf-8" xml:space="preserve"><value>UTF-8</value></data>
+  <data name="value.extract-encoding.auto" xml:space="preserve"><value>Auto detect</value></data>
+  <data name="value.extract-encoding.gbk" xml:space="preserve"><value>GBK</value></data>
+  <data name="value.extract-encoding.utf-8" xml:space="preserve"><value>UTF-8</value></data>
+  <data name="value.grant-state.all" xml:space="preserve"><value>All instances</value></data>
+  <data name="value.grant-state.granted" xml:space="preserve"><value>Granted</value></data>
+  <data name="value.grant-state.not-granted" xml:space="preserve"><value>Not granted</value></data>
+  <data name="value.instance-source.archive" xml:space="preserve"><value>Server archive</value></data>
+  <data name="value.instance-source.directory" xml:space="preserve"><value>External absolute path</value></data>
+  <data name="value.instance-source.empty" xml:space="preserve"><value>Empty instance</value></data>
+  <data name="value.integrity.invalid" xml:space="preserve"><value>Integrity invalid</value></data>
+  <data name="value.integrity.valid" xml:space="preserve"><value>Integrity valid</value></data>
+  <data name="value.language.en-us" xml:space="preserve"><value>English (United States)</value></data>
+  <data name="value.language.zh-hans" xml:space="preserve"><value>Simplified Chinese</value></data>
+  <data name="value.operation-kind.batch-instances" xml:space="preserve"><value>Batch instance action</value></data>
+  <data name="value.operation-kind.complete-file-upload" xml:space="preserve"><value>Complete file upload</value></data>
+  <data name="value.operation-kind.compress-files" xml:space="preserve"><value>Compress files</value></data>
+  <data name="value.operation-kind.convert-prism-instance" xml:space="preserve"><value>Convert Prism instance</value></data>
+  <data name="value.operation-kind.copy-files" xml:space="preserve"><value>Copy files</value></data>
+  <data name="value.operation-kind.create-hmcl-release" xml:space="preserve"><value>Create HMCL release</value></data>
+  <data name="value.operation-kind.create-instance" xml:space="preserve"><value>Create instance</value></data>
+  <data name="value.operation-kind.delete-files" xml:space="preserve"><value>Delete files</value></data>
+  <data name="value.operation-kind.delete-hmcl-channel" xml:space="preserve"><value>Delete HMCL channel</value></data>
+  <data name="value.operation-kind.delete-working-directory" xml:space="preserve"><value>Delete managed working directory</value></data>
+  <data name="value.operation-kind.discover-java" xml:space="preserve"><value>Discover Java</value></data>
+  <data name="value.operation-kind.download-file-from-url" xml:space="preserve"><value>Download file from URL</value></data>
+  <data name="value.operation-kind.extract-archive" xml:space="preserve"><value>Extract archive</value></data>
+  <data name="value.operation-kind.force-stop-instance" xml:space="preserve"><value>Force-stop instance</value></data>
+  <data name="value.operation-kind.import-java" xml:space="preserve"><value>Import Java</value></data>
+  <data name="value.operation-kind.import-server-archive" xml:space="preserve"><value>Import server archive</value></data>
+  <data name="value.operation-kind.move-files" xml:space="preserve"><value>Move files</value></data>
+  <data name="value.operation-kind.publish-hmcl-channel" xml:space="preserve"><value>Publish HMCL channel</value></data>
+  <data name="value.operation-kind.restart-instance" xml:space="preserve"><value>Restart instance</value></data>
+  <data name="value.operation-kind.start-instance" xml:space="preserve"><value>Start instance</value></data>
+  <data name="value.operation-kind.stop-instance" xml:space="preserve"><value>Stop instance</value></data>
+  <data name="value.operation-kind.sync-hmcl-release" xml:space="preserve"><value>Synchronize HMCL release</value></data>
+  <data name="value.operation-kind.unregister-java" xml:space="preserve"><value>Unregister Java</value></data>
+  <data name="value.operation-kind.update-instance" xml:space="preserve"><value>Update instance</value></data>
+  <data name="value.operation-kind.upload-mod" xml:space="preserve"><value>Upload mod or plugin</value></data>
+  <data name="value.outcome.denied" xml:space="preserve"><value>Denied</value></data>
+  <data name="value.outcome.failed" xml:space="preserve"><value>Failed</value></data>
+  <data name="value.outcome.ok" xml:space="preserve"><value>Success</value></data>
+  <data name="value.outcome.success" xml:space="preserve"><value>Success</value></data>
+  <data name="value.release-source.archive" xml:space="preserve"><value>Archive candidate</value></data>
+  <data name="value.release-source.instance" xml:space="preserve"><value>Registered instance</value></data>
+  <data name="value.release-source.prism" xml:space="preserve"><value>Native Prism instance ZIP</value></data>
+  <data name="value.role.administrator" xml:space="preserve"><value>Administrator</value></data>
+  <data name="value.role.owner" xml:space="preserve"><value>Owner</value></data>
+  <data name="value.role.user" xml:space="preserve"><value>User</value></data>
+  <data name="value.sort.modified" xml:space="preserve"><value>Modified time</value></data>
+  <data name="value.sort.name" xml:space="preserve"><value>Name</value></data>
+  <data name="value.sort.size" xml:space="preserve"><value>Size</value></data>
+  <data name="value.source-kind.archive" xml:space="preserve"><value>Server archive</value></data>
+  <data name="value.source-kind.directory" xml:space="preserve"><value>External absolute path</value></data>
+  <data name="value.source-kind.empty" xml:space="preserve"><value>Empty instance</value></data>
+  <data name="value.target-kind.argfile" xml:space="preserve"><value>Java argument file</value></data>
+  <data name="value.target-kind.jar" xml:space="preserve"><value>JAR file</value></data>
+  <data name="value.type.mods" xml:space="preserve"><value>Mods</value></data>
+  <data name="value.type.plugins" xml:space="preserve"><value>Plugins</value></data>
+  <data name="value.visibility.public" xml:space="preserve"><value>Public</value></data>
+  <data name="value.visibility.token" xml:space="preserve"><value>Token access</value></data>
+</root>

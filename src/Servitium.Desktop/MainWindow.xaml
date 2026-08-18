@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Servitium.Desktop.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid x:Name="RootGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowStates">
+                <VisualState x:Name="WindowCompact">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ApplicationTitle.Visibility" Value="Collapsed" />
+                        <Setter Target="ServerTitle.Visibility" Value="Collapsed" />
+                        <Setter Target="ConnectionStatus.Visibility" Value="Collapsed" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WindowMedium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ApplicationTitle.Visibility" Value="Visible" />
+                        <Setter Target="ServerTitle.Visibility" Value="Visible" />
+                        <Setter Target="ConnectionStatus.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="WindowExpanded">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1200" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ApplicationTitle.Visibility" Value="Visible" />
+                        <Setter Target="ServerTitle.Visibility" Value="Visible" />
+                        <Setter Target="ConnectionStatus.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar" Grid.Row="0" Padding="8,0,148,0" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" MinWidth="120" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" MinWidth="96" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BackButton" Click="BackButton_Click" IsEnabled="False">
+                <SymbolIcon Symbol="Back" />
+            </Button>
+            <TextBlock x:Name="ApplicationTitle" Grid.Column="1" MaxWidth="280" VerticalAlignment="Center" Style="{ThemeResource SubtitleTextBlockStyle}" TextTrimming="CharacterEllipsis" />
+            <TextBlock x:Name="ServerTitle" Grid.Column="2" Margin="8,0" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextTrimming="CharacterEllipsis" />
+            <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Ellipse x:Name="ConnectionIndicator" Width="8" Height="8" Fill="{ThemeResource SystemFillColorCautionBrush}" />
+                <TextBlock x:Name="ConnectionStatus" MaxWidth="132" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+        </Grid>
+
+        <NavigationView
+            x:Name="Navigation"
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Auto"
+            OpenPaneLength="320"
+            CompactPaneLength="48"
+            IsPaneToggleButtonVisible="True"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            MinHeight="0"
+            SelectionChanged="Navigation_SelectionChanged">
+            <NavigationView.PaneHeader>
+                <ScrollViewer x:Name="ConnectionPaneScroll" MaxHeight="280" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ConnectionPane" Margin="0,8,8,12" Spacing="8">
+                    <ComboBox x:Name="ServerProfileBox" AutomationProperties.AutomationId="shell:server-profile" MinWidth="240" HorizontalAlignment="Stretch" SelectionChanged="ServerProfileBox_SelectionChanged" />
+                    <TextBox x:Name="ServerAddressBox" AutomationProperties.AutomationId="shell:server-address" MinWidth="240" HorizontalAlignment="Stretch" />
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ConnectButton" HorizontalAlignment="Stretch" Click="ConnectButton_Click" />
+                        <Button x:Name="RenameServerButton" Grid.Column="1" Click="RenameServerButton_Click" />
+                        <Button x:Name="DeleteServerButton" Grid.Column="2" Click="DeleteServerButton_Click" />
+                    </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </NavigationView.PaneHeader>
+            <NavigationView.PaneFooter>
+                <ScrollViewer x:Name="PreferencesPaneScroll" MaxHeight="420" HorizontalContentAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="PreferencesPane" Margin="0,12,8,8" Spacing="8">
+                    <ComboBox x:Name="LanguageBox" AutomationProperties.AutomationId="shell:language" MinWidth="240" HorizontalAlignment="Stretch" SelectionChanged="LanguageBox_SelectionChanged" />
+                    <ComboBox x:Name="ThemeBox" AutomationProperties.AutomationId="shell:theme" MinWidth="240" HorizontalAlignment="Stretch" SelectionChanged="ThemeBox_SelectionChanged" />
+                    <ToggleSwitch x:Name="CloseToTrayToggle" AutomationProperties.AutomationId="shell:close-to-tray" HorizontalAlignment="Stretch" Toggled="CloseToTrayToggle_Toggled" />
+                    <TextBlock x:Name="TerminalFontSizeLabel" />
+                    <Slider x:Name="TerminalFontSizeSlider" Minimum="12" Maximum="20" StepFrequency="1" HorizontalAlignment="Stretch" ValueChanged="TerminalFontSizeSlider_ValueChanged" />
+                    <Button x:Name="NotificationSettingsButton" HorizontalAlignment="Stretch" Click="NotificationSettingsButton_Click" />
+                    <Button x:Name="SignOutButton" HorizontalAlignment="Stretch" Click="SignOutButton_Click" />
+                    </StackPanel>
+                </ScrollViewer>
+            </NavigationView.PaneFooter>
+            <Grid x:Name="PageContentGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinHeight="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <InfoBar x:Name="ShellStatus" Margin="16,12,16,0" IsOpen="False" IsClosable="True" />
+                <ContentPresenter x:Name="PageHost" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" MinHeight="0" />
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Window>

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Servitium.Contracts\Servitium.Contracts.csproj" />
+    <ProjectReference Include="..\Servitium.Domain\Servitium.Domain.csproj" />
+  </ItemGroup>
+</Project>
