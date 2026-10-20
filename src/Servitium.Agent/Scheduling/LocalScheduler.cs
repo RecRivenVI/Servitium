@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ using Servitium.Agent.Storage;
 using Servitium.Application.Abstractions;
 using Servitium.Contracts.Scheduling;
 using Servitium.Contracts.Events;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 
 namespace Servitium.Agent.Scheduling;

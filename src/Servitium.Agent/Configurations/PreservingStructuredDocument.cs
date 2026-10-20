@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 using Tomlyn.Parsing;
 using Tomlyn.Syntax;

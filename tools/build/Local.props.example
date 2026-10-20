@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <ServitiumDotnetExe>dotnet</ServitiumDotnetExe>
+    <ServitiumArtifactsRoot></ServitiumArtifactsRoot>
+  </PropertyGroup>
+</Project>

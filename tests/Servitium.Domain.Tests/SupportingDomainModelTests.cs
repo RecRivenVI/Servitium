@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using Servitium.Domain.Auditing;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Domain.Distribution;
 using Servitium.Domain.Files;
 using Servitium.Domain.Identity;

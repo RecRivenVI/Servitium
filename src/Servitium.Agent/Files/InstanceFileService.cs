@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -16,7 +16,7 @@ using Servitium.Agent.Paths;
 using Servitium.Application.Abstractions;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Files;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Files;
 

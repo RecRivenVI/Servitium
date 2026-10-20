@@ -1,4 +1,4 @@
-﻿using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Domain.Files;
 

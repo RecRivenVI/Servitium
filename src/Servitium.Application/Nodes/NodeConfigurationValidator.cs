@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 
 using Servitium.Contracts.Nodes;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Application.Nodes;
 

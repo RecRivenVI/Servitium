@@ -1,9 +1,9 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Server.Security;
 
 using Xunit;

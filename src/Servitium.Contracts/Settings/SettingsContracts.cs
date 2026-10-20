@@ -1,4 +1,4 @@
-﻿namespace Servitium.Contracts.Settings;
+namespace Servitium.Contracts.Settings;
 
 /// <summary>系统设置响应。</summary>
 /// <param name="DefaultLanguage">默认语言。</param>

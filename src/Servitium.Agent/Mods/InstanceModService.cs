@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Servitium.Agent.Instances;
 using Servitium.Agent.Paths;
 using Servitium.Contracts.Mods;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Mods;
 

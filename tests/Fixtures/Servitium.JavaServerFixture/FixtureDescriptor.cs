@@ -1,4 +1,4 @@
-﻿namespace Servitium.JavaServerFixture;
+namespace Servitium.JavaServerFixture;
 
 /// <summary>
 /// 提供 Java 测试服务端产物的稳定名称。

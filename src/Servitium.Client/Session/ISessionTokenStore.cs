@@ -1,4 +1,4 @@
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Servitium.Client.Session;
@@ -12,4 +12,3 @@ public interface ISessionTokenStore
     /// <summary>保存或清除当前服务器的会话令牌。</summary>
     Task WriteAsync(string serverKey, string? token, CancellationToken cancellationToken);
 }
-

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 using Servitium.Application.Abstractions;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Identity;
 using Servitium.Contracts.Nodes;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
 using Servitium.Application.Abstractions;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Identity;
 using Servitium.Contracts;
 using Servitium.Contracts.Identity;
 using Servitium.Contracts.Settings;
 using Servitium.Infrastructure.Networking;
 using Servitium.Infrastructure.Persistence;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Server.Security;
 

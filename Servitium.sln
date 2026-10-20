@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servitium.Server.Integratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servitium.Agent.IntegrationTests", "tests\Servitium.Agent.IntegrationTests\Servitium.Agent.IntegrationTests.csproj", "{85555555-5555-5555-5555-555555555555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servitium.Client.ContractTests", "tests\Servitium.Client.ContractTests\Servitium.Client.ContractTests.csproj", "{86666666-6666-6666-6666-666666666666}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servitium.Client.Tests", "tests\Servitium.Client.Tests\Servitium.Client.Tests.csproj", "{86666666-6666-6666-6666-666666666666}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servitium.Desktop.Tests", "tests\Servitium.Desktop.Tests\Servitium.Desktop.Tests.csproj", "{89999999-9999-9999-9999-999999999999}"
 EndProject

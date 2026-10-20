@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Servitium.Contracts.Distribution;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 
 namespace Servitium.Infrastructure.Distribution;

@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Paths;
 

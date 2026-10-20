@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 
 using Servitium.Contracts.Distribution;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Distribution;
 
 using Xunit;

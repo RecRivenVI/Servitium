@@ -1,4 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 using Servitium.Desktop.AppModel;
 using Servitium.Desktop.Shell;

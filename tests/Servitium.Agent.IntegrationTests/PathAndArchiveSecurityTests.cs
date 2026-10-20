@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Formats.Tar;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using Servitium.Agent.Archives;
 using Servitium.Agent.Paths;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 using Xunit;
 

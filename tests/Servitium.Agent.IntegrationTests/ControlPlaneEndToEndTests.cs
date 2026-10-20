@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -774,14 +774,6 @@ public sealed class ControlPlaneEndToEndTests
 
     private static string FindFixtureJar()
     {
-        DirectoryInfo? current = new(AppContext.BaseDirectory);
-        while (current is not null && !File.Exists(Path.Combine(current.FullName, "Servitium.sln")))
-        {
-            current = current.Parent;
-        }
-
-        return current is null
-            ? throw new InvalidOperationException("The repository root could not be located.")
-            : Path.Combine(current.FullName, "artifacts", "test-fixtures", "Servitium.JavaServerFixture.jar");
+        return Path.Combine(AppContext.BaseDirectory, "Servitium.JavaServerFixture.jar");
     }
 }

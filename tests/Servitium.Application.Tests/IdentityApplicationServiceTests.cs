@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using Servitium.Application.Abstractions;
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Identity;
 using Servitium.Domain.Identity;
 

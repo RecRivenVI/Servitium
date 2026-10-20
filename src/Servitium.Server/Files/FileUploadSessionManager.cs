@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Servitium.Application.Abstractions;
 using Servitium.Application.Files;
 using Servitium.Contracts.Files;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Server.Hosting;
 
 namespace Servitium.Server.Files;

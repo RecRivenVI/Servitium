@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Configurations;
 using Servitium.Contracts.Mods;
 using Servitium.Contracts.Operations;

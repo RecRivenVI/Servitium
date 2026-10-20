@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ using Servitium.Agent.Security;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Agent.V1;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using System.Collections.Generic;
 using System.Linq;
 

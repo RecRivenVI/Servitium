@@ -3,12 +3,10 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const sourceRoot = dirname(fileURLToPath(import.meta.url));
-const outputRoot = resolve(process.argv[2] ?? join(sourceRoot, "..", "obj", "WebAssets"));
-const expectedParent = resolve(sourceRoot, "../../..");
-
-if (!outputRoot.startsWith(expectedParent + "\\") && !outputRoot.startsWith(expectedParent + "/")) {
-  throw new Error("Desktop WebAssets output must stay inside the Servitium repository.");
+if (!process.argv[2]) {
+  throw new Error("Pass the external WebAssets output directory.");
 }
+const outputRoot = resolve(process.argv[2]);
 
 await mkdir(outputRoot, { recursive: true });
 await cp(join(sourceRoot, "site"), outputRoot, { recursive: true, force: true });

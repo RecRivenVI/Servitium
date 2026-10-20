@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 
 using Servitium.Agent.Configurations;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 using Xunit;
 

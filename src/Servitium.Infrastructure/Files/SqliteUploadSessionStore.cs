@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 using Servitium.Application.Files;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 
 namespace Servitium.Infrastructure.Files;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 using Servitium.Contracts.Auditing;
 using Servitium.Contracts.Configurations;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Files;
 using Servitium.Contracts.Identity;

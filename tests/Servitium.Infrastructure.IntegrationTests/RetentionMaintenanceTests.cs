@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -67,7 +67,7 @@ public sealed class RetentionMaintenanceTests
                 Assert.Contains(await context.AuditLogs.ToArrayAsync().ConfigureAwait(true), row => row.Action == "maintenance.audit-retention");
             }
 
-            _ = await Assert.ThrowsAsync<Domain.Common.DomainException>(() => maintenance.RunAsync(
+            _ = await Assert.ThrowsAsync<Domain.Primitives.DomainException>(() => maintenance.RunAsync(
                 new RetentionPolicy(AuditDays: 89), CancellationToken.None)).ConfigureAwait(true);
         }
         finally

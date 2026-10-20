@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
-using Servitium.Contracts.Common;
+using Servitium.Application.Results;
+using Servitium.Contracts.Transport;
 using Servitium.Domain.Identity;
 
 using Xunit;

@@ -1,434 +1,333 @@
-# AGENTS.md
+# 仓库规范
 
-本文件约束在 Servitium 仓库中工作的全部编码 Agent。
+规范版本：1.0.0
 
-违反本文件的行为视为缺陷。
+本文件是 RecRivenVI 个人项目共用的仓库规范，写给编程 Agent，也约束人类开发者。它由本文的通用部分和文末本仓库所用技术栈的附则组成，两部分在项目内都不修改（G-08）。规范的正式来源是 `D:\Workspaces\Artifacts\ClaudeExternalReview\Specs\`。项目信息与补充规则写在项目规范 [documents/AGENTS.md](documents/AGENTS.md) 中，它只能补充本规范，不能放宽或改写。开始工作前，先读完这两份文件和 `documents/project/status-*.md`。
 
-## 1. 规则优先级
+工作区根目录 `AGENTS.md` 的规定同样适用，本规范不重复，包括目录用途、删除一律进回收站、产物放在仓库之外等。
 
-冲突时按下列顺序裁决，序号小的优先：
+本规范不设机械检查，也不设持续集成。所有规则由执行者自觉遵守，任务结束前按第 11 节自查。规则编号用于引用：发现违反时，在汇报中写明编号。
 
-1. 用户在当前会话中的明确指示；
-2. 本文件；
-3. `docs/product/decision-baseline.md`（18 条固定决策 + 13 条派生约束）；
-4. `docs/product/functional-specification.md`（需求基线）；
-5. `docs/architecture/**`、`docs/design/**`、`docs/reference/**`；
-6. `docs/engineering/**`、`docs/development/**`、`docs/testing/**`；
-7. `docs/records/**`（事实记录，不构成规则）；
-8. 代码中的既有实现。
+## 1. 目标
 
-发现 2–6 之间存在矛盾时，**不要自行选择一方**：写入 `docs/records/change-requests.md` 并等待用户裁决。
+规范服务于以下五个目标。遇到规则没有覆盖的情况，按这些目标判断：
 
-## 2. 产品边界
+1. **一次读懂**：新来的执行者读完规范、首页和进度页，就知道项目是什么、怎么构建、做到了哪里、下一步做什么。
+2. **一处事实**：每项事实只在一处定义，改一处即全部生效。
+3. **只有现在**：仓库只放当前有效的内容，历史交给 Git 和少数记录型文档。
+4. **先能用，再扩展**：核心路径先端到端可用，界面为人设计。
+5. **跟随惯例**：结构与写法跟随技术栈的默认约定，不自创体系。
 
-Servitium 是面向 Windows 的 Minecraft Java 服务端托管与整合内容分发平台。
+## 2. 总则
 
-**只做**：Minecraft Java 服务端。
+- **G-01** 只改动任务所需的范围，不改动无关的模块、文档或配置。
+- **G-02** 仓库只描述当前状态。不保留旧实现、兼容分支、注释掉的代码，也不写"原先如何"的说明。需要追溯的内容由 Git 历史、决策记录和更新日志承担。
+- **G-03** 每项事实只在一处定义，其他位置从该处取值或链接过去（第 5 节）。
+- **G-04** 生成的内容不手工编辑：它由自己的来源和生成命令产生，生成文件标明来源。
+- **G-05** 以下内容不进仓库：实验、探针、临时脚本、运行实例、测试世界或数据集、运行结果与证据。前四类放在工作区 `Scratches`，后两类放在工作区 `Artifacts`。可重复执行的验证定义按 T-05 放在 `validations/`。
+- **G-06** 不跟踪构建产物、安装包、依赖目录和二进制文件；例外由附则列出，例如 Gradle Wrapper 的 JAR。不用 `git add -f` 绕过忽略规则。
+- **G-07** 不提交密钥、签名文件、本机路径和个人配置。它们写在被忽略的本地文件里，文件名由附则规定。
+- **G-08** 根目录 `AGENTS.md` 在项目内不修改。需要修改规范时向用户提出，由规范来源统一修订，再同步到各仓库。
+- **G-09** 分支项目（fork）沿用上游的结构、命名与写法。本规范只约束本项目新增的代码、文档与流程；与上游冲突时以上游为准，并在项目规范中写明。
 
-**不做**：通用进程托管、Steam / SteamCMD、Minecraft 基岩版、MCDReforged、Docker 与镜像管理、全局 WebShell、模板与快速安装市场、商业兑换与商城、内置内网穿透（如 OpenFRP）、第三方模组市场检索与下载、旧产品数据迁移、旧架构兼容层、Portable 运行模式、其他启动器的整合包格式。
+## 3. 范围
 
-不得以「顺手加上」「未来可能需要」为由引入排除项。
+- **R-01** 先打通核心路径。项目规范写明用户最主要的那件事。它端到端可用、经用户验收之前，不做外围功能，例如账户、权限、分享、审计、备份、远程访问、插件机制和发布门禁，除非用户明确要求。
+- **R-02** 只做用户要求的功能。想到的扩展写进 `documents/project/backlog-*.md`，不顺手实现。
+- **R-03** "可用"以用户实际操作完成任务为准。入口、接口和测试齐全，不等于可用。
+- **R-04** 宁可少而完整。做不完的功能不留半成品入口，未完成的功能不出现在界面上。
+- **R-05** 范围的新增、删减和推迟由用户决定，并同步到 `documents/project/overview-*.md` 或 `scope-*.md`。
 
-## 3. 必读文档与顺序
+## 4. 目录
 
-首次接手时按此顺序读完：
+- **L-01** 目录结构采用技术栈的默认约定，见附则。在此之上，根目录只可再有以下条目：
+  - 文件：`AGENTS.md`、`README.md`、`README-<区域代号>.md`、`LICENSE`、`NOTICE`、`.gitignore`、`.gitattributes`、`.editorconfig`、`.gitmodules`；
+  - 目录：`documents/`、`validations/`、`tools/`、`third_party/`。
 
-```text
-1  AGENTS.md（本文件）
-2  docs/index.md
-3  docs/product/product-definition.md
-4  docs/product/decision-baseline.md
-5  docs/product/functional-specification.md
-6  docs/architecture/system-architecture.md
-7  docs/architecture/protocols-and-contracts.md
-8  docs/architecture/security-model.md
-9  docs/architecture/data-and-storage.md
-10 docs/architecture/repository-and-solution-layout.md
-11 docs/engineering/engineering-standards.md
-12 docs/engineering/development-environment.md
-13 docs/engineering/build-and-validation.md
-14 docs/development/development-workflow.md
-15 docs/development/master-plan.md
-16 docs/development/phases/<当前阶段>.md
-17 docs/records/current-status.md
+  其余根目录条目只能是附则列出的技术栈文件。
+- **L-02** 模块、包、项目和目录按职责命名，名称说明它做什么。不使用 `common`、`misc`、`shared`、`util`、`utils`、`helper`、`helpers` 这类不表达职责的名字。
+- **L-03** 同一类内容只有一个去处：
+
+| 内容 | 位置 |
+| --- | --- |
+| 产品代码、资源与单元测试 | 技术栈默认位置（附则） |
+| 可重复执行的场景验证定义 | `validations/<type>-<topic>/`（T-05） |
+| 构建、发布与验证用的脚本和工具 | `tools/<name>/` |
+| 第三方源码与 Git 子模块，保持原样 | `third_party/<name>/` |
+| 文档 | `documents/<分类>/`（第 9 节） |
+| 项目信息与补充规则 | `documents/AGENTS.md` |
+| 实验、探针、临时脚本 | 仓库之外：工作区 `Scratches` |
+| 运行实例、结果、证据、发行包 | 仓库之外：工作区 `Artifacts` |
+
+- **L-04** 没有引用的文件和目录直接删除，不保留"以后可能用"的空壳。
+
+## 5. 事实与配置
+
+| 事实 | 唯一来源 |
+| --- | --- |
+| 产品名称、标识、版本号 | 附则规定的一处 |
+| 依赖与工具的版本 | 技术栈的依赖声明与锁定文件（附则） |
+| SDK 与运行时版本 | 附则规定的一处 |
+| 常用命令 | 技术栈的命令入口，如 Gradle 任务、`package.json` 的 `scripts`；说明写在 `documents/development/workflow-*.md` |
+| 本机路径、私密配置与个人偏好 | 被忽略的本地文件（G-07） |
+| 项目定位与范围 | `documents/project/overview-*.md` |
+| 当前进度 | `documents/project/status-*.md` |
+
+- **F-01** 版本号与标识不在多处书写，构建脚本、代码和文档从上表的来源取值或链接。
+- **F-02** 配置项有默认值和说明，完整定义只写在 `documents/reference/configuration-*.md` 一处。
+
+## 6. 代码
+
+- **C-01** 遵循技术栈的官方风格与惯例（附则）。格式交给该技术栈默认的格式化工具，提交前在本地执行。
+- **C-02** 不做防御性编程：
+  - 只为实际会出现的输入和状态写代码；
+  - 每个检查、保护或回退，都要能说出它防止的具体失败，即复现步骤、证据或可达路径；说不出就不加。
+- **C-03** 修根因，不叠补丁，不在下游加判断掩盖症状。
+- **C-04** 不预先抽象。同样的代码出现第二次再提取；只有一个实现时不建接口、工厂或分层，除非技术栈惯例或测试确实需要。
+- **C-05** 不保留死代码：没有引用的代码、未使用的参数、配置与开关、兼容旧实现的分支，一律删除。
+- **C-06** 诊断代码不进生产路径。临时诊断用完即删；确需长期保留的，集中放在一个调试开关后面。
+- **C-07** 一个文件、一个函数只做一件事。文件超过约 600 行或函数超过约 60 行时，先检查是否职责过多，能按职责拆就拆。生成文件除外。
+- **C-08** 同一能力只有一份实现。发现重复实现，合并为一份，删除多余的。
+- **C-09** 错误按技术栈惯例处理：不吞错误，不把失败改写成成功；用户可见的错误说明原因和下一步。
+- **C-10** 注释只写代码表达不了的约束、原因或用法。为防止重复犯错，可以写必要的历史原因。
+- **C-11** 第三方代码保持原样。对上游的修改集中、可列举，并写在 `documents/reference/upstream-*.md` 中。
+- **C-12** 文本文件：
+  - 用 UTF-8 编码，不带字节顺序标记；
+  - 用 LF 换行，技术栈要求 CRLF 的文件除外，如 `.bat`、`.cmd`；
+  - 以一个换行结束，不含行尾空白；
+  - 这些设置写在 `.editorconfig` 和 `.gitattributes` 中。
+
+## 7. 界面
+
+- **U-01** 遵循附则与项目规范指定的设计语言和组件库，使用其标准控件、主题、字体与间距。不另造一套控件，不硬编码颜色和尺寸。
+- **U-02** 按用户要完成的任务组织界面：
+  - 首屏回答"我现在能做什么"；
+  - 最常用的操作一步可达；
+  - 导航层级浅，位置稳定。
+- **U-03** 使用用户的语言。内部 ID、数据结构、状态机名称、调试信息和开发术语不直接出现在界面上；确有需要，放进可展开的"详细信息"。
+- **U-04** 每个状态都有设计：加载、空、错误、无权限、离线。错误提示说明原因和用户能做的下一步。
+- **U-05** 不可逆的操作先确认，并说明后果。能做成可撤销的，优先做成可撤销。
+- **U-06** 设置按用户的心智分组，参照平台系统设置的结构。高级与危险选项单独放置。
+- **U-07** 支持深色模式、系统字体缩放和常见的窗口或屏幕尺寸；桌面端支持键盘操作。
+- **U-08** 界面改动必须实际运行，截图自查后再交付；界面的结论以亲眼看过的画面为准。
+
+## 8. 测试与验证
+
+- **T-01** 测试放在技术栈默认位置，命名跟随技术栈惯例（附则）。
+- **T-02** 每个测试对应一个具体的可能缺陷或已修复的问题。不为覆盖率或数量写测试，不测试框架和语言本身。
+- **T-03** 有标准答案就对照。标准答案包括上游实现、被替换的原有实现、协议或格式规范、参考数据。自写测试只能证明代码符合自己的理解。
+- **T-04** 分级验证：
+  - 每次改动只跑直接相关的构建与测试；
+  - 阶段检查点跑受影响的集成测试；
+  - 交付前在冻结的候选上完整跑一次。
+
+  失败最多原样重跑一次，仍失败就查原因。一次有界调查（约一小时）定位不了的问题记为开放项，交用户决定。
+- **T-05** 需要真实环境、真实数据或人工判断的场景验证，定义写在 `validations/<type>-<topic>/validation.md`，固定包含"目标、运行、通过标准"三节。运行数据与结果放在仓库之外，结论写进相应文档。
+- **T-06** 不设持续集成，不另建检查器或门禁脚本。技术栈自带的构建、测试与 lint 工具在本地按需运行。
+- **T-07** 结论写成"一致""有差异""无法比较"之一，并按可见影响排序。"N 项通过"不作为正确性的证据。
+
+## 9. 文档
+
+`documents/` 按用途分为七类。默认写法由分类决定，文件名不写读者。
+
+| 位置 | 用途 | 默认写法 | 建议类型词 |
+| --- | --- | --- | --- |
+| `usage` | 安装、配置、使用与问题处理 | 用户 | `installation`、`configuration`、`guide`、`feature`、`command`、`compatibility`、`troubleshooting`、`faq`、`limitation` |
+| `release` | 发布、变更、升级与迁移 | 用户 | `changelog`、`release`、`upgrade`、`migration`、`support`、`deprecation` |
+| `development` | 环境、构建、工作流、测试与规程 | 开发者；`procedure` 为 Agent | `setup`、`build`、`workflow`、`testing`、`debugging`、`porting`、`contribution`、`procedure` |
+| `design` | 概念、原则、架构、机制与决策 | 开发者 | `overview`、`concept`、`principle`、`architecture`、`mechanism`、`flow`、`lifecycle`、`security` |
+| `project` | 定位、范围、计划、进度、待办与交接 | 开发者；`plan`、`handoff` 为 Agent | `overview`、`scope`、`proposal`、`roadmap`、`milestone`、`plan`、`status`、`backlog`、`debt`、`handoff` |
+| `reference` | 接口、协议、配置、格式与依赖的精确定义 | 开发者 | `api`、`protocol`、`schema`、`command`、`configuration`、`event`、`format`、`version`、`dependency`、`upstream`、`glossary`、`example` |
+| `research` | 某一时刻的调研、调查、审计、评审与实验 | 开发者 | `survey`、`investigation`、`audit`、`review`、`experiment`、`incident` |
+
+- **D-01** `documents/` 下只有上表的七个分类目录和 `AGENTS.md`。文档直接放在分类目录中，图片放在分类目录的 `images/` 中。
+- **D-02** 命名规则：
+  - 普通文档：`<type>-<topic>.md`；
+  - 决策记录：`design/adr-<number>-<topic>.md`；
+  - 阶段记录：`project/phase-<number>-<topic>.md`；
+  - 译文：在名称末尾加区域代号，如 `guide-setup-en_US.md`；
+  - `<topic>` 由小写英文单词或数字组成，用 `_` 连接；`<number>` 为不带前导零的正整数，从 1 起连续编号。
+- **D-03** `<type>` 取自上表的建议词。确需新词时，在项目规范的补充规则中登记。
+- **D-04** 固定小节：
+  - 名称必须完全一致，可以另加其他小节：
+
+| 文档 | 固定小节 |
+| --- | --- |
+| `procedure` | 适用范围、步骤、验收；可选：前置条件、禁止 |
+| `plan`、`phase` | 目标、范围、步骤、结果；步骤标注"待办、进行中、完成、放弃"之一 |
+| `adr` | 状态、背景、决策、后果；状态只用"提议中、已接受、已弃用、已被 adr-<number> 取代" |
+| `research` 分类 | 问题、方法、发现、结论；一级标题后的第一段写调查日期 `YYYY-MM-DD` |
+| `validation.md` | 目标、运行、通过标准 |
+
+- **D-05** 按分类的默认写法撰写：
+  - **用户写法**：称读者为"你"；先说能做什么，再说怎么做；使用界面上显示的名称；不出现仓库路径和构建命令。
+  - **开发者写法**：先写结论；命令从仓库根目录执行，放在代码块中；引用文件用仓库相对路径链接；不复述源码。
+  - **Agent 写法**：一步一行，按顺序编号；占位符 `<name>` 首次出现时说明；验收条件能由命令结果或文件状态判定。
+- **D-06** 文档只描述当前状态，过时内容直接修改或删除。只有决策记录、阶段记录、研究记录和更新日志记录历史：
+  - 研究记录事后不改写；结论被采纳时，写进决策记录或相应文档；
+  - 被取代的决策记录保留原文，在"状态"中写明取代者。
+- **D-07** 不写流水账：
+  - 不建开发日志、问题日志、验证日志、交付记录这类按时间累积的文档；
+  - 进度写进 `project/status-*.md`，约 10 KB 以内，只写当前状态、剩余工作、下三步和开放项；
+  - 决策写进决策记录；问题写进 `backlog`、`debt` 或 `research/investigation-*`；
+  - 过程交给 Git 历史。
+- **D-08** `README.md` 是首页，只放简介、支持的平台、快速开始、文档入口和许可说明，用项目规范规定的首页语言。
+- **D-09** 更新日志写在 `release/changelog-*.md`：
+  - 按 Keep a Changelog 编写，版本号用语义化版本；
+  - 改动类型只用"新增、变更、弃用、移除、修复、安全"。
+- **D-10** 文档先写结论；同一事实只写一处，其他地方链接过去；篇幅以读者一次能读完为准。Markdown 的标题层级不跳级，代码块标明语言，相对链接指向存在的文件。
+- **D-11** 文档使用项目规范规定的主语言；代码标识、命令、路径和界面上的英文名称保持原文。
+
+## 10. 协作流程
+
+- **W-01** 代码改动与下表的同步项在同一次变更中完成。
+
+| 变更 | 需要同步 |
+| --- | --- |
+| 新增或升级依赖 | 依赖声明与锁定文件、`reference/dependency-*.md` |
+| 用户可见的行为 | `usage/` 中相应文档、更新日志 |
+| 架构或技术方向的决策 | 新的决策记录，并更新相关的 `design/` 文档 |
+| 新增或移除模块、项目 | 构建登记、`design/architecture-*.md` |
+| 构建或运行命令 | `development/workflow-*.md`、`README.md` 的快速开始 |
+| 范围 | `project/overview-*.md` 或 `scope-*.md` |
+| 进度 | `project/status-*.md` |
+
+- **W-02** Git 操作：
+  - 未经用户同意，不提交、不推送、不改写历史、不强推，也不建 tag 或拉取请求；
+  - 提交标题一律写作 `Update`，不写正文；
+  - 一次提交只含本次相关的改动。
+- **W-03** 多步任务先在 `project/plan-*.md` 写计划；工作中断时写 `project/handoff-*.md`，接手完成后删除；任务完成后更新进度页。
+- **W-04** 汇报：
+  - 先说完成了什么、还差什么，再附证据；
+  - 如实写明哪些已验证、哪些未验证，以及原因；
+  - 需要用户决定的事，用一句话写清选项和建议，然后继续做不受影响的工作；
+  - 交给用户的人工验收步骤写成一次能做完的短清单。
+- **W-05** 需求不清楚时先问。用户的指示与本规范冲突时，按用户的指示执行，并在汇报中写明冲突。
+- **W-06** 根目录 `AGENTS.md` 与项目规范合计不超过 32 KiB。
+- **W-07** 不使用子代理（subagent）分派或并行开发，由当前执行者直接完成。
+
+## 11. 完成前自查
+
+任务结束前逐项自查。有不符合的项，要么改正，要么在汇报中按编号写明：
+
+1. 改动只在任务范围内，没有顺手扩功能（G-01、R-02）。
+2. 没有新增防御代码、预先抽象、死代码、诊断代码或重复实现（C-02 至 C-08）。
+3. 新文件放对了位置；实验、结果、生成物和二进制没有进仓库（L-01 至 L-03、G-05、G-06）。
+4. 同一事实只在一处（G-03、F-01）。
+5. 第 10 节表格中的同步项已经完成（W-01）。
+6. 每个新测试都对应具体缺陷；验证按分级和影响范围进行（T-02、T-04）。
+7. 界面改动已实际运行，并看过截图（U-08）。
+8. 文档只写当前状态，进度页已更新（D-06、D-07）。
+9. 格式化工具已运行（C-01）。
+10. 汇报写明了已验证与未验证的内容（W-04）。
+
+## 附则：.NET（WinUI 3、ASP.NET Core）
+
+本附则适用于以 .NET 编写的 Windows 桌面应用与服务。结构采用 .NET 解决方案的常见约定，技术与设计语言采用微软推荐的做法：桌面端用 Windows App SDK 与 WinUI 3，遵循 Fluent Design；服务端用 ASP.NET Core 与 Worker Service。规则编号以 `DN-` 开头。
+
+### 结构
+
+- **DN-01** 根目录可以有以下技术栈文件与目录：
+  - 解决方案文件 `<Name>.sln` 或 `<Name>.slnx`；
+  - `Directory.Build.props`、`Directory.Packages.props`、`global.json`；需要额外的包源时有 `NuGet.config`；
+  - `src/`、`tests/`。
+- **DN-02** 产品项目放在 `src/<Project>/`，测试项目放在 `tests/<Project>.Tests/`。需要真实外部环境的测试单独成项目，命名为 `tests/<Project>.IntegrationTests/`。
+- **DN-03** 项目数量从少开始，只按部署单元和真实复用划分，例如桌面应用、服务、确被多处引用的协议库。
+  - 不为分层而分层，同一部署单元内用文件夹和命名空间区分职责；
+  - 新增项目时说明它独立存在的理由。
+- **DN-04** 命名空间与文件：
+  - 命名空间等于项目名加文件夹路径，使用文件范围命名空间；
+  - 一个文件一个主要类型，文件名与类型名相同。
+
+### 事实
+
+| 事实 | 唯一来源 |
+| --- | --- |
+| .NET SDK 版本 | `global.json` |
+| 所有 NuGet 包的版本 | `Directory.Packages.props`（集中包管理），项目文件中的 `PackageReference` 不写版本 |
+| 产品版本、公共编译设置 | `Directory.Build.props` |
+| 代码风格 | `.editorconfig` |
+| 开发用私密配置 | `dotnet user-secrets` 或被忽略的本地配置文件 |
+
+- **DN-05** `bin/`、`obj/`、`.vs/`、`*.user`、打包输出不进仓库。
+- **DN-06** 生成文件不手改，例如 EF Core 迁移的 `*.Designer.cs` 和模型快照、资源的 `*.Designer.cs`。已发布的迁移不改写。
+
+### 代码
+
+- **DN-07** 编码约定：
+  - 启用可空引用类型；
+  - 异步全链路使用 `async`/`await`，不用 `.Result` 或 `.Wait()`，并传递 `CancellationToken`；
+  - 依赖注入用 `Microsoft.Extensions.DependencyInjection`，日志用 `ILogger<T>`，配置用选项模式。
+- **DN-08** 格式与风格由 `.editorconfig` 规定，提交前执行 `dotnet format`。
+
+### 桌面端（WinUI 3）
+
+- **DN-09** 界面用 XAML 编写，逻辑放在 ViewModel 中，采用 MVVM，使用 CommunityToolkit.Mvvm。
+  - 优先用 `ObservableObject`、`[ObservableProperty]`、`[RelayCommand]`；
+  - 代码隐藏文件只放纯视图逻辑；
+  - 绑定优先用 `x:Bind`；
+  - 不在 C# 中拼装整页界面。
+- **DN-10** 遵循 Fluent Design 与 Windows 应用设计指南：
+  - 使用 WinUI 内置控件和主题资源（`ThemeResource`），不硬编码颜色、字体和间距；
+  - 导航用 `NavigationView`，提示用 `InfoBar`，对话用 `ContentDialog`；
+  - 界面与交互以微软的 WinUI 3 Gallery 应用为参照（U-01）。
+- **DN-11** 界面文字放在资源文件中（`Strings/<语言>/Resources.resw`），不在 XAML 和代码中写死。
+- **DN-12** 打包与部署方式按 Windows App SDK 的部署指南选择：打包的 MSIX，或未打包加安装器（含 Windows 服务的产品通常需要安装器）。选择写成决策记录，步骤写在 `documents/development/build-*.md`。
+
+### 服务端（ASP.NET Core）
+
+- **DN-13** 服务端约定：
+  - HTTP 接口在 Minimal API 与控制器之间择一，全项目统一；
+  - Windows 服务用 Worker Service 模板加 `UseWindowsService()`。
+- **DN-14** Web 管理界面如有，按 Web 前端附则组织，使用 Fluent 2 官方的 Web 实现（WEB-06）。
+
+### 运行与验证
+
+```powershell
+dotnet build
+dotnet test
+dotnet format
 ```
 
-按需查阅：`docs/design/**`（界面）、`docs/reference/**`（参考证据）、`docs/testing/**`（测试）、`docs/product/hmcl-distribution-specification.md`（HMCL）。
+- **DN-15** 测试框架在 MSTest 与 xUnit 中择一，写在项目规范里，全项目统一。
+- **DN-16** 界面改动实际运行桌面应用，截图自查（U-08）；需要管理员权限、多台主机或真实 Minecraft 服务端的场景，按 T-05 定义，运行数据放在仓库之外。
 
-## 4. 固定决策
+## 附则：Web 前端（TypeScript、React）
 
-以下由用户明确确定，**不得重新征询、不得自行改变**：
+本附则适用于以 TypeScript 和 React 编写、用 Vite 构建的浏览器前端，以 Vite 的 React + TypeScript 模板为基础。规则编号以 `WEB-` 开头。
 
-| 主题 | 决策 |
+### 结构
+
+- **WEB-01** 前端放在根目录的 `web/` 中，沿用 Vite 模板的默认结构：`index.html`、`src/`、`public/`、`package.json`、`package-lock.json`、`tsconfig*.json`、`vite.config.ts`。
+- **WEB-02** `src/` 下按页面或功能划分目录，不建 `utils/`、`helpers/`（L-02）。日常使用的界面和管理界面分开组织。
+- **WEB-03** 构建产物不进仓库（G-06），由后端的构建步骤在构建时生成。
+
+### 事实
+
+| 事实 | 唯一来源 |
 | --- | --- |
-| 节点范围 | Windows 分布式：中央控制平面 + WinUI/Web 客户端 + 多个 Windows Agent |
-| 联网边界 | 剔除厂商与商业在线依赖；保留自托管 Web、节点通信、HMCL 分发、URL 下载、私有源、可自托管 OIDC |
-| Web 技术 | React、TypeScript、Fluent UI React v9，由 ASP.NET Core 托管构建产物 |
-| 运行形态 | Server 与 Agent 以 Windows 服务常驻 |
-| 双端一致 | Desktop 与 Web 的信息架构、字段、动作、状态、权限、文案一致；仅允许平台相关的响应式重排 |
-| 分支起点 | `develop` 是不继承旧产品代码的全新起点 |
-| 交付形态 | 完整安装包 + 远程 Agent 专用安装包；不提供 Portable |
-| 实例范围 | 仅 Minecraft Java 服务端 |
-| 工作目录 | 可登记任意绝对路径；路径是实例属性，不是实例身份 |
-| HMCL 范围 | 完整的 Archive、校验、不可变 Release、原子 Channel、客户端自动更新流水线 |
-| Desktop 登录 | Windows 身份 + 受 ACL 保护的本机通道换取短期会话 |
-| 实例删除 | 删除登记与删除目录分离；**外部工作目录永不递归删除** |
-| 系统支持 | Desktop：Windows 11 x64；Server 与 Agent：Windows 11、Windows Server 2022/2025 x64 |
-| Java 启动 | 默认结构化向导；另有受限制的高级原始命令模式 |
-| 容量目标 | 8 个 Agent、64 个实例、20 个并发登录会话、8 个并发终端 |
-| Web 暴露 | 默认仅监听回环；非回环开放必须配置受信 TLS 或明确的可信反向代理模式 |
-| 首发语言 | `zh-Hans` 与 `en-US` |
-| 界面设计 | Fluent 2；MCSManager 只提供功能、信息架构与交互行为参考 |
+| 前端依赖与 Node 版本 | `web/package.json`（`engines`）、`web/package-lock.json` |
+| 接口类型 | 由后端的接口契约生成，不手写重复的类型 |
+| 常用命令 | `web/package.json` 的 `scripts` |
 
-派生约束见 `docs/product/decision-baseline.md` 第 2 节。
+### 代码
 
-## 5. 参考路径实地考察与净室原则
+- **WEB-04** 用函数组件和 Hooks，状态放在离使用处最近的地方；服务端数据的读取、缓存与失效集中用一种方式处理。
+- **WEB-05** 格式用 Prettier，检查用模板自带的 ESLint 配置。
 
-`docs/reference/**` 保存的是带版本定位和验证级别的既有证据，可作为实现起点，但不代表参考实现此后不会变化，也不替代开发过程中的针对性核实。
+### 界面
 
-编码 Agent 在实现、测试或排查兼容性问题时，应按实际需要前往下列绝对路径实地考察：
+- **WEB-06** 项目规范指定一套组件库与设计体系，全站统一使用（U-01）。用 Fluent 2 时，使用其官方 Web 实现：Fluent UI React v9（`@fluentui/react-components`）。
+- **WEB-07** 不把协议、内部状态或长篇解释放在界面上（U-03）；需要说明的，放进帮助或"详细信息"。
 
-```text
-D:\GitHubPublic\HMCL
-D:\GitHubPublic\MCSManager
-D:\GitHubRecRivenVI\PrismLauncher
-E:\Minecraft\MinecraftServersDuoyun\test
+### 运行与验证
+
+```powershell
+cd web
+npm ci
+npm run build
+npm run lint
+npm test
 ```
 
-各路径的主要用途：
-
-* HMCL：协议、更新算法、HTTP 行为与客户端可观察结果；
-* MCSManager：功能分布、页面布局、交互流程、权限与多节点行为；
-* Prism Launcher：原生实例 ZIP 的导出路径、目录结构、`instance.cfg`、`mmc-pack.json` 与游戏目录内容；
-* 本地整合包发布原型：Prism ZIP 转换、候选内容、不可变 Release、稳定 Channel、显式发布与双格式派生。
-
-实地考察应先提出与当前实现直接相关的问题。Git 仓库记录分支、提交和工作树状态；非 Git 参考记录文件时间、证据清单哈希、证据路径和验证方式。静态证据不足时，可在参考路径外的隔离环境中运行有边界的验证。
-
-四个参考路径必须保持只读。编译、依赖安装、探针和运行产物一律放在参考路径外的临时目录或隔离副本。`E:\Minecraft\MinecraftServersDuoyun\test` 中的真实 ZIP、Release、日志、运行状态和备份属于用户数据；没有针对具体验证的授权时，不得读取、复制、移动、解压、执行或用作测试样本。
-
-实地考察用于补充和校正事实证据，不自动改变 Servitium 的产品范围、协议契约、界面契约、阶段顺序或安全要求。新证据只是确认既有决定时，记入 `docs/records/development-log.md` 或 `docs/records/validation-log.md`；新证据与受保护文档冲突，或据此需要改变任何既有决定时，写入 `docs/records/change-requests.md`，附证据来源与复现方式，等待用户裁决。
-
-净室原则始终有效：可以观察外部行为、记录事实和定位标识符，并据此独立设计；不得复制、移植或改写后复用参考项目的源码、资源、样式、图标、界面文案、品牌元素或其他受保护表达，避免引入许可、协议或知识产权纠纷。
-
-## 6. 后端优先与阶段门禁
-
-阶段顺序固定（见 `docs/development/master-plan.md`）：
-
-```text
-00 → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18(硬门禁)
-→ 20 → 21 → 22 → 23 → 24(硬门禁) → 等待用户明确启动交付
-```
-
-规则：
-
-| 规则 | 说明 |
-| --- | --- |
-| 严格串行 | 阶段之间不并行；阶段内按「实施顺序」串行 |
-| 后端优先 | **阶段 18 未通过前，不得开始正式前端开发** |
-| 门禁不可弱化 | 不得以变更请求的方式绕过阶段 18 与阶段 24 |
-| 不提前 | 阶段文档的「禁止进入下一阶段的条件」任一成立即停止 |
-| 不重排 | 阶段过大时提出拆分建议，不得自行重排或合并 |
-| 缺陷即修 | 发现前一阶段的缺陷立即修复并补测试，不推迟 |
-
-阶段 18 的例外：为验证后端而写的最小化脚本或临时页面不构成正式前端开发，且不得保留在仓库中。
-
-## 7. 项目依赖方向
-
-```text
-Domain      ← Application ← Infrastructure ← Server
-                  ↑                          ← Agent
-Contracts ────────┘  ← Client ← Desktop
-                     ← Web（经生成的 TS 客户端）
-```
-
-| 规则 | 强制手段 |
-| --- | --- |
-| `Domain` 不引用任何其他 Servitium 项目，不引用 EF Core、ASP.NET Core 或 I/O 库 | 架构测试 |
-| `Application` 只引用 `Domain` 与 `Contracts` | 架构测试 |
-| `Contracts` 独立 | 架构测试 |
-| `Infrastructure` 实现 `Application` 的端口，不被 `Domain`/`Application` 引用 | 架构测试 |
-| `Server` 与 `Agent` 是组合根 | 约定 |
-| `Client` 只依赖协议与 `Contracts` | 架构测试 |
-| `Desktop` 只经 `Client` 访问 Server，不引用 `Infrastructure` | 架构测试 |
-| `Web` 只使用生成的 TypeScript 客户端，不手写 `fetch`/`axios` | lint + 架构测试 |
-
-## 8. 命名规则
-
-| 类别 | 规则 |
-| --- | --- |
-| 仓库级分类目录 | 小写或 `kebab-case`：`src/`、`tests/`、`docs/`、`eng/`、`installer/`、`artifacts/` |
-| `.NET` 项目目录与项目名 | `PascalCase`，`Servitium.*` |
-| C# 源码子目录 | `PascalCase` |
-| 测试项目后缀 | `.Tests`、`.IntegrationTests`、`.ContractTests`、`.UiTests`、`.EndToEndTests` |
-| `docs/` 分类目录 | 小写或 `kebab-case` |
-| 普通 Markdown 文件 | 小写 `kebab-case` |
-| 生态固定名 | `README.md`、`AGENTS.md` 保持原样 |
-| Web 内部 | `src/`、`features/`、`shared/`、`routes/`、`public/` 用 Web 生态命名 |
-| `wwwroot` 子目录 | 小写：`css/`、`js/`、`images/` |
-| .NET 约定目录 | 保持常见大小写：`Properties/`、`Migrations/`、`Resources/` |
-| 工具固定目录 | `.github/`、`.config/`、`.vscode/` |
-| 构建与依赖目录 | `bin/`、`obj/`、`node_modules/`、`artifacts/` 不得改名 |
-
-## 9. 编码规则
-
-完整规范见 `docs/engineering/engineering-standards.md`。要点：
-
-| 规则 | 说明 |
-| --- | --- |
-| 可空引用类型 | 全项目启用 |
-| 警告即错误 | 启用；不得无理由 `#pragma warning disable` |
-| 时间 | 经 `IClock`；`DateTimeOffset` + UTC；`Domain` 中无 `DateTime` 持久化属性 |
-| 路径 | 经路径校验服务；不直接拼接字符串路径 |
-| 进程 | 经 `IProcessLauncher`；**参数数组，绝不经 shell** |
-| 取消 | 异步方法接受并传递 `CancellationToken` |
-| 异步 | 不使用 `.Result` / `.Wait()` / `.GetAwaiter().GetResult()` |
-| 日志 | 结构化、命名占位符、不记录秘密、服务日志固定 `en-US` |
-| 文案 | 界面不得硬编码用户可见字符串；服务端返回稳定错误码，客户端本地化 |
-| 注释 | 中文；解释「为什么」 |
-| TODO | 禁止未登记的 TODO；确需时写 `// TODO(PB-###): ...` 并在 `problem-log.md` 有条目 |
-| 生成代码 | 不手工编辑；`eng/Generate.ps1 -Verify` 必须无差异 |
-
-## 10. 测试规则
-
-| 规则 | 说明 |
-| --- | --- |
-| 实际运行 | 验收必须实际运行，**不得以代码审查代替** |
-| 不跳过 | 任何测试被跳过即整体失败；缺权限或缺环境时**阻塞并请求用户协助** |
-| 不弱化 | 不得注释测试、降低断言、放宽超时来「解决」失败 |
-| 可重复 | 连续 3 次完整运行必须全部通过；随机失败视为缺陷 |
-| 隔离 | 独立临时目录、独立数据库文件、随机端口 |
-| 确定性 | 不使用固定等待；用轮询 + 超时；时间经 `IClock`；随机固定种子 |
-| 负向优先 | 安全能力必须有负向测试，断言「被拒绝」而非「不崩溃」 |
-| 同阶段编写 | 测试与实现同阶段完成，不推迟 |
-| 回归 | 每个修复的缺陷必须补回归测试并记录编号 |
-| 覆盖率 | `Domain`/`Application` ≥ 85%；整体 ≥ 70% |
-| 平台矩阵 | ConPTY、Job Object、服务宿主、路径、Java 探测须在两个 Windows 版本上验证 |
-
-验证入口唯一：`eng/Validate.ps1`。**不得存在使整体通过的「跳过」路径。**
-
-## 11. 安全规则
-
-完整模型见 `docs/architecture/security-model.md`（41 个威胁）。不可违反的底线：
-
-| 底线 | 说明 |
-| --- | --- |
-| 外部工作目录 | 永不递归删除；只有 `OwnedByServitium = true` 才允许删除目录 |
-| 路径 | 九步校验链；**Agent 侧独立重新校验**，不信任控制平面传来的路径 |
-| 进程 | 参数数组，绝不经 shell；高级原始命令的首参数必须是已登记的 `java.exe` |
-| 进程树 | 每实例独立 Job Object，`KILL_ON_JOB_CLOSE` 且禁止 breakaway |
-| 归档 | ZIP Slip、链接条目、炸弹、深度、非法名全部拦截 |
-| 出站 | URL 下载须通过完整 SSRF 防护（含 DNS rebinding 与逐跳重定向重校验） |
-| 授权 | 单一授权服务；REST、SignalR、文件流、Agent 指令四路径统一；权限变更 2 秒内生效 |
-| CSRF | 任何端点不得关闭 |
-| 审计 | 只追加不可修改；无更新与删除路径 |
-| 秘密 | 不出现在日志、事件、响应、错误消息或诊断导出中 |
-| 暴露 | 默认仅回环；非回环须受信 TLS 或可信反向代理模式 |
-| HMCL manifest | `Cache-Control` 恒为 `no-cache`（否则玩家静默收不到更新，已运行验证） |
-| HMCL overrides | 恒不压缩；强 ETag = 文件 SHA-1；支持 `Range` |
-
-不得以「实现困难」为由降低任何安全要求。
-
-## 12. 权限阻塞规则
-
-需要下列操作而当前无权限时，**停止相关阶段并请求用户协助**：
-
-安装 Windows 服务、修改服务恢复策略、设置系统 ACL、写入受保护目录、创建防火墙规则、安装 MSI、在干净系统执行安装测试。
-
-**不得**：跳过、伪造通过、用静态审查代替、降低安全要求、删除该验收项。
-
-请求时必须给出：阻塞阶段、需要执行的命令、遇到的错误、权限原因、用户需要做什么、系统影响、恢复步骤、清理方式。
-
-同样适用于缺少环境组件（Windows App SDK、WebView2 Runtime、Java、第二个 Windows 平台、外部包源）的情况。
-
-## 13. 动态记录规则
-
-下列文件**应当**持续更新：
-
-```text
-docs/testing/acceptance-matrix.md
-docs/testing/requirements-traceability.md
-docs/records/current-status.md
-docs/records/development-log.md
-docs/records/decision-log.md
-docs/records/problem-log.md
-docs/records/validation-log.md
-docs/records/change-requests.md
-```
-
-要求：
-
-* 只记录事实、状态、证据与变更请求；
-* **不能用于绕过受保护规格**；
-* 日期使用绝对格式 `YYYY-MM-DD`；
-* 验证记录必须写实际运行过的命令与结果，不得写预期值。
-
-`decision-log.md` 只记录**实现级**决策（库选型、内部结构、算法实现方式）。触及产品范围、协议、界面契约、阶段顺序或安全要求的，一律走变更请求。
-
-## 14. 受保护文档规则
-
-下列内容**不得由编码 Agent 自行修改**：
-
-```text
-README.md
-AGENTS.md
-docs/index.md
-docs/product/**
-docs/reference/**
-docs/architecture/**
-docs/design/**
-docs/engineering/**
-docs/development/development-workflow.md
-docs/development/master-plan.md
-docs/development/risk-register.md
-docs/development/phases/**
-docs/testing/test-strategy.md
-docs/testing/backend-acceptance.md
-docs/testing/frontend-acceptance.md
-docs/testing/user-testing-procedure.md
-docs/delivery/delivery-plan.md
-```
-
-变更流程：
-
-1. 在 `docs/records/change-requests.md` 新建条目，写明**当前要求**、**问题**、**建议**、**影响**；
-2. 停止依赖该变更的工作，继续推进其余部分；
-3. 在阶段报告中提示存在待裁决的变更请求；
-4. 等待用户决定；
-5. 未经用户批准不得修改基线。
-
-`README.md` 与 `AGENTS.md` 除非用户明确要求，否则不得更新。
-
-## 15. Git 规则
-
-| 规则 | 说明 |
-| --- | --- |
-| 默认不提交 | 只有用户明确授权后才能执行 `git add` 与 `git commit` |
-| 不推送 | 未经授权不得推送、打标签或发布 |
-| 提交粒度 | 获得授权后按独立、可验证单元提交 |
-| 提交前 | 必须通过对应测试 |
-| 不提交 | 秘密、用户数据、构建产物、大型临时文件 |
-| 分支 | 在 `develop` 上工作；不改写历史；不删除其他分支；不修改远程引用 |
-| 提交信息 | 只允许单行标题；禁止正文、脚注与 Git trailer |
-
-提交标题以 [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) 为结构依据，并采用 [commitlint `type-enum` 规则](https://commitlint.js.org/reference/rules.html#type-enum)列出的完整类型集合。仓库规则比通用规范更严格：每个提交只能有一行标题，必须填写 `scope`，不得在标题后添加空行、正文、脚注、`Signed-off-by`、`Co-authored-by` 或其他 trailer。
-
-标题格式只有一种：
-
-```text
-type(scope): 中文摘要
-```
-
-`scope` 是必填项，用于指出提交主要影响的稳定领域。一次提交涉及多个领域时，选择最能代表变更目的的一个范围；无法选出单一主要范围，说明提交粒度过大，应先拆分提交。
-
-允许的 `type` 只有以下 11 个英文小写词：
-
-| type | 用途 |
-| --- | --- |
-| `build` | 构建系统或外部依赖变更 |
-| `chore` | 不改变产品行为的日常维护 |
-| `ci` | 持续集成配置与脚本变更 |
-| `docs` | 仅文档变更 |
-| `feat` | 新增功能 |
-| `fix` | 修复缺陷 |
-| `perf` | 性能改进 |
-| `refactor` | 不新增功能也不修复缺陷的代码重构 |
-| `revert` | 撤销既有提交 |
-| `style` | 不影响行为的格式、空白或样式整理 |
-| `test` | 新增或修正测试 |
-
-`scope` 优先使用下列八个宏观中文词汇：
-
-| scope | 适用范围 |
-| --- | --- |
-| `仓库` | 仓库整体结构、治理规则与通用配置 |
-| `文档` | 产品、架构、设计、开发与记录文档 |
-| `后端` | Domain、Application、Server、Agent、存储与协议实现 |
-| `前端` | Web、Desktop、共享客户端与界面 |
-| `工程` | 构建脚本、依赖、代码生成、开发环境与 CI |
-| `测试` | 测试代码、夹具、验收与验证设施 |
-| `安全` | 身份、授权、秘密、路径、归档及其他安全能力 |
-| `交付` | 安装包、升级、卸载、签名、发布与交付流程 |
-
-标题字符规则：
-
-* `type` 必须取自上表，使用英文小写；
-* `scope` 必须存在并优先取自上表。现有词汇确实无法准确表达时，可以新增同等宏观粒度的简短中文名词；不得为单个模块、功能、协议或页面建立细粒度 `scope`。只有固定技术名或产品名没有合适中文表达时，才使用英文单词；
-* 一个标题只使用一个 `scope`，范围内部不添加顿号、逗号、斜杠或其他分隔符；
-* 前缀中的 `(`、`)`、`:` 以及冒号后的空格必须使用 ASCII 半角字符；`type(scope):` 区域严禁使用中文全角标点；
-* 冒号后的摘要必须使用中文；摘要需要标点时，只使用中文全角标点，不得混入英文逗号、句号、分号、冒号或括号；
-* 标题只概括该提交的主要变动；验证结果、关联编号与详细背景写入对应动态记录，不写入提交信息。
-
-示例：
-
-```text
-docs(文档): 统一参考实地考察、净室边界与提交规范
-fix(后端): 修复重连后实例状态丢失问题
-feat(前端): 增加节点连接状态筛选
-```
-
-## 16. 用户验收规则
-
-| 规则 | 说明 |
-| --- | --- |
-| 何时请求用户 | 仅在阶段 24、权限阻塞、变更请求裁决、阶段文档明确标注的检查点 |
-| 环境 | Development ASP.NET Core、Vite 开发服务器、Debug WinUI、独立测试数据库、独立测试目录、可见日志、可识别的进程与 PID、**不污染正式数据** |
-| 请求内容 | 当前阶段、Agent 已完成的测试、启动的进程与 PID、地址、测试账号、测试数据、操作步骤、每步预期结果、日志位置、已知限制、停止方式、需要反馈的结果 |
-| 禁止 | **不得只说「请测试」** |
-| 判定 | 用户未明确确认通过时，不得标记用户验收完成 |
-| 反馈 | 用户提出的问题记入 `docs/records/problem-log.md`；阻断与高严重度必须本轮修复并回归 |
-
-## 17. 交付启动门
-
-**开发完成不自动进入交付。**
-
-交付启动必须**同时**满足：
-
-1. 后端完整验收通过（阶段 18）；
-2. Web 与 Desktop 的 Agent 自测通过（阶段 23）；
-3. 用户在测试环境完成测试（阶段 24）；
-4. 用户明确确认验收通过；
-5. **用户随后明确要求开始交付**。
-
-第 5 条独立于第 4 条。验收通过不等于授权交付。
-
-交付流程见 `docs/delivery/delivery-plan.md`。
-
-在用户于交付阶段明确选择之前，**不得创建 `.github/workflows/`**，不得编写任何 CI 配置。
-
-## 18. 明确禁止的行为
-
-| 禁止 | 理由 |
-| --- | --- |
-| 把参考实现的源码、资源、样式、图标、文案或品牌元素引入 Servitium | 违反净室原则并可能引入许可、协议或知识产权纠纷 |
-| 未经记录与裁决，依据新证据改变产品、协议、界面、阶段或安全决定 | 实地考察不构成变更授权 |
-| 修改 `docs/reference/**` 的证据来迎合实现 | 破坏事实基线 |
-| 自行修改受保护文档 | 需用户批准 |
-| 跳过测试或降低断言 | 破坏验收有效性 |
-| 用静态审查代替实际运行 | 明确禁止 |
-| 提前进入下一阶段 | 门禁存在的意义 |
-| 在阶段 18 通过前开始正式前端开发 | 硬门禁 |
-| 自动进入交付 | 交付需用户明确启动 |
-| 未经授权提交、推送、打标签、发布 | Git 规则 |
-| 引入被排除的能力 | 产品边界 |
-| 引入 Fluent 之外的 UI 组件库 | 界面基线 |
-| 让实例进程经 shell 启动 | 命令注入 |
-| 递归删除外部工作目录 | 不可逆的数据损失 |
-| 在仓库中保留临时脚本 | 需要长期保留的检查逻辑放入 `eng/` |
-
-## 19. 阶段报告格式
-
-每完成一个阶段，按此格式报告：
-
-```text
-阶段：<编号与名称>
-状态：已完成 / 部分完成 / 阻塞
-产物：<新增与修改的文件>
-实现要点：<简述>
-测试：<运行的命令与结果>
-验证：<Validate.ps1 阶段结果>
-更新的记录：<文件列表>
-完成条件核对：<逐条>
-未完成项与原因：<如有>
-待裁决的变更请求：<如有>
-下一阶段的前置条件：<是否满足>
-```
+- **WEB-08** 界面改动在浏览器中实际操作，并在常见宽度下截图自查（U-08）。

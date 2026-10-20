@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Application.Abstractions;
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Contracts.Distribution;
 using Servitium.Domain.Distribution;
 using Servitium.Domain.Operations;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -20,7 +20,7 @@ using Servitium.Desktop.Services;
 using Servitium.Desktop.Shell;
 using Servitium.Desktop.ViewModels;
 using Servitium.Contracts.Configurations;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Java;
 using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Settings;

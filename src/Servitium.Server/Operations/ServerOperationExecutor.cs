@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Servitium.Contracts;
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Operations;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Domain.Operations;
 using Servitium.Infrastructure.Persistence;
 using Servitium.Server.Realtime;

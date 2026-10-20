@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Agent.Paths;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Archives;
 

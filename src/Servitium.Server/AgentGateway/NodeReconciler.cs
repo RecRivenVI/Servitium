@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -9,7 +9,7 @@ using Servitium.Application.Abstractions;
 using Servitium.Application.Identity;
 using Servitium.Application.Nodes;
 using Servitium.Contracts.Agent;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Server.AgentGateway;
 

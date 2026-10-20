@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 using Servitium.Agent.Scheduling;
 using Servitium.Contracts.Scheduling;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 using Xunit;
 

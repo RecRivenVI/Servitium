@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -17,7 +17,7 @@ using Servitium.Agent.Paths;
 using Servitium.Agent.Storage;
 using Servitium.Application.Abstractions;
 using Servitium.Contracts.Agent;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 
 namespace Servitium.Agent.Java;

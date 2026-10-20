@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +13,7 @@ using Servitium.Agent.Archives;
 using Servitium.Agent.Paths;
 using Servitium.Agent.Storage;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 
 namespace Servitium.Agent.Instances;

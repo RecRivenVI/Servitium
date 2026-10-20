@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -11,7 +11,7 @@ using Servitium.Agent.Java;
 using Servitium.Agent.Archives;
 using Servitium.Agent.Storage;
 using Servitium.Contracts.Agent;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 using Servitium.Infrastructure.Security;
 

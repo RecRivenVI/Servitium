@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -11,11 +11,11 @@ using Microsoft.AspNetCore.Routing;
 
 using Servitium.Application.Abstractions;
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Nodes;
 using Servitium.Contracts;
 using Servitium.Contracts.Agent;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Scheduling;
 using Servitium.Server.AgentGateway;
 using Servitium.Server.OpenApi;

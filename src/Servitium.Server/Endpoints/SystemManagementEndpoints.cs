@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -19,16 +19,16 @@ using Microsoft.AspNetCore.Routing;
 
 using Servitium.Application.Abstractions;
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Identity;
 using Servitium.Application.Nodes;
 using Servitium.Contracts;
 using Servitium.Contracts.Agent;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Operations;
 using Servitium.Contracts.Settings;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Domain.Auditing;
 using Servitium.Domain.Identity;
 using Servitium.Infrastructure.Persistence;

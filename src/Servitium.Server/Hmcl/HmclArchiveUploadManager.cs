@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 using Servitium.Application.Abstractions;
 using Servitium.Contracts.Distribution;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Distribution;
 using Servitium.Server.Hosting;
 

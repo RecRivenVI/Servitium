@@ -13,3 +13,6 @@ appsettings.Local.json
 appsettings.*.Local.json
 TestResults/
 playwright-report/
+
+tools/build/Local.props
+*.local.json

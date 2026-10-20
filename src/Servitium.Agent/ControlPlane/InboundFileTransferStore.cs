@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Text.Json;
@@ -9,7 +9,7 @@ using Servitium.Agent.Files;
 using Servitium.Agent.Storage;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Agent.V1;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.ControlPlane;
 

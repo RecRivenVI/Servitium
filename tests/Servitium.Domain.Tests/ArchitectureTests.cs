@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -166,7 +166,7 @@ public sealed class ArchitectureTests
     {
         string repositoryRoot = RepositoryRootLocator.Find();
         string contractPath = Path.Combine(repositoryRoot, "src", "Servitium.Contracts", "Ui", "ui-contract.json");
-        string architecturePath = Path.Combine(repositoryRoot, "docs", "design", "information-architecture.md");
+        string architecturePath = Path.Combine(repositoryRoot, "documents", "design", "architecture-information.md");
         using var contract = JsonDocument.Parse(File.ReadAllText(contractPath));
         var contractIds = contract.RootElement
             .GetProperty("pages")

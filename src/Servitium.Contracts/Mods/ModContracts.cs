@@ -1,4 +1,4 @@
-﻿namespace Servitium.Contracts.Mods;
+namespace Servitium.Contracts.Mods;
 
 /// <summary>模组或插件摘要。</summary>
 /// <param name="RelativePath">相对路径。</param>

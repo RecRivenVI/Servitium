@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 if (args.Length != 2 || args[0] != "-XshowSettings:properties" || args[1] != "-version")
 {

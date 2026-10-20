@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ internal sealed class StagedPrismUploadStore(ServerHostOptions options)
     {
         if (file.Length is <= 0 or > 20L * 1024 * 1024 * 1024)
         {
-            throw new Domain.Common.DomainException("archive-limit-exceeded", "The Prism archive size is outside the allowed range.");
+            throw new Domain.Primitives.DomainException("archive-limit-exceeded", "The Prism archive size is outside the allowed range.");
         }
 
         _ = Directory.CreateDirectory(_root);
@@ -50,7 +50,7 @@ internal sealed class StagedPrismUploadStore(ServerHostOptions options)
     {
         string path = PathFor(uploadId);
         return !File.Exists(path)
-            ? throw new Domain.Common.DomainException("upload-session-expired", "The staged Prism upload does not exist.")
+            ? throw new Domain.Primitives.DomainException("upload-session-expired", "The staged Prism upload does not exist.")
             : path;
     }
 

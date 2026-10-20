@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using Servitium.Agent.Instances;
 using Servitium.Agent.Lifecycle;
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Metrics;
 

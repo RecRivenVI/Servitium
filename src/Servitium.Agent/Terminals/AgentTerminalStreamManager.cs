@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +12,7 @@ using Google.Protobuf;
 using Servitium.Agent.Lifecycle;
 using Servitium.Contracts.Agent.V1;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Terminals;
 

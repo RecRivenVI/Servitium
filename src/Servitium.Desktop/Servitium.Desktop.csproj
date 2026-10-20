@@ -34,7 +34,6 @@
   <Target Name="BuildDesktopWebAssets" BeforeTargets="BeforeBuild"
           Inputs="WebAssetsSource\package-lock.json;WebAssetsSource\build-assets.mjs;@(DesktopWebAssetsSource)"
           Outputs="$(IntermediateOutputPath)WebAssets\.complete">
-    <RemoveDir Directories="$(IntermediateOutputPath)WebAssets" />
     <Exec WorkingDirectory="$(MSBuildProjectDirectory)\WebAssetsSource"
           Command="node build-assets.mjs &quot;$(IntermediateOutputPath)WebAssets&quot;" />
     <Touch Files="$(IntermediateOutputPath)WebAssets\.complete" AlwaysCreate="true" />

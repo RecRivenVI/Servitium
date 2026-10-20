@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
@@ -52,4 +52,3 @@ public static class ProblemDetailsMapper
         return new ServitiumApiException(response.StatusCode, code, traceId, parameters, retryAfter);
     }
 }
-

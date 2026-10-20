@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,7 +21,7 @@ public sealed partial class ErrorCodeContractTests
     {
         string repositoryRoot = RepositoryRootLocator.Find();
         string manifestPath = Path.Combine(repositoryRoot, "src", "Servitium.Contracts", "error-codes.json");
-        string protocolsPath = Path.Combine(repositoryRoot, "docs", "architecture", "protocols-and-contracts.md");
+        string protocolsPath = Path.Combine(repositoryRoot, "documents", "reference", "protocol-control_plane.md");
 
         var constants = typeof(ErrorCodes)
             .GetFields(BindingFlags.Public | BindingFlags.Static)

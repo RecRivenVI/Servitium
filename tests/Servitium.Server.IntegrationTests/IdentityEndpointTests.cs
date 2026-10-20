@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,8 +16,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
 using Servitium.Application.Identity;
-using Servitium.Application.Common;
-using Servitium.Contracts.Common;
+using Servitium.Application.Results;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Identity;
 
 using Xunit;

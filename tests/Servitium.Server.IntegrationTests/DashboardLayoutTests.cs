@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Servitium.Application.Identity;
 using Servitium.Contracts.Settings;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 using Servitium.Infrastructure.Security;
 using Servitium.Server.Endpoints;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,7 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 using Servitium.Client;
 using Servitium.Client.Session;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Identity;
 using Servitium.Contracts.Instances;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -14,7 +14,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Application.Abstractions;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Infrastructure.Networking;
 

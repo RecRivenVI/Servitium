@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +19,7 @@ using Servitium.Agent.Storage;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 using Servitium.Infrastructure.Security;
 
@@ -465,15 +465,7 @@ public sealed class InstanceLifecycleTests
 
         private static string FindFixtureJar()
         {
-            DirectoryInfo? current = new(AppContext.BaseDirectory);
-            while (current is not null && !File.Exists(Path.Combine(current.FullName, "Servitium.sln")))
-            {
-                current = current.Parent;
-            }
-
-            return current is null
-                ? throw new InvalidOperationException("The repository root could not be located.")
-                : Path.Combine(current.FullName, "artifacts", "test-fixtures", "Servitium.JavaServerFixture.jar");
+            return Path.Combine(AppContext.BaseDirectory, "Servitium.JavaServerFixture.jar");
         }
 
         private sealed class TestContextFactory(DbContextOptions<AgentDbContext> options) : IDbContextFactory<AgentDbContext>

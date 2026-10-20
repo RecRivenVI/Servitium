@@ -11,7 +11,7 @@ trim_trailing_whitespace = true
 indent_size = 4
 
 [*.cs]
-charset = utf-8-bom
+charset = utf-8
 dotnet_analyzer_diagnostic.severity = warning
 csharp_style_namespace_declarations = file_scoped:warning
 csharp_style_var_for_built_in_types = false:warning
@@ -30,7 +30,7 @@ generated_code = true
 indent_size = 2
 
 [*.ps1]
-end_of_line = crlf
+end_of_line = lf
 indent_size = 4
 
 [*.java]

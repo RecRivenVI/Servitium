@@ -1,4 +1,4 @@
-﻿using Servitium.Server.Hmcl;
+using Servitium.Server.Hmcl;
 
 using Xunit;
 

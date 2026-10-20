@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Servitium.Application.Abstractions;
 using Servitium.Contracts.Operations;
 using Servitium.Contracts.Settings;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Domain.Operations;
 
 namespace Servitium.Infrastructure.Persistence;

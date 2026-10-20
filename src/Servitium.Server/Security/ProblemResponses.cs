@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Http;
 
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 
 namespace Servitium.Server.Security;
 

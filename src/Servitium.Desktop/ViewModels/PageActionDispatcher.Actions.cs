@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -619,7 +619,7 @@ internal sealed partial class PageActionDispatcher
         }
 
         string kind = mod.RelativePath.StartsWith("plugins/", StringComparison.OrdinalIgnoreCase) ? "plugins" : "mods";
-        Contracts.Common.CursorPage<string> files = await services.Session.Client.ListModConfigurationFilesAsync(
+        Contracts.Transport.CursorPage<string> files = await services.Session.Client.ListModConfigurationFilesAsync(
             instance.Id, instance.NodeId, kind, mod.Id, cancellationToken).ConfigureAwait(false);
         string? first = (files.Items.Count == 0 ? null : files.Items[0]) ?? throw new InvalidOperationException(services.Localization.Get("common.empty"));
         _directoryPath = Path.GetDirectoryName(first)?.Replace('\\', '/') ?? string.Empty;
@@ -665,7 +665,7 @@ internal sealed partial class PageActionDispatcher
         if (action == "view-history")
         {
             ScheduledTaskDetailsDto selectedTask = task ?? throw SelectionRequired();
-            Contracts.Common.CursorPage<ScheduledTaskRunDto> runs = await services.Session.Client.ListScheduleRunsAsync(
+            Contracts.Transport.CursorPage<ScheduledTaskRunDto> runs = await services.Session.Client.ListScheduleRunsAsync(
                 instance.Id, selectedTask.Id, cancellationToken).ConfigureAwait(false);
             string content = runs.Items.Count == 0
                 ? services.Localization.Get("common.empty")
@@ -931,7 +931,7 @@ internal sealed partial class PageActionDispatcher
             return await RevokeNodeCredentialAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        Contracts.Common.CursorPage<InstanceDto> instances = await services.Session.Client.ListInstancesAsync(
+        Contracts.Transport.CursorPage<InstanceDto> instances = await services.Session.Client.ListInstancesAsync(
             node.Id, null, null, [], null, 100, cancellationToken).ConfigureAwait(false);
         string impact = services.Localization.Format("danger.remove-node-impact", instances.Items.Count);
         if (!await services.Interaction.ConfirmNamedAsync("action.remove-node", node.Name, impact).ConfigureAwait(true))

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Authorization;
 using Servitium.Contracts.Auditing;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Domain.Auditing;
 using Servitium.Infrastructure.Auditing;
 using Servitium.Server.OpenApi;

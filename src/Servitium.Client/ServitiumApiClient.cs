@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,7 +12,7 @@ using Servitium.Client.Http;
 using Servitium.Client.Generated;
 using Servitium.Client.Realtime;
 using Servitium.Client.Session;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Operations;
 
 namespace Servitium.Client;
@@ -22,7 +22,6 @@ public sealed partial class ServitiumApiClient : IDisposable
 {
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
     private readonly HttpClient _httpClient;
-    private string? _csrfToken;
     private bool _disposed;
 
     /// <summary>创建客户端；Server 地址必须是绝对 HTTP(S) 地址且不能携带凭据、查询或片段。</summary>
@@ -67,7 +66,7 @@ public sealed partial class ServitiumApiClient : IDisposable
 
     internal string? SessionToken { get; private set; }
 
-    internal string? CsrfToken => _csrfToken;
+    internal string? CsrfToken { get; private set; }
 
     internal DateTimeOffset? SessionExpiresAt { get; private set; }
 
@@ -311,9 +310,9 @@ public sealed partial class ServitiumApiClient : IDisposable
         }
 
         List<string> cookies = [];
-        if (_csrfToken is not null)
+        if (CsrfToken is not null)
         {
-            cookies.Add("servitium.csrf=" + _csrfToken);
+            cookies.Add("servitium.csrf=" + CsrfToken);
         }
 
         if (SessionToken is not null)
@@ -326,9 +325,9 @@ public sealed partial class ServitiumApiClient : IDisposable
             _ = request.Headers.TryAddWithoutValidation("Cookie", string.Join("; ", cookies));
         }
 
-        if (includeCsrf && _csrfToken is not null)
+        if (includeCsrf && CsrfToken is not null)
         {
-            _ = request.Headers.TryAddWithoutValidation("X-CSRF-Token", _csrfToken);
+            _ = request.Headers.TryAddWithoutValidation("X-CSRF-Token", CsrfToken);
         }
 
         return request;
@@ -387,7 +386,7 @@ public sealed partial class ServitiumApiClient : IDisposable
 
         foreach (string value in values)
         {
-            CaptureCookie(value, "servitium.csrf", token => _csrfToken = token, null);
+            CaptureCookie(value, "servitium.csrf", token => CsrfToken = token, null);
             CaptureCookie(value, "servitium.session", token => SessionToken = token, expires => SessionExpiresAt = expires);
         }
     }

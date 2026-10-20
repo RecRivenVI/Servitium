@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Instances;

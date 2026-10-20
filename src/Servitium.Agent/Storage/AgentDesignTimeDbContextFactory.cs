@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +10,9 @@ internal sealed class AgentDesignTimeDbContextFactory : IDesignTimeDbContextFact
 {
     public AgentDbContext CreateDbContext(string[] args)
     {
-        string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", ".."));
-        string databasePath = Path.Combine(repositoryRoot, "artifacts", "design-time", "agent.db");
+        string directory = args is { Length: > 0 } ? Path.GetFullPath(args[0])
+            : throw new ArgumentException("An external design-time directory is required.", nameof(args));
+        string databasePath = Path.Combine(directory, "agent.db");
         _ = Directory.CreateDirectory(Path.GetDirectoryName(databasePath)!);
         return new AgentDbContext(new DbContextOptionsBuilder<AgentDbContext>().UseSqlite("Data Source=" + databasePath).Options);
     }

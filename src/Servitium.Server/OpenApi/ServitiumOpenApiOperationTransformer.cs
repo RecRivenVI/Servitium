@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.OpenApi;
 
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 
 namespace Servitium.Server.OpenApi;
 

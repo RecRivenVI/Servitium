@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Application.Abstractions;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Networking;
 
 using Xunit;

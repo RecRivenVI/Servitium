@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 
 using Servitium.Contracts.Agent.V1;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Server.Hubs;
 
 namespace Servitium.Server.AgentGateway;

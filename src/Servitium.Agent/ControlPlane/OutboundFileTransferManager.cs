@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ using Google.Protobuf;
 using Servitium.Agent.Files;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Agent.V1;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.ControlPlane;
 

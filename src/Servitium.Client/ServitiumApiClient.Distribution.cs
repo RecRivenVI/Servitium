@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Client.Http;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Instances;
 using Servitium.Contracts.Operations;

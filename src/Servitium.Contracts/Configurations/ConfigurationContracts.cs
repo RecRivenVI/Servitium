@@ -1,4 +1,4 @@
-﻿namespace Servitium.Contracts.Configurations;
+namespace Servitium.Contracts.Configurations;
 
 /// <summary>配置文件摘要。</summary>
 /// <param name="Key">稳定键。</param>

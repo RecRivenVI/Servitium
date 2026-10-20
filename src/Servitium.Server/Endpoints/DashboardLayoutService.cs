@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Contracts.Settings;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Persistence;
 using Servitium.Server.Governance;
 

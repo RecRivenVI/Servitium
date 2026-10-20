@@ -1,4 +1,4 @@
-﻿namespace Servitium.Desktop.Shell;
+namespace Servitium.Desktop.Shell;
 
 internal interface IPageNavigator
 {

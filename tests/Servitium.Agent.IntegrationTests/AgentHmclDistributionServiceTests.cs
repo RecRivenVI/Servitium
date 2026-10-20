@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -20,7 +20,7 @@ using Servitium.Agent.Storage;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Agent.V1;
 using Servitium.Contracts.Instances;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 using Servitium.Infrastructure.Distribution;
 using Servitium.Infrastructure.Networking;
 using Servitium.Infrastructure.Persistence;

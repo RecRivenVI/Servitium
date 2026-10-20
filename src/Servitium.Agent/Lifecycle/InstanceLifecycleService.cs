@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -26,7 +26,7 @@ using Servitium.Application.Abstractions;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Instances;
 using Servitium.Contracts.Events;
-using Servitium.Domain.Common;
+using Servitium.Domain.Primitives;
 
 namespace Servitium.Agent.Lifecycle;
 

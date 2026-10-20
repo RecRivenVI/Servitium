@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -146,7 +146,7 @@ internal sealed class SqliteNodeControlStore(
             {
                 using ServitiumDbContext context = await contextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false);
                 NodeRow row = await context.Nodes.SingleOrDefaultAsync(candidate => candidate.Id == node.Id, cancellationToken).ConfigureAwait(false)
-                    ?? throw new Domain.Common.DomainException("not-found", "The node does not exist.");
+                    ?? throw new Domain.Primitives.DomainException("not-found", "The node does not exist.");
                 row.Name = node.Name;
                 row.Status = node.Status;
                 row.AgentVersion = node.AgentVersion;

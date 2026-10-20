@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Servitium.Contracts.Identity;
 
@@ -9,4 +9,3 @@ public sealed record SignInResult(bool TotpRequired, PrincipalDto? Principal);
 
 /// <summary>本机 Windows 身份换票结果。</summary>
 public sealed record LocalSessionResult(bool Succeeded, PrincipalDto? Principal, string? ErrorCode, DateTimeOffset? TicketExpiresAt);
-

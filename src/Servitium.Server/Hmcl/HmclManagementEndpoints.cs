@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -17,12 +17,12 @@ using Microsoft.AspNetCore.Routing;
 
 using Servitium.Application.Abstractions;
 using Servitium.Application.Authorization;
-using Servitium.Application.Common;
+using Servitium.Application.Results;
 using Servitium.Application.Identity;
 using Servitium.Application.Nodes;
 using Servitium.Contracts;
 using Servitium.Contracts.Agent;
-using Servitium.Contracts.Common;
+using Servitium.Contracts.Transport;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Instances;
@@ -128,7 +128,7 @@ internal static class HmclManagementEndpoints
     private static async Task<IResult> GetChannelAsync(HttpContext context, Guid channelId, HmclDistributionStore store, ServerHostOptions options, CancellationToken cancellationToken)
     {
         StoredHmclChannel channel = await store.GetChannelAsync(channelId, cancellationToken).ConfigureAwait(false)
-            ?? throw new Domain.Common.DomainException("not-found", "The HMCL channel does not exist.");
+            ?? throw new Domain.Primitives.DomainException("not-found", "The HMCL channel does not exist.");
         return Results.Ok(new HmclChannelDetailsDto(
             ToChannelDto(channel),
             channel.Description,
@@ -193,7 +193,7 @@ internal static class HmclManagementEndpoints
         CancellationToken cancellationToken)
     {
         StoredHmclChannel channel = await store.GetChannelAsync(channelId, cancellationToken).ConfigureAwait(false)
-            ?? throw new Domain.Common.DomainException("not-found", "The HMCL channel does not exist.");
+            ?? throw new Domain.Primitives.DomainException("not-found", "The HMCL channel does not exist.");
         string token = tokens.Generate(32);
         await store.RotateTokenAsync(channelId, request.ConfirmationName, TokenHash(token), cancellationToken).ConfigureAwait(false);
         return Results.Ok(new HmclTokenResultDto(token, ManifestUri(context.Request, options, channel, token)));
@@ -265,7 +265,7 @@ internal static class HmclManagementEndpoints
         if (document.RootElement.TryGetProperty("archiveId", out _))
         {
             CreateHmclReleaseFromArchiveRequest archiveRequest = document.RootElement.Deserialize<CreateHmclReleaseFromArchiveRequest>(JsonSerializerOptions.Web)
-                ?? throw new Domain.Common.DomainException("validation-failed", "The Archive Release request is invalid.");
+                ?? throw new Domain.Primitives.DomainException("validation-failed", "The Archive Release request is invalid.");
             string readyArchivePath = await archives.GetReadyPathAsync(archiveRequest.ArchiveId, userId, cancellationToken).ConfigureAwait(false);
             OperationAcceptedDto archiveAccepted = await operations.EnqueueAsync(
                 OperationKind.CreateHmclRelease,
@@ -281,7 +281,7 @@ internal static class HmclManagementEndpoints
         }
 
         CreateHmclReleaseFromInstanceRequest request = document.RootElement.Deserialize<CreateHmclReleaseFromInstanceRequest>(JsonSerializerOptions.Web)
-            ?? throw new Domain.Common.DomainException("validation-failed", "The instance collection request is invalid.");
+            ?? throw new Domain.Primitives.DomainException("validation-failed", "The instance collection request is invalid.");
         (Guid nodeId, _) = await FindInstanceAsync(request.InstanceId, nodes, cancellationToken).ConfigureAwait(false);
         string root = Path.Combine(options.DataRoot, "staging", "hmcl-instance-collections");
         _ = Directory.CreateDirectory(root);
@@ -506,7 +506,7 @@ internal static class HmclManagementEndpoints
     private static async Task<IResult> GetReleaseAsync(Guid releaseId, HmclDistributionStore store, CancellationToken cancellationToken)
     {
         StoredHmclRelease release = await store.GetReleaseAsync(releaseId, cancellationToken).ConfigureAwait(false)
-            ?? throw new Domain.Common.DomainException("not-found", "The HMCL release does not exist.");
+            ?? throw new Domain.Primitives.DomainException("not-found", "The HMCL release does not exist.");
         return Results.Ok(ToDto(release));
     }
 
@@ -524,7 +524,7 @@ internal static class HmclManagementEndpoints
     private static async Task<IResult> GetManifestAsync(Guid releaseId, HmclDistributionStore store, CancellationToken cancellationToken)
     {
         StoredHmclRelease release = await store.GetReleaseAsync(releaseId, cancellationToken).ConfigureAwait(false)
-            ?? throw new Domain.Common.DomainException("not-found", "The HMCL release does not exist.");
+            ?? throw new Domain.Primitives.DomainException("not-found", "The HMCL release does not exist.");
         return Results.Bytes(release.Manifest.ToArray(), "application/json; charset=utf-8");
     }
 
@@ -570,11 +570,11 @@ internal static class HmclManagementEndpoints
         CancellationToken cancellationToken)
     {
         StoredHmclRelease release = await store.GetReleaseAsync(releaseId, cancellationToken).ConfigureAwait(false)
-            ?? throw new Domain.Common.DomainException("not-found", "The HMCL release does not exist.");
+            ?? throw new Domain.Primitives.DomainException("not-found", "The HMCL release does not exist.");
         (Guid nodeId, AgentInstanceResponse instance) = await FindInstanceAsync(request.InstanceId, nodes, cancellationToken).ConfigureAwait(false);
         if (instance.Status != "Stopped")
         {
-            throw new Domain.Common.DomainException("instance-not-stopped", "HMCL content synchronization requires a stopped instance.");
+            throw new Domain.Primitives.DomainException("instance-not-stopped", "HMCL content synchronization requires a stopped instance.");
         }
 
         string root = Path.Combine(options.DataRoot, "staging", "hmcl-instance-sync");
@@ -681,7 +681,7 @@ internal static class HmclManagementEndpoints
                 string contentPath = store.GetContentPath(file.Sha1);
                 if (!File.Exists(contentPath) || new FileInfo(contentPath).Length != file.Size)
                 {
-                    throw new Domain.Common.DomainException("hmcl-content-missing", "A Release content object is missing or has the wrong size.");
+                    throw new Domain.Primitives.DomainException("hmcl-content-missing", "A Release content object is missing or has the wrong size.");
                 }
 
                 ZipArchiveEntry entry = archive.CreateEntry(file.Path, CompressionLevel.NoCompression);
@@ -710,7 +710,7 @@ internal static class HmclManagementEndpoints
                         string actualSha1 = Convert.ToHexStringLower(hash.GetHashAndReset());
                         if (copied != file.Size || !string.Equals(actualSha1, file.Sha1, StringComparison.Ordinal))
                         {
-                            throw new Domain.Common.DomainException("hmcl-content-missing", "A Release content object is corrupt.");
+                            throw new Domain.Primitives.DomainException("hmcl-content-missing", "A Release content object is corrupt.");
                         }
                     }
                 }
@@ -733,7 +733,7 @@ internal static class HmclManagementEndpoints
             }
         }
 
-        throw new Domain.Common.DomainException("not-found", "The instance does not exist in an Agent mirror.");
+        throw new Domain.Primitives.DomainException("not-found", "The instance does not exist in an Agent mirror.");
     }
 
     private static bool TryReadMetadata(IFormCollection form, out CreateHmclReleaseMetadataRequest? metadata)
@@ -754,7 +754,7 @@ internal static class HmclManagementEndpoints
     {
         if (file.Length is <= 0 or > 20L * 1024 * 1024 * 1024)
         {
-            throw new Domain.Common.DomainException("archive-limit-exceeded", "The upload size is outside the allowed range.");
+            throw new Domain.Primitives.DomainException("archive-limit-exceeded", "The upload size is outside the allowed range.");
         }
 
         string root = Path.Combine(options.DataRoot, "staging", category);
@@ -775,7 +775,7 @@ internal static class HmclManagementEndpoints
     private static Guid RequireUserId(HttpContext context)
     {
         return RequestAuthentication.Get(context)?.User.Id
-        ?? throw new Domain.Common.DomainException("unauthenticated", "An authenticated user is required.");
+        ?? throw new Domain.Primitives.DomainException("unauthenticated", "An authenticated user is required.");
     }
 
     private static HmclReleaseDto ToDto(StoredHmclRelease release)

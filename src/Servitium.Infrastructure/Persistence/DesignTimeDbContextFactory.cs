@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +12,9 @@ public sealed class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Ser
     /// <inheritdoc />
     public ServitiumDbContext CreateDbContext(string[] args)
     {
-        string repositoryRoot = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "..", ".."));
-        string databasePath = Path.Combine(repositoryRoot, "artifacts", "design-time", "server.db");
+        string directory = args is { Length: > 0 } ? Path.GetFullPath(args[0])
+            : throw new ArgumentException("An external design-time directory is required.", nameof(args));
+        string databasePath = Path.Combine(directory, "server.db");
         _ = Directory.CreateDirectory(Path.GetDirectoryName(databasePath)!);
         DbContextOptionsBuilder<ServitiumDbContext> options = new();
         _ = options.UseSqlite("Data Source=" + databasePath);
