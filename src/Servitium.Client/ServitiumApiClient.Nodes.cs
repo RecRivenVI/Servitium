@@ -195,6 +195,6 @@ public sealed partial class ServitiumApiClient
 
     private static string Date(DateTimeOffset? value)
     {
-        return value?.ToUniversalTime().ToString("O", System.Globalization.CultureInfo.InvariantCulture) ?? string.Empty;
+        return Escape(value?.ToUniversalTime().ToString("O", System.Globalization.CultureInfo.InvariantCulture));
     }
 }

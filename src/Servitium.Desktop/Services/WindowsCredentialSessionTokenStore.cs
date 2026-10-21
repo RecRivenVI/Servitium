@@ -9,7 +9,7 @@ using Windows.Security.Credentials;
 
 namespace Servitium.Desktop.Services;
 
-internal sealed class WindowsCredentialSessionTokenStore : ISessionTokenStore
+internal sealed class WindowsCredentialSessionTokenStore(string? isolatedDataDirectory = null) : ISessionTokenStore
 {
     private const string UserName = "session";
     private readonly PasswordVault _vault = new();
@@ -56,8 +56,13 @@ internal sealed class WindowsCredentialSessionTokenStore : ISessionTokenStore
         return Task.CompletedTask;
     }
 
-    private static string Resource(string serverKey)
+    private string Resource(string serverKey)
     {
-        return "Servitium.Desktop/" + serverKey;
+        return ResourceName(serverKey, isolatedDataDirectory);
+    }
+
+    internal static string ResourceName(string serverKey, string? isolatedDirectory)
+    {
+        return SingleInstanceService.RegistrationKey(isolatedDirectory is not null, isolatedDirectory) + "/" + serverKey;
     }
 }

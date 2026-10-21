@@ -68,7 +68,7 @@ internal sealed class UserInteractionService(Window window, LocalizationService 
 
     internal async Task ShowAsync(string titleKey, string message)
     {
-        ContentDialog dialog = Dialog(titleKey, new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap, MaxWidth = 620 });
+        ContentDialog dialog = Dialog(titleKey, new TextBlock { Text = message, TextWrapping = TextWrapping.Wrap, IsTextSelectionEnabled = true, MaxWidth = 620 });
         dialog.CloseButtonText = localization.Get("common.close");
         _ = await dialog.ShowAsync();
     }

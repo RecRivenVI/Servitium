@@ -13,6 +13,7 @@ const bottom = document.getElementById("bottom");
 const searchBox = document.getElementById("search");
 const history = [];
 let historyIndex = 0;
+let truncatedMessage = "";
 
 terminal.onData(text => chrome.webview.postMessage({ type: "terminal.input", text }));
 terminal.onScroll(() => { bottom.hidden = terminal.buffer.active.viewportY >= terminal.buffer.active.baseY; });
@@ -36,8 +37,15 @@ chrome.webview.addEventListener("message", event => {
   if (event.data.type === "terminal.output") {
     const value = event.data.payload;
     if (value.snapshot) terminal.reset();
-    if (value.truncated) terminal.writeln("\r\n[… output truncated …]\r\n");
+    if (value.truncated) terminal.writeln("\r\n" + truncatedMessage + "\r\n");
     terminal.write(value.text);
+  } else if (event.data.type === "terminal.labels") {
+    const labels = event.data.payload;
+    document.documentElement.lang = labels.language;
+    searchBox.setAttribute("aria-label", labels.search);
+    document.getElementById("terminal").setAttribute("aria-label", labels.terminal);
+    for (const name of ["find", "bottom", "clear", "copy", "export"]) document.getElementById(name).textContent = labels[name];
+    truncatedMessage = labels.truncated;
   } else if (event.data.type === "theme.changed") {
     terminal.options.theme = event.data.payload.theme === "light"
       ? { background: "#ffffff", foreground: "#1f1f1f" }

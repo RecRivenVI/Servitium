@@ -1,0 +1,181 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Settings.ServerGeneralView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls">
+    <StackPanel
+        Spacing="{ThemeResource SelectorBarItemSpacing}">
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.DefaultLanguage.Title}"
+            Description="{x:Bind ViewModel.DefaultLanguage.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ComboBox
+                ItemsSource="{x:Bind ViewModel.DefaultLanguage.Choices}"
+                DisplayMemberPath="Label"
+                SelectedValuePath="Value"
+                SelectedValue="{x:Bind ViewModel.DefaultLanguage.Value, Mode=OneWay}"
+                SelectionChanged="OnChoiceChanged"
+                Tag="{x:Bind ViewModel.DefaultLanguage}"
+                AutomationProperties.AutomationId="setting:defaultLanguage"
+                AutomationProperties.Name="{x:Bind ViewModel.DefaultLanguage.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.DisplayTimeZone.Title}"
+            Description="{x:Bind ViewModel.DisplayTimeZone.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.DisplayTimeZone.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:displayTimeZone"
+                AutomationProperties.Name="{x:Bind ViewModel.DisplayTimeZone.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ActivityRetentionDays.Title}"
+            Description="{x:Bind ViewModel.ActivityRetentionDays.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.ActivityRetentionDays.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:activityRetentionDays"
+                AutomationProperties.Name="{x:Bind ViewModel.ActivityRetentionDays.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.AuditRetentionDays.Title}"
+            Description="{x:Bind ViewModel.AuditRetentionDays.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.AuditRetentionDays.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:auditRetentionDays"
+                AutomationProperties.Name="{x:Bind ViewModel.AuditRetentionDays.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OperationRetentionDays.Title}"
+            Description="{x:Bind ViewModel.OperationRetentionDays.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.OperationRetentionDays.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:operationRetentionDays"
+                AutomationProperties.Name="{x:Bind ViewModel.OperationRetentionDays.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.MetricRetentionHours.Title}"
+            Description="{x:Bind ViewModel.MetricRetentionHours.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.MetricRetentionHours.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:metricRetentionHours"
+                AutomationProperties.Name="{x:Bind ViewModel.MetricRetentionHours.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ServiceLogRetentionDays.Title}"
+            Description="{x:Bind ViewModel.ServiceLogRetentionDays.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.ServiceLogRetentionDays.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:serviceLogRetentionDays"
+                AutomationProperties.Name="{x:Bind ViewModel.ServiceLogRetentionDays.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.DatabaseBackupEnabled.Title}"
+            Description="{x:Bind ViewModel.DatabaseBackupEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.DatabaseBackupEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:databaseBackupEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.DatabaseBackupEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.DatabaseBackupRetentionCount.Title}"
+            Description="{x:Bind ViewModel.DatabaseBackupRetentionCount.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.DatabaseBackupRetentionCount.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:databaseBackupRetentionCount"
+                AutomationProperties.Name="{x:Bind ViewModel.DatabaseBackupRetentionCount.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.PublicPageEnabled.Title}"
+            Description="{x:Bind ViewModel.PublicPageEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.PublicPageEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:publicPageEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.PublicPageEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.PageTitle.Title}"
+            Description="{x:Bind ViewModel.PageTitle.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.PageTitle.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:pageTitle"
+                AutomationProperties.Name="{x:Bind ViewModel.PageTitle.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.SidebarPosition.Title}"
+            Description="{x:Bind ViewModel.SidebarPosition.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ComboBox
+                ItemsSource="{x:Bind ViewModel.SidebarPosition.Choices}"
+                DisplayMemberPath="Label"
+                SelectedValuePath="Value"
+                SelectedValue="{x:Bind ViewModel.SidebarPosition.Value, Mode=OneWay}"
+                SelectionChanged="OnChoiceChanged"
+                Tag="{x:Bind ViewModel.SidebarPosition}"
+                AutomationProperties.AutomationId="setting:sidebarPosition"
+                AutomationProperties.Name="{x:Bind ViewModel.SidebarPosition.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginTitleZhHans.Title}"
+            Description="{x:Bind ViewModel.LoginTitleZhHans.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginTitleZhHans.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginTitleZhHans"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginTitleZhHans.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginDescriptionZhHans.Title}"
+            Description="{x:Bind ViewModel.LoginDescriptionZhHans.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginDescriptionZhHans.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginDescriptionZhHans"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginDescriptionZhHans.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginSupportZhHans.Title}"
+            Description="{x:Bind ViewModel.LoginSupportZhHans.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginSupportZhHans.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginSupportZhHans"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginSupportZhHans.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginTitleEnUs.Title}"
+            Description="{x:Bind ViewModel.LoginTitleEnUs.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginTitleEnUs.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginTitleEnUs"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginTitleEnUs.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginDescriptionEnUs.Title}"
+            Description="{x:Bind ViewModel.LoginDescriptionEnUs.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginDescriptionEnUs.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginDescriptionEnUs"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginDescriptionEnUs.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.LoginSupportEnUs.Title}"
+            Description="{x:Bind ViewModel.LoginSupportEnUs.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.LoginSupportEnUs.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:loginSupportEnUs"
+                AutomationProperties.Name="{x:Bind ViewModel.LoginSupportEnUs.Title}" />
+        </settings:SettingsCard>
+    </StackPanel>
+</UserControl>

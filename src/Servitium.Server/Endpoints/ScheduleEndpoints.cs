@@ -99,7 +99,7 @@ internal static class ScheduleEndpoints
         return Results.Created($"/api/v1/instances/{instanceId:D}/schedules/{created.Id:D}", created);
     }
 
-    private static Task<IResult> GetAsync(
+    private static async Task<IResult> GetAsync(
         HttpContext context,
         Guid instanceId,
         Guid scheduleId,
@@ -107,8 +107,14 @@ internal static class ScheduleEndpoints
         IAgentGateway gateway,
         CancellationToken cancellationToken)
     {
-        return SendResultAsync<ScheduledTaskDetailsDto>(
-            context, instanceId, "GetSchedule", new AgentScheduleIdCommand(instanceId, scheduleId), nodes, gateway, cancellationToken);
+        // 列表指令已经返回完整定义；单项读取沿用该指令，不依赖未定义的 Agent 消息类型。
+        (Guid? nodeId, AgentCommandResult? result) = await SendForInstanceAsync(
+            instanceId, "ListSchedules", new AgentInstanceIdCommand(instanceId), nodes, gateway, cancellationToken).ConfigureAwait(false);
+        if (nodeId is null) { return Problem(context, StatusCodes.Status404NotFound, ErrorCodes.NotFound); }
+        if (!result!.Succeeded) { return Problem(context, result); }
+        ScheduledTaskDetailsDto? task = Deserialize<IReadOnlyList<ScheduledTaskDetailsDto>>(result)
+            .FirstOrDefault(item => item.Id == scheduleId && item.InstanceId == instanceId);
+        return task is null ? Problem(context, StatusCodes.Status404NotFound, ErrorCodes.NotFound) : Results.Ok(task);
     }
 
     private static async Task<IResult> UpdateAsync(

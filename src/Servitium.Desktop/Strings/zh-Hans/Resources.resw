@@ -47,6 +47,7 @@
   <data name="action.enable" xml:space="preserve"><value>启用</value></data>
   <data name="action.export" xml:space="preserve"><value>导出</value></data>
   <data name="action.export-diagnostics" xml:space="preserve"><value>导出诊断信息</value></data>
+  <data name="action.export-log" xml:space="preserve"><value>导出日志</value></data>
   <data name="action.export-session-log" xml:space="preserve"><value>导出会话日志</value></data>
   <data name="action.external-sign-in" xml:space="preserve"><value>使用外部身份登录</value></data>
   <data name="action.extract" xml:space="preserve"><value>解压</value></data>
@@ -96,6 +97,7 @@
   <data name="action.save-text" xml:space="preserve"><value>保存文本</value></data>
   <data name="action.send-command" xml:space="preserve"><value>发送命令</value></data>
   <data name="action.sign-in" xml:space="preserve"><value>登录</value></data>
+  <data name="action.sign-out" xml:space="preserve"><value>退出登录</value></data>
   <data name="action.start" xml:space="preserve"><value>启动</value></data>
   <data name="action.stop" xml:space="preserve"><value>停止</value></data>
   <data name="action.sync-content" xml:space="preserve"><value>同步整合内容</value></data>
@@ -145,8 +147,141 @@
   <data name="common.type-name-confirm" xml:space="preserve"><value>请输入以下名称以确认：</value></data>
   <data name="common.unknown" xml:space="preserve"><value>未知</value></data>
   <data name="common.unsaved-changes" xml:space="preserve"><value>存在尚未保存的修改。</value></data>
+  <data name="config.accepts-transfers.description" xml:space="preserve"><value>允许接收其他服务器发起的玩家转移。</value></data>
+  <data name="config.accepts-transfers.title" xml:space="preserve"><value>接受服务器转移</value></data>
+  <data name="config.allow-flight.description" xml:space="preserve"><value>允许客户端飞行行为，按服务端规则处理。</value></data>
+  <data name="config.allow-flight.title" xml:space="preserve"><value>允许飞行</value></data>
+  <data name="config.allow-nether.description" xml:space="preserve"><value>启用下界维度。</value></data>
+  <data name="config.allow-nether.title" xml:space="preserve"><value>允许下界</value></data>
+  <data name="config.broadcast-console-to-ops.description" xml:space="preserve"><value>将控制台执行信息广播给游戏管理员。</value></data>
+  <data name="config.broadcast-console-to-ops.title" xml:space="preserve"><value>向管理员广播控制台</value></data>
+  <data name="config.broadcast-rcon-to-ops.description" xml:space="preserve"><value>将 RCON 执行信息广播给游戏管理员。</value></data>
+  <data name="config.broadcast-rcon-to-ops.title" xml:space="preserve"><value>向管理员广播远程控制</value></data>
+  <data name="config.bug-report-link.description" xml:space="preserve"><value>提供给玩家的问题反馈链接。</value></data>
+  <data name="config.bug-report-link.title" xml:space="preserve"><value>问题报告链接</value></data>
+  <data name="config.choice.adventure" xml:space="preserve"><value>冒险</value></data>
+  <data name="config.choice.creative" xml:space="preserve"><value>创造</value></data>
+  <data name="config.choice.deflate" xml:space="preserve"><value>标准压缩</value></data>
+  <data name="config.choice.easy" xml:space="preserve"><value>简单</value></data>
+  <data name="config.choice.hard" xml:space="preserve"><value>困难</value></data>
+  <data name="config.choice.lz4" xml:space="preserve"><value>快速压缩</value></data>
+  <data name="config.choice.none" xml:space="preserve"><value>不压缩</value></data>
+  <data name="config.choice.normal" xml:space="preserve"><value>普通</value></data>
+  <data name="config.choice.peaceful" xml:space="preserve"><value>和平</value></data>
+  <data name="config.choice.spectator" xml:space="preserve"><value>旁观</value></data>
+  <data name="config.choice.survival" xml:space="preserve"><value>生存</value></data>
+  <data name="config.debug.description" xml:space="preserve"><value>按游戏服务端实现输出附加诊断。</value></data>
+  <data name="config.debug.title" xml:space="preserve"><value>调试模式</value></data>
+  <data name="config.difficulty.description" xml:space="preserve"><value>选择世界使用的游戏难度。</value></data>
+  <data name="config.difficulty.title" xml:space="preserve"><value>游戏难度</value></data>
   <data name="config.editor.title" xml:space="preserve"><value>编辑配置文件</value></data>
+  <data name="config.enable-command-block.description" xml:space="preserve"><value>允许命令方块执行游戏指令。</value></data>
+  <data name="config.enable-command-block.title" xml:space="preserve"><value>启用命令方块</value></data>
+  <data name="config.enable-jmx-monitoring.description" xml:space="preserve"><value>启用游戏服务端的 JMX 监控能力。</value></data>
+  <data name="config.enable-jmx-monitoring.title" xml:space="preserve"><value>启用监控接口</value></data>
+  <data name="config.enable-query.description" xml:space="preserve"><value>允许使用游戏查询协议；端口需与查询设置一致。</value></data>
+  <data name="config.enable-query.title" xml:space="preserve"><value>启用查询协议</value></data>
+  <data name="config.enable-rcon.description" xml:space="preserve"><value>启用 RCON；同时设置端口和强密码。</value></data>
+  <data name="config.enable-rcon.title" xml:space="preserve"><value>远程控制协议</value></data>
+  <data name="config.enable-status.description" xml:space="preserve"><value>允许客户端获取服务器列表状态。</value></data>
+  <data name="config.enable-status.title" xml:space="preserve"><value>状态查询</value></data>
+  <data name="config.enforce-secure-profile.description" xml:space="preserve"><value>要求玩家提供安全身份档案。</value></data>
+  <data name="config.enforce-secure-profile.title" xml:space="preserve"><value>安全玩家档案</value></data>
+  <data name="config.enforce-whitelist.description" xml:space="preserve"><value>白名单变更后重新检查在线玩家。</value></data>
+  <data name="config.enforce-whitelist.title" xml:space="preserve"><value>强制白名单</value></data>
+  <data name="config.entity-broadcast-range-percentage.description" xml:space="preserve"><value>实体跟踪范围比例，范围为 10～1000%。</value></data>
+  <data name="config.entity-broadcast-range-percentage.title" xml:space="preserve"><value>实体广播范围</value></data>
+  <data name="config.force-gamemode.description" xml:space="preserve"><value>玩家加入时重新应用默认游戏模式。</value></data>
+  <data name="config.force-gamemode.title" xml:space="preserve"><value>强制默认模式</value></data>
+  <data name="config.function-permission-level.description" xml:space="preserve"><value>数据包函数使用的权限等级，范围为 1～4。</value></data>
+  <data name="config.function-permission-level.title" xml:space="preserve"><value>函数权限等级</value></data>
+  <data name="config.gamemode.description" xml:space="preserve"><value>新玩家进入世界时使用的游戏模式。</value></data>
+  <data name="config.gamemode.title" xml:space="preserve"><value>默认游戏模式</value></data>
+  <data name="config.generate-structures.description" xml:space="preserve"><value>新世界区块生成结构。</value></data>
+  <data name="config.generate-structures.title" xml:space="preserve"><value>生成结构</value></data>
+  <data name="config.generator-settings.description" xml:space="preserve"><value>当前世界生成器的附加设置。</value></data>
+  <data name="config.generator-settings.title" xml:space="preserve"><value>生成器设置</value></data>
+  <data name="config.hardcore.description" xml:space="preserve"><value>启用世界的极限模式规则。</value></data>
+  <data name="config.hardcore.title" xml:space="preserve"><value>极限模式</value></data>
+  <data name="config.hide-online-players.description" xml:space="preserve"><value>不在公开状态中提供在线玩家样本。</value></data>
+  <data name="config.hide-online-players.title" xml:space="preserve"><value>隐藏玩家列表</value></data>
+  <data name="config.initial-disabled-packs.description" xml:space="preserve"><value>新世界初次加载时禁用的数据包。</value></data>
+  <data name="config.initial-disabled-packs.title" xml:space="preserve"><value>初始禁用的数据包</value></data>
+  <data name="config.initial-enabled-packs.description" xml:space="preserve"><value>新世界初次加载时启用的数据包。</value></data>
+  <data name="config.initial-enabled-packs.title" xml:space="preserve"><value>初始启用的数据包</value></data>
+  <data name="config.level-name.description" xml:space="preserve"><value>游戏服务端使用的世界名称。</value></data>
+  <data name="config.level-name.title" xml:space="preserve"><value>世界目录名</value></data>
+  <data name="config.level-seed.description" xml:space="preserve"><value>仅在生成新世界时使用。</value></data>
+  <data name="config.level-seed.title" xml:space="preserve"><value>世界种子</value></data>
+  <data name="config.level-type.description" xml:space="preserve"><value>由当前游戏服务端识别的世界类型。</value></data>
+  <data name="config.level-type.title" xml:space="preserve"><value>世界类型</value></data>
   <data name="config.list.title" xml:space="preserve"><value>配置文件</value></data>
+  <data name="config.log-ips.description" xml:space="preserve"><value>在游戏服务端日志中记录玩家 IP。</value></data>
+  <data name="config.log-ips.title" xml:space="preserve"><value>记录玩家地址</value></data>
+  <data name="config.max-chained-neighbor-updates.description" xml:space="preserve"><value>单次连锁方块更新的最大数量。</value></data>
+  <data name="config.max-chained-neighbor-updates.title" xml:space="preserve"><value>连锁更新上限</value></data>
+  <data name="config.max-players.description" xml:space="preserve"><value>服务器允许同时在线的最大玩家数。</value></data>
+  <data name="config.max-players.title" xml:space="preserve"><value>玩家上限</value></data>
+  <data name="config.max-tick-time.description" xml:space="preserve"><value>看门狗超时，单位为毫秒；负一关闭。</value></data>
+  <data name="config.max-tick-time.title" xml:space="preserve"><value>单刻最长时间</value></data>
+  <data name="config.max-world-size.description" xml:space="preserve"><value>以方块为单位，最大为 29999984。</value></data>
+  <data name="config.max-world-size.title" xml:space="preserve"><value>世界最大范围</value></data>
+  <data name="config.motd.description" xml:space="preserve"><value>游戏服务器列表中显示的介绍。</value></data>
+  <data name="config.motd.title" xml:space="preserve"><value>服务器简介</value></data>
+  <data name="config.network-compression-threshold.description" xml:space="preserve"><value>以字节为单位；负一关闭压缩。</value></data>
+  <data name="config.network-compression-threshold.title" xml:space="preserve"><value>网络压缩阈值</value></data>
+  <data name="config.online-mode.description" xml:space="preserve"><value>使用游戏服务端的在线身份验证规则。</value></data>
+  <data name="config.online-mode.title" xml:space="preserve"><value>正版身份验证</value></data>
+  <data name="config.op-permission-level.description" xml:space="preserve"><value>游戏管理员默认权限等级，范围为 1～4。</value></data>
+  <data name="config.op-permission-level.title" xml:space="preserve"><value>管理员权限等级</value></data>
+  <data name="config.pause-when-empty-seconds.description" xml:space="preserve"><value>无玩家时暂停前的秒数；负一关闭。</value></data>
+  <data name="config.pause-when-empty-seconds.title" xml:space="preserve"><value>空服暂停等待</value></data>
+  <data name="config.player-idle-timeout.description" xml:space="preserve"><value>玩家空闲踢出时间，单位为分钟；零关闭。</value></data>
+  <data name="config.player-idle-timeout.title" xml:space="preserve"><value>空闲超时</value></data>
+  <data name="config.prevent-proxy-connections.description" xml:space="preserve"><value>启用游戏服务端提供的代理连接检查。</value></data>
+  <data name="config.prevent-proxy-connections.title" xml:space="preserve"><value>代理连接检查</value></data>
+  <data name="config.pvp.description" xml:space="preserve"><value>允许玩家互相造成伤害。</value></data>
+  <data name="config.pvp.title" xml:space="preserve"><value>玩家对战</value></data>
+  <data name="config.query-port.description" xml:space="preserve"><value>查询协议使用的端口，范围为 1～65535。</value></data>
+  <data name="config.query.port.title" xml:space="preserve"><value>查询端口</value></data>
+  <data name="config.rate-limit.description" xml:space="preserve"><value>每秒数据包限制；零表示不限制。</value></data>
+  <data name="config.rate-limit.title" xml:space="preserve"><value>数据包速率限制</value></data>
+  <data name="config.rcon-password.description" xml:space="preserve"><value>启用 RCON 时使用的秘密；修改摘要不展示密码。</value></data>
+  <data name="config.rcon-port.description" xml:space="preserve"><value>RCON 监听端口，范围为 1～65535。</value></data>
+  <data name="config.rcon.password.title" xml:space="preserve"><value>远程控制密码</value></data>
+  <data name="config.rcon.port.title" xml:space="preserve"><value>远程控制端口</value></data>
+  <data name="config.region-file-compression.description" xml:space="preserve"><value>选择游戏服务端保存区块时的压缩算法。</value></data>
+  <data name="config.region-file-compression.title" xml:space="preserve"><value>区域文件压缩</value></data>
+  <data name="config.require-resource-pack.description" xml:space="preserve"><value>玩家拒绝资源包时阻止加入。</value></data>
+  <data name="config.require-resource-pack.title" xml:space="preserve"><value>要求资源包</value></data>
+  <data name="config.resource-pack-id.description" xml:space="preserve"><value>由游戏协议使用的资源包标识。</value></data>
+  <data name="config.resource-pack-id.title" xml:space="preserve"><value>资源包标识</value></data>
+  <data name="config.resource-pack-prompt.description" xml:space="preserve"><value>客户端展示的资源包接受提示。</value></data>
+  <data name="config.resource-pack-prompt.title" xml:space="preserve"><value>资源包提示</value></data>
+  <data name="config.resource-pack-sha1.description" xml:space="preserve"><value>客户端校验资源包使用的 SHA-1。</value></data>
+  <data name="config.resource-pack-sha1.title" xml:space="preserve"><value>资源包校验值</value></data>
+  <data name="config.resource-pack.description" xml:space="preserve"><value>发送给玩家的资源包 URL；不通过本应用下载。</value></data>
+  <data name="config.resource-pack.title" xml:space="preserve"><value>资源包地址</value></data>
+  <data name="config.server-ip.description" xml:space="preserve"><value>留空时使用游戏服务端默认监听地址。</value></data>
+  <data name="config.server-ip.title" xml:space="preserve"><value>监听地址</value></data>
+  <data name="config.server-port.description" xml:space="preserve"><value>玩家连接的 TCP 端口，范围为 1～65535。</value></data>
+  <data name="config.server-port.title" xml:space="preserve"><value>游戏端口</value></data>
+  <data name="config.simulation-distance.description" xml:space="preserve"><value>游戏逻辑模拟的区块半径，范围为 3～32。</value></data>
+  <data name="config.simulation-distance.title" xml:space="preserve"><value>模拟距离</value></data>
+  <data name="config.spawn-monsters.description" xml:space="preserve"><value>允许世界自然生成怪物。</value></data>
+  <data name="config.spawn-monsters.title" xml:space="preserve"><value>生成怪物</value></data>
+  <data name="config.spawn-protection.description" xml:space="preserve"><value>出生点保护半径，单位为方块。</value></data>
+  <data name="config.spawn-protection.title" xml:space="preserve"><value>出生点保护范围</value></data>
+  <data name="config.sync-chunk-writes.description" xml:space="preserve"><value>等待区块写入完成，以提高持久化确定性。</value></data>
+  <data name="config.sync-chunk-writes.title" xml:space="preserve"><value>同步区块写入</value></data>
+  <data name="config.text-filtering-config.description" xml:space="preserve"><value>游戏服务端支持的文本过滤配置内容。</value></data>
+  <data name="config.text-filtering-config.title" xml:space="preserve"><value>文本过滤配置</value></data>
+  <data name="config.use-native-transport.description" xml:space="preserve"><value>允许游戏服务端使用受支持的原生传输。</value></data>
+  <data name="config.use-native-transport.title" xml:space="preserve"><value>原生网络传输</value></data>
+  <data name="config.view-distance.description" xml:space="preserve"><value>发送给玩家的区块半径，范围为 3～32。</value></data>
+  <data name="config.view-distance.title" xml:space="preserve"><value>视距</value></data>
+  <data name="config.white-list.description" xml:space="preserve"><value>仅允许白名单玩家加入。</value></data>
+  <data name="config.white-list.title" xml:space="preserve"><value>启用白名单</value></data>
   <data name="configgroup.gameplay" xml:space="preserve"><value>游戏玩法</value></data>
   <data name="configgroup.network" xml:space="preserve"><value>网络</value></data>
   <data name="configgroup.other" xml:space="preserve"><value>其他</value></data>
@@ -191,6 +326,535 @@
   <data name="dashboard.editor.instructions" xml:space="preserve"><value>拖动卡片可调整顺序；也可调整十二栅格宽度和高度、隐藏卡片或新增内容卡片，完成后保存布局。</value></data>
   <data name="dashboard.editor.width" xml:space="preserve"><value>卡片宽度</value></data>
   <data name="dashboard.overview.title" xml:space="preserve"><value>仪表盘</value></data>
+  <data name="desktop.accept-eula" xml:space="preserve"><value>阅读并同意 Minecraft EULA…</value></data>
+  <data name="desktop.accept-eula-impact" xml:space="preserve"><value>请先在 https://www.minecraft.net/eula 阅读 Minecraft EULA。确认即表示你已阅读并同意，将在该实例工作目录写入同意记录。</value></data>
+  <data name="desktop.account-key-active" xml:space="preserve"><value>有效</value></data>
+  <data name="desktop.account-key-name-required" xml:space="preserve"><value>请填写密钥名称后重试。</value></data>
+  <data name="desktop.account-key-once" xml:space="preserve"><value>密钥只显示一次，请现在保存。不要发送给他人。</value></data>
+  <data name="desktop.account-key-revoked" xml:space="preserve"><value>已撤销</value></data>
+  <data name="desktop.account-keys" xml:space="preserve"><value>API 密钥</value></data>
+  <data name="desktop.account-keys-empty" xml:space="preserve"><value>没有密钥。需要自动化访问时可创建。</value></data>
+  <data name="desktop.account-keys-help" xml:space="preserve"><value>为自动化创建密钥；不再使用时撤销。</value></data>
+  <data name="desktop.account-oidc" xml:space="preserve"><value>身份提供方</value></data>
+  <data name="desktop.account-oidc-bound" xml:space="preserve"><value>已绑定身份提供方</value></data>
+  <data name="desktop.account-oidc-help" xml:space="preserve"><value>绑定会在系统浏览器中完成；服务器需要启用身份登录。</value></data>
+  <data name="desktop.account-oidc-unbound" xml:space="preserve"><value>未绑定身份提供方</value></data>
+  <data name="desktop.account-password-help" xml:space="preserve"><value>新密码至少十二个字符，并再次输入确认。</value></data>
+  <data name="desktop.account-password-impact" xml:space="preserve"><value>修改密码后当前会话将失效，你需要重新登录。尚未保存的个人资料修改会被放弃。</value></data>
+  <data name="desktop.account-profile" xml:space="preserve"><value>个人资料</value></data>
+  <data name="desktop.account-profile-saved" xml:space="preserve"><value>个人资料已保存。</value></data>
+  <data name="desktop.account-recovery-help" xml:space="preserve"><value>恢复码只显示一次，请妥善保存。每个码只能使用一次。</value></data>
+  <data name="desktop.account-recovery-title" xml:space="preserve"><value>保存恢复码</value></data>
+  <data name="desktop.account-revoke-key-impact" xml:space="preserve"><value>撤销“{0}”后，使用它的程序将无法继续访问服务器。</value></data>
+  <data name="desktop.account-session-expires" xml:space="preserve"><value>到期：{0}</value></data>
+  <data name="desktop.account-sessions" xml:space="preserve"><value>登录会话</value></data>
+  <data name="desktop.account-sessions-empty" xml:space="preserve"><value>未返回会话。请刷新；若登录已失效，请重新登录。</value></data>
+  <data name="desktop.account-sessions-help" xml:space="preserve"><value>查看当前与其他登录，撤销不再使用的会话。</value></data>
+  <data name="desktop.account-signout-impact" xml:space="preserve"><value>退出此服务器的当前会话，并放弃未保存的账户修改；服务和实例继续运行。</value></data>
+  <data name="desktop.account-totp" xml:space="preserve"><value>两步验证</value></data>
+  <data name="desktop.account-totp-disabled" xml:space="preserve"><value>未启用两步验证</value></data>
+  <data name="desktop.account-totp-enabled" xml:space="preserve"><value>已启用两步验证</value></data>
+  <data name="desktop.account-totp-help" xml:space="preserve"><value>使用验证器生成验证码，并保管恢复码。</value></data>
+  <data name="desktop.account-totp-material" xml:space="preserve"><value>在验证器中手动添加以下密钥，然后输入六位验证码。
+密钥：{0}
+验证器地址：{1}</value></data>
+  <data name="desktop.address-not-reported" xml:space="preserve"><value>尚未配置玩家地址与端口</value></data>
+  <data name="desktop.all-saved" xml:space="preserve"><value>所有修改已保存</value></data>
+  <data name="desktop.allow-overwrite" xml:space="preserve"><value>允许覆盖同名目标</value></data>
+  <data name="desktop.archive-destination" xml:space="preserve"><value>ZIP 文件名或相对路径</value></data>
+  <data name="desktop.archive-encoding" xml:space="preserve"><value>归档文件名编码</value></data>
+  <data name="desktop.archive-file" xml:space="preserve"><value>服务端 ZIP 文件</value></data>
+  <data name="desktop.associated-channel" xml:space="preserve"><value>关联的整合内容</value></data>
+  <data name="desktop.authorization-changed" xml:space="preserve"><value>会话或权限已更改。已重新打开可访问的实例；请重新登录或联系管理员恢复访问。</value></data>
+  <data name="desktop.auto-restart" xml:space="preserve"><value>崩溃后自动重启</value></data>
+  <data name="desktop.auto-start" xml:space="preserve"><value>开机自动启动</value></data>
+  <data name="desktop.back-to-login" xml:space="preserve"><value>返回登录</value></data>
+  <data name="desktop.channel-not-visible" xml:space="preserve"><value>已关联通道，当前账户无法查看详情</value></data>
+  <data name="desktop.choice-en-US" xml:space="preserve"><value>English (United States)</value></data>
+  <data name="desktop.choice-file" xml:space="preserve"><value>PFX 文件</value></data>
+  <data name="desktop.choice-left" xml:space="preserve"><value>左侧</value></data>
+  <data name="desktop.choice-none" xml:space="preserve"><value>未配置</value></data>
+  <data name="desktop.choice-store" xml:space="preserve"><value>Windows 证书存储区</value></data>
+  <data name="desktop.choice-top" xml:space="preserve"><value>顶部</value></data>
+  <data name="desktop.choice-zh-Hans" xml:space="preserve"><value>简体中文</value></data>
+  <data name="desktop.choose-archive" xml:space="preserve"><value>选择 ZIP…</value></data>
+  <data name="desktop.collision-keep-both" xml:space="preserve"><value>保留两个文件</value></data>
+  <data name="desktop.collision-overwrite" xml:space="preserve"><value>覆盖现有文件</value></data>
+  <data name="desktop.collision-policy" xml:space="preserve"><value>复制或移动时遇到同名文件</value></data>
+  <data name="desktop.collision-reject" xml:space="preserve"><value>拒绝，保留现有文件</value></data>
+  <data name="desktop.collision-skip" xml:space="preserve"><value>跳过同名文件</value></data>
+  <data name="desktop.config-backups-description" xml:space="preserve"><value>选择备份时间后恢复。修订校验在保存时自动完成。</value></data>
+  <data name="desktop.config-choose-next" xml:space="preserve"><value>选择左侧配置文件；其他文件可在文件管理中打开。</value></data>
+  <data name="desktop.config-concurrency-next" xml:space="preserve"><value>内容已被其他操作修改。请保留所需内容，重新读取当前内容后再保存。</value></data>
+  <data name="desktop.config-conflict-candidates" xml:space="preserve"><value>发现多个候选文件，先在文件管理中保留所需版本：
+{0}</value></data>
+  <data name="desktop.config-conflict-next" xml:space="preserve"><value>发现同一配置的多个候选文件。请在文件管理中检查候选位置，解决冲突后重新扫描。</value></data>
+  <data name="desktop.config-dirty-count" xml:space="preserve"><value>{0} 项未保存</value></data>
+  <data name="desktop.config-empty-next" xml:space="preserve"><value>没有识别到配置文件。请先准备服务端文件，或在文件管理中打开需要的文件，再重新扫描。</value></data>
+  <data name="desktop.config-file-details" xml:space="preserve"><value>{0} · {1} · {2} 个其他字段（原始文本中保留）</value></data>
+  <data name="desktop.config-files" xml:space="preserve"><value>配置文件</value></data>
+  <data name="desktop.config-gameplay" xml:space="preserve"><value>游戏</value></data>
+  <data name="desktop.config-network" xml:space="preserve"><value>网络</value></data>
+  <data name="desktop.config-no-backups" xml:space="preserve"><value>没有备份。首次保存配置后会自动生成。</value></data>
+  <data name="desktop.config-other" xml:space="preserve"><value>其他</value></data>
+  <data name="desktop.config-performance" xml:space="preserve"><value>性能</value></data>
+  <data name="desktop.config-raw" xml:space="preserve"><value>原始文本</value></data>
+  <data name="desktop.config-raw-changed" xml:space="preserve"><value>原始文本已修改；保存后会保留自动备份。</value></data>
+  <data name="desktop.config-reference-default" xml:space="preserve"><value>文件未设置此项，当前显示内置参考默认值；修改后才会写入。</value></data>
+  <data name="desktop.config-restart-needed" xml:space="preserve"><value>配置在实例下次启动时生效。保存自动备份，并保留未修改的字段。</value></data>
+  <data name="desktop.config-restore-impact" xml:space="preserve"><value>将以所选备份覆盖当前配置，未保存修改将丢弃。当前文件会先自动备份，实例下次启动时生效。</value></data>
+  <data name="desktop.config-saved" xml:space="preserve"><value>所有修改已保存</value></data>
+  <data name="desktop.config-saved-next" xml:space="preserve"><value>配置已保存并自动备份。下次启动实例时生效。</value></data>
+  <data name="desktop.config-security" xml:space="preserve"><value>安全</value></data>
+  <data name="desktop.config-stop-first" xml:space="preserve"><value>实例尚未停止。可查看配置；请先停止实例，再编辑或恢复备份。</value></data>
+  <data name="desktop.config-structured" xml:space="preserve"><value>结构化</value></data>
+  <data name="desktop.config-value-invalid" xml:space="preserve"><value>请检查“{0}”：数值须在 {1}～{2} 范围内，其余项目须符合该项要求。</value></data>
+  <data name="desktop.config-world" xml:space="preserve"><value>世界</value></data>
+  <data name="desktop.console-command" xml:space="preserve"><value>输入服务端命令</value></data>
+  <data name="desktop.console-command-disabled" xml:space="preserve"><value>实例运行后才能发送命令。请先启动实例。</value></data>
+  <data name="desktop.console-inspector" xml:space="preserve"><value>检查栏</value></data>
+  <data name="desktop.console-output-empty" xml:space="preserve"><value>暂无最近输出。启动实例后可在这里查看实时控制台。</value></data>
+  <data name="desktop.console-players" xml:space="preserve"><value>{0}/{1} 人在线</value></data>
+  <data name="desktop.console-players-title" xml:space="preserve"><value>在线玩家</value></data>
+  <data name="desktop.console-resources" xml:space="preserve"><value>CPU {0:F1}% · 内存 {1:F1} MiB</value></data>
+  <data name="desktop.console-resources-title" xml:space="preserve"><value>资源使用</value></data>
+  <data name="desktop.console-send" xml:space="preserve"><value>发送</value></data>
+  <data name="desktop.crash-exit-next" xml:space="preserve"><value>实例意外退出（{0}，退出码 {1}）。请检查下方最近输出，修正启动配置或服务端文件后重试。</value></data>
+  <data name="desktop.crash-memory-contact" xml:space="preserve"><value>实例意外退出（{0}，退出码 {1}）。输出提示内存不足，请联系管理员检查最大内存设置后重试。</value></data>
+  <data name="desktop.crash-memory-next" xml:space="preserve"><value>实例意外退出（{0}，退出码 {1}）。输出提示内存不足，请在实例设置中调高最大内存后重试。</value></data>
+  <data name="desktop.crash-time-not-reported" xml:space="preserve"><value>未报告退出时间</value></data>
+  <data name="desktop.create-empty" xml:space="preserve"><value>创建空实例</value></data>
+  <data name="desktop.create-fields-required" xml:space="preserve"><value>请填写名称（最多 64 字）、相对启动目标和停止命令；最大内存须不小于最小内存，停止等待为 1～600 秒。</value></data>
+  <data name="desktop.create-java-required" xml:space="preserve"><value>请选择该节点已登记的 Java。列表为空时，请先到节点页面登记 Java。</value></data>
+  <data name="desktop.create-managed-directory" xml:space="preserve"><value>由节点创建受管工作目录</value></data>
+  <data name="desktop.create-node-required" xml:space="preserve"><value>请选择在线节点；节点离线时请先恢复连接。</value></data>
+  <data name="desktop.create-review" xml:space="preserve"><value>名称：{0}
+节点：{1}
+Java：{2}
+内存：{3}～{4} MiB
+启动目标：{5}
+来源：{6}</value></data>
+  <data name="desktop.create-review-help" xml:space="preserve"><value>创建会提交长操作，可在标题栏查看进度。空实例创建后需要先上传服务端文件，再阅读并同意 Minecraft EULA 才能启动。外部目录在删除登记时原样保留。</value></data>
+  <data name="desktop.create-source" xml:space="preserve"><value>创建方式</value></data>
+  <data name="desktop.create-source-help" xml:space="preserve"><value>空实例和 ZIP 导入使用节点的受管目录。登记已有目录不会移动文件，也不会取得目录所有权。</value></data>
+  <data name="desktop.create-source-required" xml:space="preserve"><value>请选择服务端 ZIP，或填写节点上已有目录的绝对路径，再继续。</value></data>
+  <data name="desktop.create-step-basic" xml:space="preserve"><value>2. 基本信息与启动</value></data>
+  <data name="desktop.create-step-review" xml:space="preserve"><value>3. 确认创建</value></data>
+  <data name="desktop.create-step-source" xml:space="preserve"><value>1. 创建方式</value></data>
+  <data name="desktop.day-0" xml:space="preserve"><value>周日</value></data>
+  <data name="desktop.day-1" xml:space="preserve"><value>周一</value></data>
+  <data name="desktop.day-2" xml:space="preserve"><value>周二</value></data>
+  <data name="desktop.day-3" xml:space="preserve"><value>周三</value></data>
+  <data name="desktop.day-4" xml:space="preserve"><value>周四</value></data>
+  <data name="desktop.day-5" xml:space="preserve"><value>周五</value></data>
+  <data name="desktop.day-6" xml:space="preserve"><value>周六</value></data>
+  <data name="desktop.editor-label" xml:space="preserve"><value>文本与配置编辑器</value></data>
+  <data name="desktop.editor-modified" xml:space="preserve"><value>未保存</value></data>
+  <data name="desktop.encoding-auto" xml:space="preserve"><value>自动识别</value></data>
+  <data name="desktop.eula-accepted" xml:space="preserve"><value>已记录 EULA 同意。现在可以启动实例。</value></data>
+  <data name="desktop.eula-required-next" xml:space="preserve"><value>Minecraft EULA 尚未同意。请先在更多选项中阅读并同意，再重试启动。</value></data>
+  <data name="desktop.extract-destination" xml:space="preserve"><value>解压目录（留空为当前目录）</value></data>
+  <data name="desktop.file-kind" xml:space="preserve"><value>类型</value></data>
+  <data name="desktop.file-locked-next" xml:space="preserve"><value>文件正在被占用。请先停止实例，再重试覆盖、保存或删除。</value></data>
+  <data name="desktop.file-modified" xml:space="preserve"><value>修改时间</value></data>
+  <data name="desktop.file-size" xml:space="preserve"><value>{0:N0} 字节</value></data>
+  <data name="desktop.file-size-title" xml:space="preserve"><value>大小</value></data>
+  <data name="desktop.file-transfer-progress" xml:space="preserve"><value>{0}：{1:N0}/{2:N0} 字节，{3:N0} 字节/秒 · {4}</value></data>
+  <data name="desktop.file-type-file" xml:space="preserve"><value>文件</value></data>
+  <data name="desktop.files-boundary" xml:space="preserve"><value>只管理当前实例的工作目录。可从资源管理器拖入常规文件或文件夹上传。</value></data>
+  <data name="desktop.files-delete-impact" xml:space="preserve"><value>将删除下列已选择的文件或子目录，内容无法恢复。工作目录边界不变。是否继续？
+{0}</value></data>
+  <data name="desktop.files-empty-next" xml:space="preserve"><value>此处没有文件，或没有符合筛选条件的项目。可上传文件、新建文件夹，或调整筛选。</value></data>
+  <data name="desktop.files-new-tab" xml:space="preserve"><value>新建目录标签</value></data>
+  <data name="desktop.files-options" xml:space="preserve"><value>筛选、排序与传输选项</value></data>
+  <data name="desktop.files-overwrite-impact" xml:space="preserve"><value>同名目标文件会被替换，原内容无法恢复。请确认当前目录和目标名称后继续。</value></data>
+  <data name="desktop.files-overwrite-title" xml:space="preserve"><value>确认覆盖文件</value></data>
+  <data name="desktop.files-running-warning" xml:space="preserve"><value>实例尚未停止：请先停止实例再更改文件。浏览与下载仍可使用。</value></data>
+  <data name="desktop.files-shown" xml:space="preserve"><value>已显示 {0} 项</value></data>
+  <data name="desktop.filter-all" xml:space="preserve"><value>全部</value></data>
+  <data name="desktop.filter-attention" xml:space="preserve"><value>需处理</value></data>
+  <data name="desktop.filter-files" xml:space="preserve"><value>筛选当前目录</value></data>
+  <data name="desktop.filter-instances" xml:space="preserve"><value>筛选实例</value></data>
+  <data name="desktop.force-stop-impact" xml:space="preserve"><value>强制终止会立即结束实例进程，尚未保存的游戏数据可能丢失。是否继续？</value></data>
+  <data name="desktop.force-stop-title" xml:space="preserve"><value>强制终止…</value></data>
+  <data name="desktop.instance-count" xml:space="preserve"><value>共 {0} 个</value></data>
+  <data name="desktop.instance-crashed-next" xml:space="preserve"><value>实例意外退出。请在控制台检查最近输出与退出码；若内存不足，请在实例设置中调整最大内存后重试。</value></data>
+  <data name="desktop.instance-offline-next" xml:space="preserve"><value>节点暂时离线，实例登记仍保留。请检查节点连接；节点恢复后会自动重连。</value></data>
+  <data name="desktop.instance-state-crashed" xml:space="preserve"><value>已崩溃</value></data>
+  <data name="desktop.instance-state-creating" xml:space="preserve"><value>正在创建</value></data>
+  <data name="desktop.instance-state-failed" xml:space="preserve"><value>启动失败</value></data>
+  <data name="desktop.instance-state-restarting" xml:space="preserve"><value>正在重启</value></data>
+  <data name="desktop.instance-state-running" xml:space="preserve"><value>运行中</value></data>
+  <data name="desktop.instance-state-starting" xml:space="preserve"><value>正在启动</value></data>
+  <data name="desktop.instance-state-stopped" xml:space="preserve"><value>已停止</value></data>
+  <data name="desktop.instance-state-stopping" xml:space="preserve"><value>正在停止</value></data>
+  <data name="desktop.instance-state-unknown" xml:space="preserve"><value>状态未知</value></data>
+  <data name="desktop.instance-state-unreachable" xml:space="preserve"><value>节点离线</value></data>
+  <data name="desktop.instance-stop-required-next" xml:space="preserve"><value>实例尚未停止。请先在命令栏停止实例，等待状态变为“已停止”，再重试。</value></data>
+  <data name="desktop.instance-summary" xml:space="preserve"><value>{0} 运行 · {1} 停止 · {2} 需处理 · 节点 {3}/{4} 在线</value></data>
+  <data name="desktop.instance-update-impact" xml:space="preserve"><value>将按已配置的更新动作备份并替换实例内容。实例必须保持停止。是否继续？</value></data>
+  <data name="desktop.instance-update-title" xml:space="preserve"><value>更新整合内容</value></data>
+  <data name="desktop.instance-uptime" xml:space="preserve"><value>已运行 {0} 小时 {1} 分钟</value></data>
+  <data name="desktop.invalid-credentials-next" xml:space="preserve"><value>用户名或密码不正确。请检查后重试，多次失败后请稍候再试。</value></data>
+  <data name="desktop.java-administrator-only" xml:space="preserve"><value>使用已登记的 Java，详情由管理员查看</value></data>
+  <data name="desktop.java-not-reported" xml:space="preserve"><value>尚未报告 Java 详情</value></data>
+  <data name="desktop.jvm-arguments" xml:space="preserve"><value>JVM 参数（每行一个参数）</value></data>
+  <data name="desktop.launch-add-environment" xml:space="preserve"><value>添加环境变量</value></data>
+  <data name="desktop.launch-advanced" xml:space="preserve"><value>高级参数模式</value></data>
+  <data name="desktop.launch-advanced-arguments" xml:space="preserve"><value>高级参数（每行一个，不含 Java 路径）</value></data>
+  <data name="desktop.launch-advanced-disabled" xml:space="preserve"><value>此节点尚未允许高级参数模式。请关闭高级模式，或到服务器与节点设置中确认策略后重新加载。</value></data>
+  <data name="desktop.launch-advanced-help" xml:space="preserve"><value>由节点直接启动已登记的 Java，每行作为一个参数传入。此模式需节点策略允许；不运行命令解释器。</value></data>
+  <data name="desktop.launch-argfile" xml:space="preserve"><value>Java 参数文件</value></data>
+  <data name="desktop.launch-arguments-invalid" xml:space="preserve"><value>请选择相对启动目标；每行填写一个非空参数，参数内不含控制字符。高级模式至少需要一个参数。</value></data>
+  <data name="desktop.launch-environment-help" xml:space="preserve"><value>只影响此实例；值可能包含凭据，不会加入启动预览。Windows 不区分变量名大小写。</value></data>
+  <data name="desktop.launch-environment-invalid" xml:space="preserve"><value>环境变量名称不能为空、重复或包含等号与控制字符；值不能包含空字符。</value></data>
+  <data name="desktop.launch-jar" xml:space="preserve"><value>JAR 文件</value></data>
+  <data name="desktop.launch-kind" xml:space="preserve"><value>启动目标类型</value></data>
+  <data name="desktop.launch-memory-invalid" xml:space="preserve"><value>内存须为 1～1048576 MiB 的整数，最大值不得小于最小值。</value></data>
+  <data name="desktop.launch-preview" xml:space="preserve"><value>启动预览（参数展示，不是终端脚本）</value></data>
+  <data name="desktop.launch-remove-environment" xml:space="preserve"><value>移除此环境变量</value></data>
+  <data name="desktop.launch-target" xml:space="preserve"><value>启动目标（相对工作目录）</value></data>
+  <data name="desktop.launch-variable-name" xml:space="preserve"><value>变量名称</value></data>
+  <data name="desktop.launch-variable-value" xml:space="preserve"><value>变量值</value></data>
+  <data name="desktop.local-appearance-saved" xml:space="preserve"><value>本机外观已保存并应用。语言在重新打开应用后生效。</value></data>
+  <data name="desktop.local-close-tray" xml:space="preserve"><value>关闭窗口时收进托盘</value></data>
+  <data name="desktop.local-language-help" xml:space="preserve"><value>重新打开应用后使用所选语言，不改变服务器的默认语言。</value></data>
+  <data name="desktop.local-pause" xml:space="preserve"><value>暂停通知</value></data>
+  <data name="desktop.local-settings-invalid" xml:space="preserve"><value>请检查选项；终端字号应为 8～32。</value></data>
+  <data name="desktop.local-settings-saved" xml:space="preserve"><value>本机设置已保存。</value></data>
+  <data name="desktop.local-terminal-help" xml:space="preserve"><value>字号范围为 8～32，重新打开终端后生效。</value></data>
+  <data name="desktop.login-intro" xml:space="preserve"><value>登录当前服务器，继续管理你有权限使用的实例。</value></data>
+  <data name="desktop.login-submit" xml:space="preserve"><value>登录</value></data>
+  <data name="desktop.manage-connections" xml:space="preserve"><value>管理服务器连接</value></data>
+  <data name="desktop.maximum-memory" xml:space="preserve"><value>最大内存（MiB）</value></data>
+  <data name="desktop.metrics-not-running" xml:space="preserve"><value>实例未运行，暂无资源数据</value></data>
+  <data name="desktop.minimum-memory" xml:space="preserve"><value>最小内存（MiB）</value></data>
+  <data name="desktop.mod-changed-next" xml:space="preserve"><value>文件启用状态已更改。实例下次启动时生效。</value></data>
+  <data name="desktop.mod-delete-impact" xml:space="preserve"><value>删除“{0}”的文件“{1}”，不会自动删除关联配置。此操作无法撤销；可先从文件页下载备份。</value></data>
+  <data name="desktop.mod-details" xml:space="preserve"><value>{0} · {1}
+{2}
+作者：{3}
+加载器或平台：{4}
+文件：{5}
+声明的依赖：{6}
+{7}</value></data>
+  <data name="desktop.mod-metadata-unreadable" xml:space="preserve"><value>无法读取元数据。请检查 JAR 是否完整；仍可管理文件。</value></data>
+  <data name="desktop.mod-uploaded-next" xml:space="preserve"><value>上传完成，已重新扫描。实例下次启动时加载。</value></data>
+  <data name="desktop.mod-version" xml:space="preserve"><value>版本</value></data>
+  <data name="desktop.mods-boundary" xml:space="preserve"><value>只管理实例目录中已有的模组与插件，不提供在线检索或下载。</value></data>
+  <data name="desktop.mods-empty-next" xml:space="preserve"><value>没有匹配的模组或插件。可清除筛选、上传 JAR，或将文件放入实例目录后重新扫描。</value></data>
+  <data name="desktop.mods-filter" xml:space="preserve"><value>按名称、作者或标识筛选</value></data>
+  <data name="desktop.mods-kind-mods" xml:space="preserve"><value>模组</value></data>
+  <data name="desktop.mods-kind-plugins" xml:space="preserve"><value>插件</value></data>
+  <data name="desktop.mods-no-configuration" xml:space="preserve"><value>没有找到关联配置。启动服务端生成配置后再扫描，或从文件页查找。</value></data>
+  <data name="desktop.mods-rescan" xml:space="preserve"><value>重新扫描</value></data>
+  <data name="desktop.mods-running-next" xml:space="preserve"><value>启用开关在下次启动时生效。上传和删除需先停止实例；文件占用时切换可能被拒绝。</value></data>
+  <data name="desktop.mods-select-next" xml:space="preserve"><value>先选择一个模组或插件，再查看详情或管理文件。</value></data>
+  <data name="desktop.mods-shown" xml:space="preserve"><value>显示 {0} 项</value></data>
+  <data name="desktop.more-launch-options" xml:space="preserve"><value>更多启动选项</value></data>
+  <data name="desktop.move-down" xml:space="preserve"><value>下移</value></data>
+  <data name="desktop.move-up" xml:space="preserve"><value>上移</value></data>
+  <data name="desktop.nav-activity" xml:space="preserve"><value>活动与日志</value></data>
+  <data name="desktop.nav-distribution" xml:space="preserve"><value>分发</value></data>
+  <data name="desktop.nav-instances" xml:space="preserve"><value>实例</value></data>
+  <data name="desktop.nav-nodes" xml:space="preserve"><value>节点</value></data>
+  <data name="desktop.nav-settings" xml:space="preserve"><value>设置</value></data>
+  <data name="desktop.nav-users" xml:space="preserve"><value>用户</value></data>
+  <data name="desktop.network-error" xml:space="preserve"><value>无法连接服务器。请检查服务器地址和网络后重试。</value></data>
+  <data name="desktop.newline-unix" xml:space="preserve"><value>Unix 换行（LF）</value></data>
+  <data name="desktop.newline-windows" xml:space="preserve"><value>Windows 换行（CRLF）</value></data>
+  <data name="desktop.next-step" xml:space="preserve"><value>下一步</value></data>
+  <data name="desktop.no-associated-channel" xml:space="preserve"><value>未关联整合内容</value></data>
+  <data name="desktop.no-instances-next" xml:space="preserve"><value>没有符合条件的实例。请调整筛选；管理员可新建实例，普通用户可联系管理员授权。</value></data>
+  <data name="desktop.node-address-not-reported" xml:space="preserve"><value>未配置对外地址</value></data>
+  <data name="desktop.node-last-seen" xml:space="preserve"><value>离线，上次在线 {0}</value></data>
+  <data name="desktop.node-never-seen" xml:space="preserve"><value>离线，尚无心跳记录</value></data>
+  <data name="desktop.node-not-reported" xml:space="preserve"><value>节点名称未报告</value></data>
+  <data name="desktop.node-offline-duration" xml:space="preserve"><value>已失联约 {0} 小时 {1} 分钟，最后联络 {2}</value></data>
+  <data name="desktop.not-provided" xml:space="preserve"><value>未提供</value></data>
+  <data name="desktop.not-running" xml:space="preserve"><value>实例未运行</value></data>
+  <data name="desktop.oidc-countdown" xml:space="preserve"><value>{0} 秒后前往身份提供方，你也可以取消并使用密码登录。</value></data>
+  <data name="desktop.open-working-directory" xml:space="preserve"><value>打开工作目录</value></data>
+  <data name="desktop.operation-queued" xml:space="preserve"><value>操作已提交。可在标题栏的进行中列表查看进度；状态会自动更新。</value></data>
+  <data name="desktop.operations-count" xml:space="preserve"><value>{0} 项进行中</value></data>
+  <data name="desktop.password-mismatch" xml:space="preserve"><value>两次密码不同，请重新确认。</value></data>
+  <data name="desktop.password-policy" xml:space="preserve"><value>密码至少需要 12 个字符，请避开常用口令。</value></data>
+  <data name="desktop.pause-hour" xml:space="preserve"><value>暂停一小时</value></data>
+  <data name="desktop.pause-none" xml:space="preserve"><value>接收通知</value></data>
+  <data name="desktop.pause-restart" xml:space="preserve"><value>暂停直到重新打开应用</value></data>
+  <data name="desktop.pause-thirty" xml:space="preserve"><value>暂停三十分钟</value></data>
+  <data name="desktop.permission-error" xml:space="preserve"><value>你没有这项操作的权限。请选择已授权的实例或联系管理员。</value></data>
+  <data name="desktop.player-address" xml:space="preserve"><value>玩家地址</value></data>
+  <data name="desktop.players-count" xml:space="preserve"><value>{0} 人在线</value></data>
+  <data name="desktop.players-not-running" xml:space="preserve"><value>实例未运行，暂无在线玩家数据</value></data>
+  <data name="desktop.players-query-disabled" xml:space="preserve"><value>尚未启用玩家查询。可在实例设置中配置查询地址与端口。</value></data>
+  <data name="desktop.players-query-unavailable" xml:space="preserve"><value>暂时无法读取玩家信息。请检查实例设置中的玩家查询地址与端口。</value></data>
+  <data name="desktop.preview-image" xml:space="preserve"><value>预览图片</value></data>
+  <data name="desktop.previous-step" xml:space="preserve"><value>上一步</value></data>
+  <data name="desktop.protocol-response-error" xml:space="preserve"><value>服务端响应与当前协议不一致。请检查客户端与服务端版本，重新连接后再试；未保存内容仍保留。</value></data>
+  <data name="desktop.relative-destination" xml:space="preserve"><value>目标路径（相对工作目录）</value></data>
+  <data name="desktop.request-error" xml:space="preserve"><value>操作未完成。请刷新后重试；若仍失败，请查看活动与日志。</value></data>
+  <data name="desktop.request-timeout" xml:space="preserve"><value>服务器尚未响应。请重试；长操作可在活动与日志中查看结果。</value></data>
+  <data name="desktop.retry-next-step" xml:space="preserve"><value>请检查输入与权限，刷新后重试；仍失败时请联系管理员。</value></data>
+  <data name="desktop.schedule-action-command" xml:space="preserve"><value>发送控制台命令</value></data>
+  <data name="desktop.schedule-action-delay" xml:space="preserve"><value>等待</value></data>
+  <data name="desktop.schedule-action-invalid" xml:space="preserve"><value>需要 1～10 个有效动作。命令须为不超过 4096 字的单行文本；等待为 1～86400 秒。</value></data>
+  <data name="desktop.schedule-actions" xml:space="preserve"><value>动作（按顺序执行，最多 10 项）</value></data>
+  <data name="desktop.schedule-add-action" xml:space="preserve"><value>添加动作</value></data>
+  <data name="desktop.schedule-calendar-summary" xml:space="preserve"><value>{0} {1}（节点时间）</value></data>
+  <data name="desktop.schedule-check-time-next" xml:space="preserve"><value>未安排，请检查时间</value></data>
+  <data name="desktop.schedule-client-time" xml:space="preserve"><value>按本机时区输入，保存时转换为统一时间。过去的时间不会再自动执行。</value></data>
+  <data name="desktop.schedule-continue-on-failure" xml:space="preserve"><value>此动作失败后继续下一项</value></data>
+  <data name="desktop.schedule-date" xml:space="preserve"><value>日期</value></data>
+  <data name="desktop.schedule-delay-seconds" xml:space="preserve"><value>等待秒数（1～86400）</value></data>
+  <data name="desktop.schedule-delete-impact" xml:space="preserve"><value>删除计划任务“{0}”及其后续自动执行。此操作无法撤销，不会停止已经开始的实例进程。</value></data>
+  <data name="desktop.schedule-edit" xml:space="preserve"><value>编辑任务</value></data>
+  <data name="desktop.schedule-enable-next" xml:space="preserve"><value>已停用，启用后安排</value></data>
+  <data name="desktop.schedule-force-impact" xml:space="preserve"><value>动作链包含强制停止，可能丢失尚未保存的游戏数据。保存启用的任务后，它会按触发条件执行；请确认已经有备份并理解后果。</value></data>
+  <data name="desktop.schedule-history-next" xml:space="preserve"><value>点击刷新读取节点保存的最近执行记录。没有记录时，可先立即运行一次。</value></data>
+  <data name="desktop.schedule-interval-seconds" xml:space="preserve"><value>间隔秒数（10～31536000）</value></data>
+  <data name="desktop.schedule-interval-summary" xml:space="preserve"><value>每 {0} 秒</value></data>
+  <data name="desktop.schedule-last-result" xml:space="preserve"><value>上次结果</value></data>
+  <data name="desktop.schedule-name-invalid" xml:space="preserve"><value>请填写任务名称，最多 64 字且不含控制字符。</value></data>
+  <data name="desktop.schedule-never-run" xml:space="preserve"><value>尚未运行</value></data>
+  <data name="desktop.schedule-new" xml:space="preserve"><value>新建任务</value></data>
+  <data name="desktop.schedule-next-run" xml:space="preserve"><value>下次执行</value></data>
+  <data name="desktop.schedule-no-next-run" xml:space="preserve"><value>未安排（检查启用、时间与剩余次数）</value></data>
+  <data name="desktop.schedule-node-time" xml:space="preserve"><value>按节点本地时区执行</value></data>
+  <data name="desktop.schedule-overlap-concurrent" xml:space="preserve"><value>允许同时执行</value></data>
+  <data name="desktop.schedule-overlap-queue" xml:space="preserve"><value>排队执行</value></data>
+  <data name="desktop.schedule-overlap-skip" xml:space="preserve"><value>跳过重叠执行</value></data>
+  <data name="desktop.schedule-remove-action" xml:space="preserve"><value>移除所选动作</value></data>
+  <data name="desktop.schedule-result-failure" xml:space="preserve"><value>失败，请查看历史</value></data>
+  <data name="desktop.schedule-result-success" xml:space="preserve"><value>成功</value></data>
+  <data name="desktop.schedule-run-completed" xml:space="preserve"><value>任务已执行完成，可在历史中查看逐动作结果。</value></data>
+  <data name="desktop.schedule-run-failed-next" xml:space="preserve"><value>任务执行失败。请打开此任务的历史，检查实例状态、动作参数与失败结果后重试。</value></data>
+  <data name="desktop.schedule-runs-description" xml:space="preserve"><value>剩余次数（负一表示无限）</value></data>
+  <data name="desktop.schedule-runs-exhausted" xml:space="preserve"><value>次数用尽，请编辑</value></data>
+  <data name="desktop.schedule-runs-invalid" xml:space="preserve"><value>剩余次数须为正整数，或负一表示无限；请选择有效的重叠策略。</value></data>
+  <data name="desktop.schedule-saved-next" xml:space="preserve"><value>计划任务已保存。启用的任务由节点按触发条件执行；停用的任务仍可立即运行。</value></data>
+  <data name="desktop.schedule-time" xml:space="preserve"><value>时间</value></data>
+  <data name="desktop.schedule-trigger-calendar" xml:space="preserve"><value>按星期和时间</value></data>
+  <data name="desktop.schedule-trigger-interval" xml:space="preserve"><value>固定间隔</value></data>
+  <data name="desktop.schedule-trigger-invalid" xml:space="preserve"><value>间隔为 10～31536000 秒；按星期触发需选择至少一天和有效时间；指定时间需有效的本地日期与时间。</value></data>
+  <data name="desktop.schedule-trigger-specified" xml:space="preserve"><value>指定日期与时间</value></data>
+  <data name="desktop.schedule-unknown-action" xml:space="preserve"><value>无法识别的动作，请重新选择</value></data>
+  <data name="desktop.schedule-unsaved" xml:space="preserve"><value>有未保存的修改</value></data>
+  <data name="desktop.schedules-empty-next" xml:space="preserve"><value>还没有计划任务。选择“新建任务”，在右侧设置触发条件与动作后保存。</value></data>
+  <data name="desktop.schedules-shown" xml:space="preserve"><value>共 {0} 个计划任务</value></data>
+  <data name="desktop.search-command" xml:space="preserve"><value>快捷命令</value></data>
+  <data name="desktop.search-file" xml:space="preserve"><value>文件</value></data>
+  <data name="desktop.search-hint" xml:space="preserve"><value>搜索实例、文件或命令（Ctrl+K）</value></data>
+  <data name="desktop.search-hint-short" xml:space="preserve"><value>搜索（Ctrl+K）</value></data>
+  <data name="desktop.secret-clear" xml:space="preserve"><value>清除已保存的秘密</value></data>
+  <data name="desktop.secret-clear-conflict" xml:space="preserve"><value>清除秘密与填写新秘密不能同时选择。请保留其中一种操作。</value></data>
+  <data name="desktop.secret-not-set" xml:space="preserve"><value>未设置秘密。</value></data>
+  <data name="desktop.secret-set" xml:space="preserve"><value>已保存秘密；留空保留，勾选下方选项才清除。</value></data>
+  <data name="desktop.select-instance" xml:space="preserve"><value>选择一个实例</value></data>
+  <data name="desktop.select-instance-next" xml:space="preserve"><value>从实例列表中选择一个实例，查看控制台、文件与设置。</value></data>
+  <data name="desktop.server-arguments" xml:space="preserve"><value>服务端参数（每行一个参数）</value></data>
+  <data name="desktop.server-disconnected-next" xml:space="preserve"><value>与服务器的实时连接已断开。请检查服务器与网络，从标题栏重新选择当前连接，再刷新核对操作结果。</value></data>
+  <data name="desktop.server-effect-immediate" xml:space="preserve"><value>保存后立即生效。</value></data>
+  <data name="desktop.server-effect-restart" xml:space="preserve"><value>保存后需要重启服务器服务才能完整生效。</value></data>
+  <data name="desktop.server-reconnecting" xml:space="preserve"><value>与服务器的实时连接已中断，正在尝试恢复。请检查服务器与网络；恢复后刷新核对操作结果。</value></data>
+  <data name="desktop.server-setting-activityRetentionDays" xml:space="preserve"><value>操作日志保留天数</value></data>
+  <data name="desktop.server-setting-advancedRawCommandsEnabled" xml:space="preserve"><value>允许高级原始启动命令</value></data>
+  <data name="desktop.server-setting-apiKeysEnabled" xml:space="preserve"><value>允许 API 密钥</value></data>
+  <data name="desktop.server-setting-archiveConcurrencyLimit" xml:space="preserve"><value>归档并发上限</value></data>
+  <data name="desktop.server-setting-auditRetentionDays" xml:space="preserve"><value>安全审计保留天数</value></data>
+  <data name="desktop.server-setting-choice-invalid" xml:space="preserve"><value>请为“{0}”选择一个可用选项。</value></data>
+  <data name="desktop.server-setting-corsOrigins" xml:space="preserve"><value>允许的跨域来源</value></data>
+  <data name="desktop.server-setting-databaseBackupEnabled" xml:space="preserve"><value>自动数据库备份</value></data>
+  <data name="desktop.server-setting-databaseBackupRetentionCount" xml:space="preserve"><value>保留备份数量</value></data>
+  <data name="desktop.server-setting-defaultLanguage" xml:space="preserve"><value>默认语言</value></data>
+  <data name="desktop.server-setting-displayTimeZone" xml:space="preserve"><value>显示时区</value></data>
+  <data name="desktop.server-setting-downloadConcurrencyLimit" xml:space="preserve"><value>下载并发上限</value></data>
+  <data name="desktop.server-setting-embedAllowedOrigins" xml:space="preserve"><value>允许嵌入的来源</value></data>
+  <data name="desktop.server-setting-forwardedForHeader" xml:space="preserve"><value>客户端地址转发请求头</value></data>
+  <data name="desktop.server-setting-invalid" xml:space="preserve"><value>“{0}”必须是 {1}～{2} 的整数。</value></data>
+  <data name="desktop.server-setting-ipBanMinutes" xml:space="preserve"><value>临时封禁时间（分钟）</value></data>
+  <data name="desktop.server-setting-ipFailureLimit" xml:space="preserve"><value>地址登录失败上限</value></data>
+  <data name="desktop.server-setting-ipFailureWindowMinutes" xml:space="preserve"><value>地址失败计数窗口（分钟）</value></data>
+  <data name="desktop.server-setting-listenAddress" xml:space="preserve"><value>监听地址</value></data>
+  <data name="desktop.server-setting-listenPort" xml:space="preserve"><value>监听端口</value></data>
+  <data name="desktop.server-setting-loginDescriptionEnUs" xml:space="preserve"><value>英文登录说明</value></data>
+  <data name="desktop.server-setting-loginDescriptionZhHans" xml:space="preserve"><value>中文登录说明</value></data>
+  <data name="desktop.server-setting-loginSupportEnUs" xml:space="preserve"><value>英文登录支持信息</value></data>
+  <data name="desktop.server-setting-loginSupportZhHans" xml:space="preserve"><value>中文登录支持信息</value></data>
+  <data name="desktop.server-setting-loginTitleEnUs" xml:space="preserve"><value>英文登录标题</value></data>
+  <data name="desktop.server-setting-loginTitleZhHans" xml:space="preserve"><value>中文登录标题</value></data>
+  <data name="desktop.server-setting-metricRetentionHours" xml:space="preserve"><value>指标保留小时数</value></data>
+  <data name="desktop.server-setting-oidcAutomaticRedirect" xml:space="preserve"><value>自动跳转到身份提供方</value></data>
+  <data name="desktop.server-setting-oidcClientId" xml:space="preserve"><value>OIDC 客户端标识</value></data>
+  <data name="desktop.server-setting-oidcClientSecret" xml:space="preserve"><value>OIDC 客户端秘密</value></data>
+  <data name="desktop.server-setting-oidcEnabled" xml:space="preserve"><value>启用身份提供方登录</value></data>
+  <data name="desktop.server-setting-oidcIssuer" xml:space="preserve"><value>身份提供方 HTTPS 地址</value></data>
+  <data name="desktop.server-setting-oidcProviderDisplayName" xml:space="preserve"><value>身份提供方显示名</value></data>
+  <data name="desktop.server-setting-oidcScopes" xml:space="preserve"><value>OIDC 请求范围</value></data>
+  <data name="desktop.server-setting-oidcSubjectClaim" xml:space="preserve"><value>身份标识声明</value></data>
+  <data name="desktop.server-setting-oidcUserNameClaim" xml:space="preserve"><value>用户名声明</value></data>
+  <data name="desktop.server-setting-operationRetentionDays" xml:space="preserve"><value>长操作保留天数</value></data>
+  <data name="desktop.server-setting-pageTitle" xml:space="preserve"><value>服务器页面标题</value></data>
+  <data name="desktop.server-setting-pathBase" xml:space="preserve"><value>URL 路径前缀</value></data>
+  <data name="desktop.server-setting-privateSourceAllowList" xml:space="preserve"><value>私有下载源白名单</value></data>
+  <data name="desktop.server-setting-publicBaseUrl" xml:space="preserve"><value>对外访问地址</value></data>
+  <data name="desktop.server-setting-publicPageEnabled" xml:space="preserve"><value>公开页面</value></data>
+  <data name="desktop.server-setting-responseCompressionEnabled" xml:space="preserve"><value>响应压缩</value></data>
+  <data name="desktop.server-setting-serviceLogRetentionDays" xml:space="preserve"><value>服务日志保留天数</value></data>
+  <data name="desktop.server-setting-sessionAbsoluteHours" xml:space="preserve"><value>会话最长有效期（小时）</value></data>
+  <data name="desktop.server-setting-sessionIdleHours" xml:space="preserve"><value>会话空闲有效期（小时）</value></data>
+  <data name="desktop.server-setting-sessionIpValidationEnabled" xml:space="preserve"><value>会话地址校验</value></data>
+  <data name="desktop.server-setting-sidebarPosition" xml:space="preserve"><value>服务器网页导航位置</value></data>
+  <data name="desktop.server-setting-tlsCertificatePassword" xml:space="preserve"><value>PFX 密码</value></data>
+  <data name="desktop.server-setting-tlsCertificatePath" xml:space="preserve"><value>服务器 PFX 证书路径</value></data>
+  <data name="desktop.server-setting-tlsCertificateSource" xml:space="preserve"><value>TLS 证书来源</value></data>
+  <data name="desktop.server-setting-tlsCertificateThumbprint" xml:space="preserve"><value>证书存储区指纹</value></data>
+  <data name="desktop.server-setting-totpDriftSteps" xml:space="preserve"><value>两步验证容许时间偏移步数</value></data>
+  <data name="desktop.server-setting-trustedProxyMode" xml:space="preserve"><value>可信反向代理模式</value></data>
+  <data name="desktop.server-setting-trustedProxyNetworks" xml:space="preserve"><value>可信代理网络</value></data>
+  <data name="desktop.server-setting-uploadConcurrencyLimit" xml:space="preserve"><value>上传并发上限</value></data>
+  <data name="desktop.server-setting-userFailureLimit" xml:space="preserve"><value>账户登录失败上限</value></data>
+  <data name="desktop.server-setting-userFileManagementEnabled" xml:space="preserve"><value>允许普通用户管理授权实例文件</value></data>
+  <data name="desktop.server-version" xml:space="preserve"><value>服务端版本</value></data>
+  <data name="desktop.session-expired-next" xml:space="preserve"><value>当前会话无效或已过期。请重新连接服务器并登录后重试。</value></data>
+  <data name="desktop.settings-add-connection" xml:space="preserve"><value>添加或连接服务器</value></data>
+  <data name="desktop.settings-add-shortcut" xml:space="preserve"><value>添加快捷命令</value></data>
+  <data name="desktop.settings-address-help" xml:space="preserve"><value>填写完整的 HTTP 或 HTTPS 地址，不含用户名、密码、查询参数或片段。</value></data>
+  <data name="desktop.settings-auto-start-help" xml:space="preserve"><value>Agent 启动后按延迟启动此实例，不会在保存设置时立即启动。</value></data>
+  <data name="desktop.settings-backup-created" xml:space="preserve"><value>数据库已备份为 {0}，创建时间 {1}。文件位于服务器数据目录。</value></data>
+  <data name="desktop.settings-backup-owner" xml:space="preserve"><value>只有所有者可以创建数据库备份。</value></data>
+  <data name="desktop.settings-categories" xml:space="preserve"><value>设置分类</value></data>
+  <data name="desktop.settings-category-about" xml:space="preserve"><value>关于与备份</value></data>
+  <data name="desktop.settings-category-account" xml:space="preserve"><value>账户与安全</value></data>
+  <data name="desktop.settings-category-appearance" xml:space="preserve"><value>外观与语言</value></data>
+  <data name="desktop.settings-category-connections" xml:space="preserve"><value>服务器连接</value></data>
+  <data name="desktop.settings-category-general" xml:space="preserve"><value>常规</value></data>
+  <data name="desktop.settings-category-identity" xml:space="preserve"><value>身份登录</value></data>
+  <data name="desktop.settings-category-notifications" xml:space="preserve"><value>通知与托盘</value></data>
+  <data name="desktop.settings-category-security" xml:space="preserve"><value>安全</value></data>
+  <data name="desktop.settings-category-terminal" xml:space="preserve"><value>终端</value></data>
+  <data name="desktop.settings-change-directory-impact" xml:space="preserve"><value>将登记路径改为“{0}”。不会复制或移动“{1}”中的文件；原目录保持原样，新路径按外部目录管理且永不递归删除。请先在节点准备好目录与服务端文件。</value></data>
+  <data name="desktop.settings-clear-rcon-password" xml:space="preserve"><value>清除已保存的远程控制密码</value></data>
+  <data name="desktop.settings-confirm-name" xml:space="preserve"><value>输入完整实例名称以继续</value></data>
+  <data name="desktop.settings-connect" xml:space="preserve"><value>连接</value></data>
+  <data name="desktop.settings-conpty-help" xml:space="preserve"><value>使用 Windows 伪控制台；关闭后以重定向管道收发。</value></data>
+  <data name="desktop.settings-console" xml:space="preserve"><value>控制台与终端</value></data>
+  <data name="desktop.settings-content" xml:space="preserve"><value>整合内容与更新</value></data>
+  <data name="desktop.settings-current-connection" xml:space="preserve"><value>当前连接：{0} · {1}</value></data>
+  <data name="desktop.settings-danger" xml:space="preserve"><value>危险操作</value></data>
+  <data name="desktop.settings-delete-connection-help" xml:space="preserve"><value>移除当前连接前请先切换到其他服务器，至少保留一项连接。</value></data>
+  <data name="desktop.settings-delete-directory-help" xml:space="preserve"><value>仅限已停止的受管实例。需要输入完整实例名称并再次确认；操作不可撤销。</value></data>
+  <data name="desktop.settings-delete-directory-impact" xml:space="preserve"><value>将永久删除受管目录“{0}”及全部内容，并移除登记。此操作无法撤销，请先下载备份。只有 Servitium 拥有的目录可以执行此操作，外部目录始终拒绝。</value></data>
+  <data name="desktop.settings-delete-directory-title" xml:space="preserve"><value>删除受管目录并取消登记…</value></data>
+  <data name="desktop.settings-diagnostics-saved" xml:space="preserve"><value>脱敏诊断包已保存到所选文件。</value></data>
+  <data name="desktop.settings-directory-invalid" xml:space="preserve"><value>请填写节点上的完整绝对工作目录，且不包含控制字符。</value></data>
+  <data name="desktop.settings-discard" xml:space="preserve"><value>未保存的修改将被放弃。确认后继续。</value></data>
+  <data name="desktop.settings-exposure-invalid" xml:space="preserve"><value>非回环地址需要配置 TLS 或可信反向代理。</value></data>
+  <data name="desktop.settings-external-directory" xml:space="preserve"><value>外部工作目录，永不递归删除。修改登记路径不会移动文件。</value></data>
+  <data name="desktop.settings-general" xml:space="preserve"><value>名称与工作目录</value></data>
+  <data name="desktop.settings-java-help" xml:space="preserve"><value>仅使用此节点已登记的 Java；列表缺少所需版本时，先管理节点 Java。</value></data>
+  <data name="desktop.settings-launch" xml:space="preserve"><value>启动</value></data>
+  <data name="desktop.settings-launch-arguments" xml:space="preserve"><value>启动参数与环境变量</value></data>
+  <data name="desktop.settings-lifecycle" xml:space="preserve"><value>停止与自动启停</value></data>
+  <data name="desktop.settings-lifecycle-invalid" xml:space="preserve"><value>请检查停止与重启设置：停止等待 1～600 秒；启动延迟和重启间隔 0～600 秒；重启次数负一到 100；计数重置 60～86400 秒。</value></data>
+  <data name="desktop.settings-listen-invalid" xml:space="preserve"><value>监听地址必须是有效的 IP 地址。</value></data>
+  <data name="desktop.settings-local-group" xml:space="preserve"><value>本应用</value></data>
+  <data name="desktop.settings-manage-java" xml:space="preserve"><value>管理节点 Java</value></data>
+  <data name="desktop.settings-me-group" xml:space="preserve"><value>我</value></data>
+  <data name="desktop.settings-memory-help" xml:space="preserve"><value>以 MiB 为单位，下次启动时生效。</value></data>
+  <data name="desktop.settings-more" xml:space="preserve"><value>更多操作</value></data>
+  <data name="desktop.settings-name-confirm-mismatch" xml:space="preserve"><value>名称不一致，尚未执行任何删除。请重新检查要操作的实例。</value></data>
+  <data name="desktop.settings-name-invalid" xml:space="preserve"><value>名称须为最多 64 字的非空文本；标签最多 32 个，每行一个。</value></data>
+  <data name="desktop.settings-network-help" xml:space="preserve"><value>监听、TLS 与代理配置会影响所有连接者；路径指服务器本机。请先验证证书并安排服务重启。非回环开放必须满足 TLS 或可信代理要求。</value></data>
+  <data name="desktop.settings-oidc-failed" xml:space="preserve"><value>无法验证身份提供方。请检查 HTTPS 地址、发现文档与服务器出站策略后重试。</value></data>
+  <data name="desktop.settings-oidc-incomplete" xml:space="preserve"><value>启用身份登录需要 HTTPS 地址和客户端标识。</value></data>
+  <data name="desktop.settings-owned-directory" xml:space="preserve"><value>Servitium 拥有此目录。修改路径不会移动文件；新路径将改为外部目录。</value></data>
+  <data name="desktop.settings-port-invalid" xml:space="preserve"><value>主要端口可留空，或填写 1～65535 的整数。</value></data>
+  <data name="desktop.settings-primary-port" xml:space="preserve"><value>玩家主要端口（可留空）</value></data>
+  <data name="desktop.settings-proxy-incomplete" xml:space="preserve"><value>可信代理模式需要填写可信代理网络。</value></data>
+  <data name="desktop.settings-query-help" xml:space="preserve"><value>从节点网络查询 Java 版服务端列表状态，获取玩家数与版本等数据；不会改写游戏配置。</value></data>
+  <data name="desktop.settings-query-invalid" xml:space="preserve"><value>查询和远程控制端口须为 1～65535；查询主机不能为空。新密码与清除密码不能同时选择，密码不能含控制字符。</value></data>
+  <data name="desktop.settings-query-rcon" xml:space="preserve"><value>查询与远程控制</value></data>
+  <data name="desktop.settings-rcon-password-help" xml:space="preserve"><value>留空保留已保存密码；已有值不会显示。游戏服务端须另行启用相同端口与密码。</value></data>
+  <data name="desktop.settings-remove-connection" xml:space="preserve"><value>移除连接…</value></data>
+  <data name="desktop.settings-remove-connection-impact" xml:space="preserve"><value>只移除此电脑保存的服务器地址，不删除服务器、实例或数据。</value></data>
+  <data name="desktop.settings-remove-shortcut" xml:space="preserve"><value>移除此快捷命令</value></data>
+  <data name="desktop.settings-restart-attempts" xml:space="preserve"><value>连续重启次数上限（负一不限，零不重试）</value></data>
+  <data name="desktop.settings-run-alias-help" xml:space="preserve"><value>仅填写节点已登记的本机凭据别名；不会在这里输入或传输 Windows 账户密码。</value></data>
+  <data name="desktop.settings-run-alias-invalid" xml:space="preserve"><value>运行账户别名最多 64 字，不包含控制字符；请先在节点登记凭据。</value></data>
+  <data name="desktop.settings-saved-connections" xml:space="preserve"><value>已保存的连接</value></data>
+  <data name="desktop.settings-saved-next" xml:space="preserve"><value>实例设置已保存。启动、终端与连接参数在下次启动或打开相关会话时使用。</value></data>
+  <data name="desktop.settings-scope-account" xml:space="preserve"><value>这一组仅管理你在当前服务器上的账户与安全信息。</value></data>
+  <data name="desktop.settings-scope-local" xml:space="preserve"><value>这一组只影响这台电脑上的 Servitium 窗口。</value></data>
+  <data name="desktop.settings-scope-server" xml:space="preserve"><value>这一组修改当前服务器，会影响所有连接到它的人。</value></data>
+  <data name="desktop.settings-server-denied" xml:space="preserve"><value>服务器设置需要管理员权限；你仍可管理本机偏好和自己的账户。</value></data>
+  <data name="desktop.settings-server-group" xml:space="preserve"><value>服务器（{0}）</value></data>
+  <data name="desktop.settings-server-saved" xml:space="preserve"><value>设置已保存。标注需要重启的设置在服务重启后完整生效。</value></data>
+  <data name="desktop.settings-session-invalid" xml:space="preserve"><value>会话最长有效期必须大于空闲有效期。</value></data>
+  <data name="desktop.settings-shortcuts-help" xml:space="preserve"><value>这些按钮显示在控制台命令框下方。按列表顺序保存，最多 20 项。</value></data>
+  <data name="desktop.settings-shortcuts-invalid" xml:space="preserve"><value>快捷命令最多 20 个；名称最多 32 字，命令为不超过 1024 字的非空单行文本。</value></data>
+  <data name="desktop.settings-stop-help" xml:space="preserve"><value>通过实例控制台发送此单行命令，然后等待进程退出。</value></data>
+  <data name="desktop.settings-system" xml:space="preserve"><value>服务器信息</value></data>
+  <data name="desktop.settings-system-info" xml:space="preserve"><value>版本：{0}
+系统：{1}（{2}）
+运行时：{3}
+主机：{4}
+数据目录：{5}
+服务账户：{6}
+数据库：{7} MiB
+服务器时间：{8}</value></data>
+  <data name="desktop.settings-tags" xml:space="preserve"><value>标签（每行一个，最多 32 个）</value></data>
+  <data name="desktop.settings-terminal-invalid" xml:space="preserve"><value>终端列数为 20～500，行数为 5～200；请选择列表中的编码与换行方式。</value></data>
+  <data name="desktop.settings-test-oidc" xml:space="preserve"><value>验证身份提供方</value></data>
+  <data name="desktop.settings-test-success" xml:space="preserve"><value>验证成功。</value></data>
+  <data name="desktop.settings-test-tls" xml:space="preserve"><value>验证 PFX 证书</value></data>
+  <data name="desktop.settings-tls-failed" xml:space="preserve"><value>证书验证失败。请检查服务器上的 PFX 路径、密码、有效期和信任链。</value></data>
+  <data name="desktop.settings-tls-incomplete" xml:space="preserve"><value>请选择证书文件或填写证书存储区指纹。</value></data>
+  <data name="desktop.settings-unregister-help" xml:space="preserve"><value>只删除登记与关联设置，工作目录及文件原样保留。请先停止实例。</value></data>
+  <data name="desktop.settings-unregister-impact" xml:space="preserve"><value>删除“{0}”的实例登记及关联设置，未保存修改不会应用。工作目录“{1}”及全部文件原样保留，不会删除目录。</value></data>
+  <data name="desktop.settings-unregister-title" xml:space="preserve"><value>删除登记…</value></data>
+  <data name="desktop.settings-unsaved" xml:space="preserve"><value>有未保存的修改</value></data>
+  <data name="desktop.settings-unsaved-count" xml:space="preserve"><value>{0} 项未保存</value></data>
+  <data name="desktop.settings-update-channel" xml:space="preserve"><value>同步分发通道</value></data>
+  <data name="desktop.settings-update-help" xml:space="preserve"><value>保存更新方案后，从实例命令栏显式执行。不会自动安装模组或下载市场内容。</value></data>
+  <data name="desktop.settings-update-invalid" xml:space="preserve"><value>请选择更新方式。替换 JAR 时填写实例目录内的两个相对路径；同步整合内容时选择已有通道。</value></data>
+  <data name="desktop.settings-update-jar" xml:space="preserve"><value>替换本地 JAR</value></data>
+  <data name="desktop.settings-update-none" xml:space="preserve"><value>不设置更新动作</value></data>
+  <data name="desktop.setup-intro" xml:space="preserve"><value>创建所有者账户，用来管理当前连接的服务器。</value></data>
+  <data name="desktop.setup-submit" xml:space="preserve"><value>创建所有者并继续</value></data>
+  <data name="desktop.sort-descending" xml:space="preserve"><value>降序排列</value></data>
+  <data name="desktop.sort-files" xml:space="preserve"><value>排序方式</value></data>
+  <data name="desktop.stop-timeout" xml:space="preserve"><value>停止等待时间（秒）</value></data>
+  <data name="desktop.system-encoding" xml:space="preserve"><value>系统默认编码</value></data>
+  <data name="desktop.tab-configuration" xml:space="preserve"><value>配置</value></data>
+  <data name="desktop.tab-console" xml:space="preserve"><value>控制台</value></data>
+  <data name="desktop.tab-files" xml:space="preserve"><value>文件</value></data>
+  <data name="desktop.tab-mods" xml:space="preserve"><value>模组</value></data>
+  <data name="desktop.tab-schedules" xml:space="preserve"><value>计划任务</value></data>
+  <data name="desktop.tab-settings" xml:space="preserve"><value>设置</value></data>
+  <data name="desktop.terminal-bottom" xml:space="preserve"><value>回到底部</value></data>
+  <data name="desktop.terminal-clear" xml:space="preserve"><value>清空</value></data>
+  <data name="desktop.terminal-copy-all" xml:space="preserve"><value>全部复制</value></data>
+  <data name="desktop.terminal-export" xml:space="preserve"><value>导出</value></data>
+  <data name="desktop.terminal-find" xml:space="preserve"><value>查找</value></data>
+  <data name="desktop.terminal-label" xml:space="preserve"><value>Minecraft 服务端终端</value></data>
+  <data name="desktop.terminal-search" xml:space="preserve"><value>搜索控制台输出</value></data>
+  <data name="desktop.terminal-truncated" xml:space="preserve"><value>［较早的输出已截断］</value></data>
+  <data name="desktop.totp-intro" xml:space="preserve"><value>输入身份验证器中的六位验证码，或使用一份恢复码。</value></data>
+  <data name="desktop.totp-invalid-next" xml:space="preserve"><value>验证码不正确或已过期。请输入最新验证码，或改用恢复码。</value></data>
+  <data name="desktop.totp-submit" xml:space="preserve"><value>验证并登录</value></data>
+  <data name="desktop.transfer-cancelled" xml:space="preserve"><value>已停止传输或等待。若合并已在服务端开始，请刷新检查最终结果。</value></data>
+  <data name="desktop.transfer-cleanup-failed" xml:space="preserve"><value>传输失败，临时分片未能清理。请检查节点连接与存储空间，并联系管理员处理未完成的上传。</value></data>
+  <data name="desktop.transfer-leave-impact" xml:space="preserve"><value>离开此页会取消尚未提交的传输。已经提交到服务端的合并操作会继续，可在活动中查看。是否继续离开？</value></data>
+  <data name="desktop.transfer-leave-title" xml:space="preserve"><value>传输仍在进行</value></data>
+  <data name="desktop.unsaved-discard-impact" xml:space="preserve"><value>离开会丢弃尚未保存的修改。是否继续离开？</value></data>
+  <data name="desktop.unsaved-title" xml:space="preserve"><value>有未保存的修改</value></data>
+  <data name="desktop.upload-no-files" xml:space="preserve"><value>所选目录没有常规文件。你可以在目标位置手动新建空目录。</value></data>
+  <data name="desktop.upload-overwrite" xml:space="preserve"><value>上传时允许覆盖（执行前再次确认）</value></data>
+  <data name="desktop.use-recovery-code" xml:space="preserve"><value>改用恢复码</value></data>
+  <data name="desktop.username-policy" xml:space="preserve"><value>请输入用户名，最多 64 个字符，不含换行或控制字符。</value></data>
+  <data name="desktop.value-not-reported" xml:space="preserve"><value>未报告</value></data>
+  <data name="desktop.version-not-reported" xml:space="preserve"><value>尚未报告版本</value></data>
   <data name="editor.unsaved-impact" xml:space="preserve"><value>离开此页面会丢弃编辑器中尚未保存的内容。此操作无法撤销。</value></data>
   <data name="editor.unsaved-status" xml:space="preserve"><value>有未保存的修改</value></data>
   <data name="editor.unsaved-title" xml:space="preserve"><value>放弃未保存的修改？</value></data>
@@ -263,6 +927,7 @@
   <data name="field.action" xml:space="preserve"><value>操作</value></data>
   <data name="field.actions" xml:space="preserve"><value>操作序列</value></data>
   <data name="field.actor" xml:space="preserve"><value>操作者</value></data>
+  <data name="field.address" xml:space="preserve"><value>服务器地址</value></data>
   <data name="field.address-mappings" xml:space="preserve"><value>对外地址映射</value></data>
   <data name="field.advanced-arguments" xml:space="preserve"><value>高级 Java 参数数组</value></data>
   <data name="field.advanced-mode" xml:space="preserve"><value>高级原始命令模式</value></data>
@@ -568,6 +1233,8 @@ Java：{3}
   <data name="settings.revision" xml:space="preserve"><value>修订版本 {0}</value></data>
   <data name="settings.select-group" xml:space="preserve"><value>请先选择一个设置分组。</value></data>
   <data name="settings.system.title" xml:space="preserve"><value>系统设置</value></data>
+  <data name="settings.terminal-font-size" xml:space="preserve"><value>终端字号</value></data>
+  <data name="settings.theme" xml:space="preserve"><value>主题</value></data>
   <data name="settingsfield.activity-retention-days" xml:space="preserve"><value>操作日志保留天数</value></data>
   <data name="settingsfield.advanced-raw-commands-enabled" xml:space="preserve"><value>启用高级原始命令</value></data>
   <data name="settingsfield.api-keys-enabled" xml:space="preserve"><value>启用 API Key</value></data>

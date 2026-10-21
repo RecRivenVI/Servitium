@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; worker-src 'self' blob:">
@@ -9,14 +9,14 @@
 </head>
 <body>
   <div id="toolbar" role="toolbar">
-    <input id="search" type="search" aria-label="Search terminal">
-    <button id="find" type="button">Find</button>
-    <button id="bottom" type="button" hidden>Bottom</button>
-    <button id="clear" type="button">Clear</button>
-    <button id="copy" type="button">Copy all</button>
-    <button id="export" type="button">Export</button>
+    <input id="search" type="search">
+    <button id="find" type="button"></button>
+    <button id="bottom" type="button" hidden></button>
+    <button id="clear" type="button"></button>
+    <button id="copy" type="button"></button>
+    <button id="export" type="button"></button>
   </div>
-  <div id="terminal" aria-label="Minecraft server terminal"></div>
+  <div id="terminal"></div>
   <script src="vendor/xterm/xterm.js"></script>
   <script src="vendor/xterm/addon-fit.js"></script>
   <script src="vendor/xterm/addon-search.js"></script>

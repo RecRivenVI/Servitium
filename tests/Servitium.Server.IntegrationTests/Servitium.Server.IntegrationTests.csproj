@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Servitium.Server\Servitium.Server.csproj" />
+    <ProjectReference Include="..\..\src\Servitium.Client\Servitium.Client.csproj" />
   </ItemGroup>
 </Project>

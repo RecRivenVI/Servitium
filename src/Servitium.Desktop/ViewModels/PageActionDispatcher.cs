@@ -38,7 +38,7 @@ internal sealed partial class PageActionDispatcher(AppServices services)
     private int _activeDirectoryTab;
     private FileClipboardPlan? _fileClipboard;
     private string? _configurationRevision;
-    private readonly TransferPauseGate _transferPause = new();
+    private readonly Services.TransferPauseGate _transferPause = new();
 
     internal event EventHandler<TransferProgressEventArgs>? TransferProgressChanged;
 

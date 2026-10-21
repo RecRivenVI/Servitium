@@ -15,7 +15,7 @@ internal sealed partial class AppServices : IDisposable
         Settings = new DesktopSettingsService(testDataDirectory);
         Log = new DesktopLogService(Settings.DataDirectory, TimeProvider);
         Profiles = new ServerProfileService(Settings, TimeProvider);
-        Credentials = new WindowsCredentialSessionTokenStore();
+        Credentials = new WindowsCredentialSessionTokenStore(testDataDirectory);
         Session = new SessionService(Profiles, Credentials, Log, TimeProvider);
         WindowState = new WindowStateService(Settings);
         Notifications = new DesktopNotificationService(Session, Settings, Localization, Log, TimeProvider);

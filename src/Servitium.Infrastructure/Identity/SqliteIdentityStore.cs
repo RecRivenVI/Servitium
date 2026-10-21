@@ -271,10 +271,10 @@ internal sealed class SqliteIdentityStore(
         using ServitiumDbContext context = await contextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false);
         SessionRow[] rows = await context.Sessions.AsNoTracking()
             .Where(row => row.UserId == userId && !row.IsRestricted)
-            .OrderByDescending(row => row.LastSeenAt)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
-        return [.. rows.Select(FromRow)];
+        // SQLite 无法对 DateTimeOffset 排序；先在数据库按用户与会话范围过滤，再按真实时间排序。
+        return [.. rows.OrderByDescending(row => row.LastSeenAt).Select(FromRow)];
     }
 
     public Task TransferOwnershipAsync(Guid currentOwnerId, Guid newOwnerId, CancellationToken cancellationToken)
@@ -349,10 +349,10 @@ internal sealed class SqliteIdentityStore(
         using ServitiumDbContext context = await contextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false);
         ApiKeyRow[] rows = await context.ApiKeys.AsNoTracking()
             .Where(row => row.UserId == userId)
-            .OrderByDescending(row => row.CreatedAt)
             .ToArrayAsync(cancellationToken)
             .ConfigureAwait(false);
-        return [.. rows.Select(FromRow)];
+        // 与会话列表相同，DateTimeOffset 的比较在读取当前用户的记录后进行。
+        return [.. rows.OrderByDescending(row => row.CreatedAt).Select(FromRow)];
     }
 
     public Task ReplaceRecoveryCodesAsync(Guid userId, IReadOnlyList<StoredRecoveryCode> codes, CancellationToken cancellationToken)

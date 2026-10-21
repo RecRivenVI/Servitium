@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; worker-src 'self' blob:">
@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="editor.css">
 </head>
 <body>
-  <div id="editor" aria-label="Configuration editor"></div>
+  <div id="editor"></div>
   <div id="status"><span id="dirty"></span><span id="encoding">UTF-8</span><button id="eol" type="button">CRLF</button></div>
   <script src="vendor/monaco/vs/loader.js"></script>
   <script src="editor.js"></script>

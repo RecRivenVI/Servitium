@@ -5,6 +5,7 @@ require.config({ paths: { vs: "vendor/monaco/vs" } });
 require(["vs/editor/editor.main"], () => {
   let dirty = false;
   let loading = false;
+  let modifiedLabel = "";
   const editor = monaco.editor.create(document.getElementById("editor"), {
     value: "",
     language: "plaintext",
@@ -20,7 +21,7 @@ require(["vs/editor/editor.main"], () => {
   editor.onDidChangeModelContent(() => {
     if (loading) return;
     dirty = true;
-    document.getElementById("dirty").textContent = "Modified";
+    document.getElementById("dirty").textContent = modifiedLabel;
     chrome.webview.postMessage({ type: "editor.dirty", dirty: true, content: editor.getValue() });
   });
   document.getElementById("eol").addEventListener("click", () => {
@@ -42,15 +43,18 @@ require(["vs/editor/editor.main"], () => {
       document.getElementById("dirty").textContent = "";
       updateEol(model);
       chrome.webview.postMessage({ type: "editor.dirty", dirty: false, content: editor.getValue() });
+    } else if (event.data.type === "editor.labels") {
+      document.documentElement.lang = event.data.payload.language;
+      editor.updateOptions({ ariaLabel: event.data.payload.label });
+      modifiedLabel = event.data.payload.modified;
     } else if (event.data.type === "theme.changed") {
       monaco.editor.setTheme(event.data.payload.theme === "light" ? "vs" : "vs-dark");
     }
   });
 
   function save() {
-    dirty = false;
-    document.getElementById("dirty").textContent = "";
-    chrome.webview.postMessage({ type: "editor.save", dirty: false, content: editor.getValue() });
+    chrome.webview.postMessage({ type: "editor.save", dirty, content: editor.getValue() });
   }
   function updateEol(model) { document.getElementById("eol").textContent = model.getEOL() === "\r\n" ? "CRLF" : "LF"; }
+  chrome.webview.postMessage({ type: "editor.ready" });
 });

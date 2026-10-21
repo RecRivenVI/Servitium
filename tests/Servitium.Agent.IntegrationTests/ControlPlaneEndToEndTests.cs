@@ -351,6 +351,16 @@ public sealed class ControlPlaneEndToEndTests
                 new Uri($"/api/v1/instances/{imported.Id:D}/schedules", UriKind.Relative)).ConfigureAwait(true);
             Assert.Equal(HttpStatusCode.OK, scheduleListResponse.StatusCode);
             Assert.Contains(schedule.Id.ToString("D"), await scheduleListResponse.Content.ReadAsStringAsync().ConfigureAwait(true), StringComparison.OrdinalIgnoreCase);
+            using HttpResponseMessage scheduleDetailsResponse = await client.GetAsync(
+                new Uri($"/api/v1/instances/{imported.Id:D}/schedules/{schedule.Id:D}", UriKind.Relative)).ConfigureAwait(true);
+            Assert.Equal(HttpStatusCode.OK, scheduleDetailsResponse.StatusCode);
+            ScheduledTaskDetailsDto scheduleDetails = (await scheduleDetailsResponse.Content.ReadFromJsonAsync<ScheduledTaskDetailsDto>().ConfigureAwait(true))!;
+            Assert.Equal(schedule.Id, scheduleDetails.Id);
+            Assert.Equal(imported.Id, scheduleDetails.InstanceId);
+            Assert.Equal(schedule.Revision, scheduleDetails.Revision);
+            using HttpResponseMessage missingScheduleResponse = await client.GetAsync(
+                new Uri($"/api/v1/instances/{imported.Id:D}/schedules/{Guid.NewGuid():D}", UriKind.Relative)).ConfigureAwait(true);
+            Assert.Equal(HttpStatusCode.NotFound, missingScheduleResponse.StatusCode);
             using HttpResponseMessage runScheduleResponse = await client.PostAsync(
                 new Uri($"/api/v1/instances/{imported.Id:D}/schedules/{schedule.Id:D}/run", UriKind.Relative),
                 null).ConfigureAwait(true);

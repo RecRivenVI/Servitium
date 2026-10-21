@@ -123,10 +123,11 @@ public sealed class CoreEndpointWorkflowTests
         await test.ExpectAsync(HttpMethod.Delete, $"{mods}/synthetic?{nodeQuery}&kind=mods", null, HttpStatusCode.NoContent).ConfigureAwait(true);
 
         string schedules = $"/api/v1/instances/{test.Instance.Id:D}/schedules";
-        UpsertScheduledTaskRequest scheduleRequest = new("Synthetic", new("interval", 600, null, null, null), [new("command", "say test", false)], 3, "skip", true, null);
+        UpsertScheduledTaskRequest scheduleRequest = new("Synthetic", new("interval", 600, null, null, null), [new("send-console-command", "say test", false)], 3, "skip", true, null);
         await test.ExpectAsync(HttpMethod.Get, schedules, null, HttpStatusCode.OK).ConfigureAwait(true);
         await test.ExpectAsync(HttpMethod.Post, schedules, scheduleRequest, HttpStatusCode.Created).ConfigureAwait(true);
         await test.ExpectAsync(HttpMethod.Get, $"{schedules}/{test.Schedule.Id:D}", null, HttpStatusCode.OK).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Get, $"{schedules}/{Guid.NewGuid():D}", null, HttpStatusCode.NotFound).ConfigureAwait(true);
         await test.ExpectAsync(HttpMethod.Put, $"{schedules}/{test.Schedule.Id:D}", scheduleRequest with { Revision = 1 }, HttpStatusCode.OK).ConfigureAwait(true);
         await test.ExpectAsync(HttpMethod.Post, $"{schedules}/{test.Schedule.Id:D}/enable", null, HttpStatusCode.OK).ConfigureAwait(true);
         await test.ExpectAsync(HttpMethod.Post, $"{schedules}/{test.Schedule.Id:D}/disable", null, HttpStatusCode.OK).ConfigureAwait(true);
@@ -175,7 +176,7 @@ public sealed class CoreEndpointWorkflowTests
             UpdateInstanceRequest configuration = new("Synthetic", ["core"], "notes", launch, "stop", 60, false, true, 3, new(false, 25575, null), new(false, "127.0.0.1", 25565), PrimaryPort: 25565);
             AgentInstanceResponse instance = new(instanceId, "Synthetic", @"D:\Synthetic\Managed", true, "Stopped", launch, ["core"], "notes", configuration, 1, [], null);
             AgentJavaRuntimeResponse java = new(javaId, @"C:\Synthetic\java.exe", "21.0.1", "Synthetic", "x64", "manual", false, now, "Synthetic VM");
-            ScheduledTaskDetailsDto schedule = new(scheduleId, instanceId, "Synthetic", new("interval", 600, null, null, null), [new("command", "say test", false)], 3, "skip", true, 1, now.AddMinutes(10));
+            ScheduledTaskDetailsDto schedule = new(scheduleId, instanceId, "Synthetic", new("interval", 600, null, null, null), [new("send-console-command", "say test", false)], 3, "skip", true, 1, now.AddMinutes(10));
             FakeAgentGateway gateway = new(instance, java, schedule, now);
 
             WebApplicationFactory<Program> factory = new CoreFactory(root, gateway);
@@ -306,7 +307,7 @@ public sealed class CoreEndpointWorkflowTests
                 "GetModMetadata" or "ToggleMod" => Mod(),
                 "ListModConfigFiles" => new[] { "config/synthetic.toml" },
                 "ListSchedules" => new[] { schedule },
-                "GetSchedule" or "UpsertSchedule" or "SetScheduleEnabled" => schedule,
+                "UpsertSchedule" or "SetScheduleEnabled" => schedule,
                 "RunScheduleNow" => new ScheduledTaskRunDto(Guid.NewGuid(), schedule.Id, now, now, true, "succeeded", ["succeeded"]),
                 "ListScheduleRuns" => new[] { new ScheduledTaskRunDto(Guid.NewGuid(), schedule.Id, now, now, true, "succeeded", ["succeeded"]) },
                 "RegisterJava" => java,

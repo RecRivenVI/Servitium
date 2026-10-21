@@ -48,6 +48,10 @@ internal sealed partial class SessionService(
 
     internal Guid? PendingInstanceNodeFilter { get; set; }
 
+    internal string? PendingFilePath { get; set; }
+
+    internal string? PendingConsoleCommand { get; set; }
+
     internal InstanceDto? SelectedInstance
     {
         get;
@@ -93,6 +97,18 @@ internal sealed partial class SessionService(
         _ = await profiles.AddOrSelectAsync(address, cancellationToken).ConfigureAwait(false);
         _client?.Dispose();
         _client = new ServitiumApiClient(profiles.Active.Address, tokenStore, timeProvider: timeProvider);
+        Principal = null;
+        Nodes = [];
+        Instances = [];
+        Channels = [];
+        SelectedNode = null;
+        SelectedInstance = null;
+        SelectedChannel = null;
+        SelectedUser = null;
+        SelectedRelease = null;
+        LocalAuthenticationErrorCode = null;
+        PendingFilePath = null;
+        PendingConsoleCommand = null;
         ConnectionState = "connecting";
         AuthenticationStateDto state = await _client.Session.GetStateAsync(cancellationToken).ConfigureAwait(false);
         Principal = state.Principal;
@@ -156,6 +172,7 @@ internal sealed partial class SessionService(
     internal async Task<AuthenticationStateDto> GetAuthenticationStateAsync(CancellationToken cancellationToken)
     {
         AuthenticationStateDto state = await Client.Session.GetStateAsync(cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
         Principal = state.Principal;
         return state;
     }
@@ -197,6 +214,11 @@ internal sealed partial class SessionService(
     internal async Task SignOutAsync(CancellationToken cancellationToken)
     {
         await Client.Session.SignOutAsync(cancellationToken).ConfigureAwait(false);
+        ClearAuthenticationState();
+    }
+
+    internal void ClearAuthenticationState()
+    {
         Principal = null;
         Nodes = [];
         Instances = [];
@@ -204,6 +226,10 @@ internal sealed partial class SessionService(
         SelectedNode = null;
         SelectedInstance = null;
         SelectedChannel = null;
+        SelectedUser = null;
+        SelectedRelease = null;
+        PendingFilePath = null;
+        PendingConsoleCommand = null;
     }
 
     internal async Task RefreshSelectionsAsync(CancellationToken cancellationToken)

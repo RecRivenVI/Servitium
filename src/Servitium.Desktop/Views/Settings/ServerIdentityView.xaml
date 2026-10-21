@@ -1,0 +1,100 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Settings.ServerIdentityView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls">
+    <StackPanel
+        Spacing="{ThemeResource SelectorBarItemSpacing}">
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcEnabled.Title}"
+            Description="{x:Bind ViewModel.OidcEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.OidcEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:oidcEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcProviderDisplayName.Title}"
+            Description="{x:Bind ViewModel.OidcProviderDisplayName.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcProviderDisplayName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcProviderDisplayName"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcProviderDisplayName.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcIssuer.Title}"
+            Description="{x:Bind ViewModel.OidcIssuer.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcIssuer.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcIssuer"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcIssuer.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcClientId.Title}"
+            Description="{x:Bind ViewModel.OidcClientId.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcClientId.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcClientId"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcClientId.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcClientSecret.Title}"
+            Description="{x:Bind ViewModel.OidcClientSecret.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <StackPanel>
+                <PasswordBox
+                    Password="{x:Bind ViewModel.OidcClientSecret.Value, Mode=TwoWay}"
+                    AutomationProperties.AutomationId="setting:oidcClientSecret"
+                    AutomationProperties.Name="{x:Bind ViewModel.OidcClientSecret.Title}" />
+                <CheckBox
+                    Content="{x:Bind ViewModel.Text('desktop.secret-clear')}"
+                    IsChecked="{x:Bind ViewModel.OidcClientSecret.ClearSecret, Mode=TwoWay}" />
+            </StackPanel>
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcScopes.Title}"
+            Description="{x:Bind ViewModel.OidcScopes.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcScopes.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcScopes"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcScopes.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcAutomaticRedirect.Title}"
+            Description="{x:Bind ViewModel.OidcAutomaticRedirect.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.OidcAutomaticRedirect.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:oidcAutomaticRedirect"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcAutomaticRedirect.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcSubjectClaim.Title}"
+            Description="{x:Bind ViewModel.OidcSubjectClaim.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcSubjectClaim.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcSubjectClaim"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcSubjectClaim.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.OidcUserNameClaim.Title}"
+            Description="{x:Bind ViewModel.OidcUserNameClaim.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.OidcUserNameClaim.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:oidcUserNameClaim"
+                AutomationProperties.Name="{x:Bind ViewModel.OidcUserNameClaim.Title}" />
+        </settings:SettingsCard>
+        <Button
+            Content="{x:Bind ViewModel.Text('desktop.settings-test-oidc')}"
+            Command="{x:Bind ViewModel.TestOidcCommand}" />
+    </StackPanel>
+</UserControl>

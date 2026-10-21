@@ -14,6 +14,7 @@ using Servitium.Contracts.Identity;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Instances;
 using Servitium.Contracts.Operations;
+using Servitium.Contracts.Settings;
 
 using Xunit;
 
@@ -21,6 +22,25 @@ namespace Servitium.Client.Tests;
 
 public sealed class ServitiumApiClientTests
 {
+    [Fact]
+    public async Task 系统信息查询保留时间偏移的加号()
+    {
+        DateTimeOffset sent = new(2026, 10, 21, 14, 30, 0, TimeSpan.FromHours(8));
+        using DelegateHandler handler = new((request, _) =>
+        {
+            Uri uri = request.RequestUri!;
+            Assert.DoesNotContain("+", uri.Query, StringComparison.Ordinal);
+            string decoded = WebUtility.UrlDecode(uri.Query["?clientTime=".Length..]);
+            Assert.Equal(sent, DateTimeOffset.Parse(decoded, System.Globalization.CultureInfo.InvariantCulture));
+            SystemInfoDto info = new("test", "Windows", "X64", "isolated", 0, ".NET", "test", "1", "test",
+                DateTimeOffset.UnixEpoch, sent, 0, 0, 0, 0, "test-host");
+            return Task.FromResult(Json(HttpStatusCode.OK, info));
+        });
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:5344"), handler: handler);
+        SystemInfoDto result = await client.GetSystemInfoAsync(sent, CancellationToken.None).ConfigureAwait(true);
+        Assert.Equal(sent, result.ClientTime);
+    }
+
     [Theory]
     [InlineData("relative")]
     [InlineData("ftp://127.0.0.1/")]

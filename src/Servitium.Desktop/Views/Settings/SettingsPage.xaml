@@ -1,0 +1,118 @@
+<Page
+    x:Class="Servitium.Desktop.Views.Settings.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    SizeChanged="OnLayoutSizeChanged"
+    AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.nav-settings')}">
+    <Grid
+        Padding="{ThemeResource ContentDialogPadding}">
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            ColumnSpacing="{ThemeResource SelectorBarItemSpacing}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="CategoriesButton"
+                Content="{x:Bind ViewModel.Text('desktop.settings-categories')}"
+                Click="OnShowCategories" />
+            <TextBlock
+                x:Name="CategoryTitle"
+                Grid.Column="1"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                TextWrapping="Wrap" />
+        </Grid>
+        <SplitView
+            x:Name="CategoriesSplit"
+            Grid.Row="1"
+            PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <SplitView.Pane>
+                <ScrollViewer
+                    HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel
+                        Spacing="{ThemeResource SelectorBarItemSpacing}">
+                        <ListView
+                            x:Name="CategoriesList"
+                            SelectionMode="Single"
+                            SelectionChanged="OnCategorySelected">
+                            <ListViewItem
+                                IsEnabled="False"
+                                IsTabStop="False">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.Text('desktop.settings-local-group')}"
+                                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                            </ListViewItem>
+                            <ListViewItem
+                                Tag="appearance"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-appearance')}"
+                                AutomationProperties.AutomationId="settings-category:appearance" />
+                            <ListViewItem
+                                Tag="terminal"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-terminal')}"
+                                AutomationProperties.AutomationId="settings-category:terminal" />
+                            <ListViewItem
+                                Tag="notifications"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-notifications')}"
+                                AutomationProperties.AutomationId="settings-category:notifications" />
+                            <ListViewItem
+                                Tag="connections"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-connections')}"
+                                AutomationProperties.AutomationId="settings-category:connections" />
+                            <ListViewItem
+                                IsEnabled="False"
+                                IsTabStop="False"
+                                Visibility="{x:Bind ViewModel.ShowServer}">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.ServerGroup, Mode=OneWay}"
+                                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                            </ListViewItem>
+                            <ListViewItem
+                                Tag="server-general"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-general')}"
+                                AutomationProperties.AutomationId="settings-category:server-general"
+                                Visibility="{x:Bind ViewModel.ShowServer}" />
+                            <ListViewItem
+                                Tag="server-security"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-security')}"
+                                AutomationProperties.AutomationId="settings-category:server-security"
+                                Visibility="{x:Bind ViewModel.ShowServer}" />
+                            <ListViewItem
+                                Tag="server-identity"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-identity')}"
+                                AutomationProperties.AutomationId="settings-category:server-identity"
+                                Visibility="{x:Bind ViewModel.ShowServer}" />
+                            <ListViewItem
+                                Tag="server-about"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-about')}"
+                                AutomationProperties.AutomationId="settings-category:server-about"
+                                Visibility="{x:Bind ViewModel.ShowServer}" />
+                            <ListViewItem
+                                IsEnabled="False"
+                                IsTabStop="False">
+                                <TextBlock
+                                    Text="{x:Bind ViewModel.Text('desktop.settings-me-group')}"
+                                    Style="{ThemeResource SubtitleTextBlockStyle}" />
+                            </ListViewItem>
+                            <ListViewItem
+                                Tag="account"
+                                Content="{x:Bind ViewModel.Text('desktop.settings-category-account')}"
+                                AutomationProperties.AutomationId="settings-category:account" />
+                        </ListView>
+                    </StackPanel>
+                </ScrollViewer>
+            </SplitView.Pane>
+            <ContentControl
+                x:Name="CategoryHost"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch" />
+        </SplitView>
+    </Grid>
+</Page>

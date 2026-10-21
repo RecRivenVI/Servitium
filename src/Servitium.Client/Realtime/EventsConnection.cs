@@ -19,6 +19,8 @@ public sealed class EventsConnection : IDisposable
     private readonly SemaphoreSlim _gate = new(1, 1);
     private HubConnection? _connection;
     private long _lastEventId;
+    private Guid? _scopeUserId;
+    private string? _scopeRole;
     private bool _disposed;
 
     internal EventsConnection(ServitiumApiClient client)
@@ -32,10 +34,13 @@ public sealed class EventsConnection : IDisposable
     /// <summary>Resume 缓冲不足，需要调用方刷新当前数据。</summary>
     public event EventHandler? FullRefreshRequired;
 
+    /// <summary>当前账户的授权或会话已变化，需要重新读取身份并卸载不再允许的内容。</summary>
+    public event EventHandler? AuthorizationChanged;
+
     /// <summary>连接状态变化。</summary>
     public event EventHandler<ConnectionStateChangedEventArgs>? StateChanged;
 
-    /// <summary>启动事件连接并订阅 global。</summary>
+    /// <summary>启动事件连接；管理员订阅全局，普通账户只订阅显式选择的授权范围。</summary>
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
@@ -55,7 +60,20 @@ public sealed class EventsConnection : IDisposable
             _connection = BuildConnection();
             await _connection.StartAsync(cancellationToken).ConfigureAwait(false);
             RaiseStateChanged("connected");
-            _ = _scopes.Add("global");
+            lock (_scopes)
+            {
+                var principal = _client.Session.Principal;
+                if (_scopeUserId != principal?.User.Id || _scopeRole != principal?.User.Role)
+                {
+                    // 切换账户不能沿用旧身份的订阅与事件游标。
+                    _scopes.Clear();
+                    _scopeUserId = principal?.User.Id;
+                    _scopeRole = principal?.User.Role;
+                    _ = Interlocked.Exchange(ref _lastEventId, 0);
+                }
+                if (principal?.User.Role is "Owner" or "Administrator") { _ = _scopes.Add("global"); }
+                else { _ = _scopes.Remove("global"); }
+            }
             await ResumeAndSubscribeAsync(_connection, cancellationToken).ConfigureAwait(false);
         }
         finally
@@ -70,12 +88,21 @@ public sealed class EventsConnection : IDisposable
         ArgumentException.ThrowIfNullOrWhiteSpace(scope);
         lock (_scopes)
         {
-            _ = _scopes.Add(scope);
+            if (!_scopes.Add(scope)) { return; }
         }
 
         if (_connection?.State == HubConnectionState.Connected)
         {
-            await _connection.InvokeAsync("Subscribe", scope, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                await _connection.InvokeAsync("Subscribe", scope, cancellationToken).ConfigureAwait(false);
+            }
+            catch
+            {
+                // 被服务端拒绝的订阅不能留在重连集合中，也不能让下次调用伪装成成功。
+                lock (_scopes) { _ = _scopes.Remove(scope); }
+                throw;
+            }
         }
     }
 
@@ -133,24 +160,16 @@ public sealed class EventsConnection : IDisposable
     {
         Uri endpoint = new(_client.BaseAddress, "hubs/v1/events");
         HubConnection connection = new HubConnectionBuilder()
-            .WithUrl(endpoint, options =>
-            {
-                string? csrf = _client.CsrfToken;
-                if (csrf is not null)
-                {
-                    options.Headers["X-CSRF-Token"] = csrf;
-                }
-
-                if (_client.SessionToken is string session)
-                {
-                    options.Headers["Cookie"] = csrf is null
-                        ? "servitium.session=" + session
-                        : $"servitium.session={session}; servitium.csrf={csrf}";
-                }
-            })
+            .WithUrl(endpoint, _client.ConfigureHubAuthentication)
             .WithAutomaticReconnect(ReconnectDelays)
             .Build();
         _ = connection.On<RealtimeEventDto>("event", OnEvent);
+        _ = connection.On<AuthorizationChangedPayload>("authorizationChanged", _ =>
+        {
+            // 服务端随后中断连接；不能在自动重连时重新订阅已撤回的范围。
+            lock (_scopes) { _scopes.Clear(); }
+            AuthorizationChanged?.Invoke(this, EventArgs.Empty);
+        });
         connection.Reconnecting += _ =>
         {
             RaiseStateChanged("reconnecting");

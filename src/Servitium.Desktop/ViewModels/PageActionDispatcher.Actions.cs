@@ -1656,28 +1656,10 @@ internal sealed partial class PageActionDispatcher
         return new("common.operation-completed");
     }
 
-    private async Task<OperationDetailsDto> WaitForOperationAsync(Guid operationId, CancellationToken cancellationToken)
+    private Task<OperationDetailsDto> WaitForOperationAsync(Guid operationId, CancellationToken cancellationToken)
     {
-        DateTimeOffset deadline = services.Session.Client.TimeProvider.GetUtcNow().AddMinutes(5);
-        while (services.Session.Client.TimeProvider.GetUtcNow() < deadline)
-        {
-            OperationDetailsDto operation = await services.Session.Client.GetOperationAsync(operationId, cancellationToken).ConfigureAwait(false);
-            if (operation.Operation.Status == "Succeeded")
-            {
-                return operation;
-            }
-
-            if (operation.Operation.Status is "Failed" or "Cancelled")
-            {
-                throw new InvalidOperationException(operation.Operation.ErrorCode ?? services.Localization.Get("state.failed"));
-            }
-
-            await Task.Delay(TimeSpan.FromMilliseconds(250), services.Session.Client.TimeProvider, cancellationToken).ConfigureAwait(false);
-        }
-
-        throw new TimeoutException(services.Localization.Get("error.operation-timeout"));
+        return Services.DesktopOperationService.WaitAsync(services.Session.Client, operationId, cancellationToken);
     }
-
     private async Task<PageActionResult> PublicDownloadAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();

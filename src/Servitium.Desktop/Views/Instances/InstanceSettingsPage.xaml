@@ -1,0 +1,582 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Instances.InstanceSettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls"
+    xmlns:vm="using:Servitium.Desktop.ViewModels.Instances"
+    AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.tab-settings')}">
+    <UserControl.KeyboardAccelerators>
+        <KeyboardAccelerator
+            Key="S"
+            Modifiers="Control"
+            Invoked="OnSaveInvoked" />
+    </UserControl.KeyboardAccelerators>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="Auto" />
+            <RowDefinition
+                Height="*" />
+            <RowDefinition
+                Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <ProgressBar
+                IsIndeterminate="True"
+                Visibility="{x:Bind ViewModel.IsBusy, Mode=OneWay}" />
+            <InfoBar
+                IsOpen="{x:Bind ViewModel.HasMessage, Mode=OneWay}"
+                Message="{x:Bind ViewModel.Message, Mode=OneWay}"
+                Severity="{x:Bind ViewModel.Severity, Mode=OneWay}" />
+            <InfoBar
+                IsOpen="{x:Bind ViewModel.HasRestriction, Mode=OneWay}"
+                Message="{x:Bind ViewModel.Restriction, Mode=OneWay}"
+                Severity="Warning"
+                IsClosable="False" />
+            <InfoBar
+                IsOpen="{x:Bind ViewModel.HasValidation, Mode=OneWay}"
+                Message="{x:Bind ViewModel.Validation, Mode=OneWay}"
+                Severity="Warning"
+                IsClosable="False" />
+        </StackPanel>
+        <CommandBar
+            Grid.Row="1"
+            DefaultLabelPosition="Right"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <AppBarButton
+                Label="{x:Bind ViewModel.Text('action.refresh')}"
+                Icon="Refresh"
+                Command="{x:Bind ViewModel.RefreshCommand}" />
+            <AppBarButton
+                Label="{x:Bind ViewModel.Text('desktop.settings-manage-java')}"
+                Icon="GoToStart"
+                Click="OnManageJava"
+                IsEnabled="{x:Bind ViewModel.CanRead, Mode=OneWay}" />
+        </CommandBar>
+        <ScrollViewer
+            Grid.Row="2"
+            HorizontalScrollBarVisibility="Disabled"
+            Visibility="{x:Bind ViewModel.HasData, Mode=OneWay}">
+            <StackPanel
+                Spacing="{ThemeResource SelectorBarItemSpacing}">
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-launch')}"
+                    IsExpanded="True"
+                    AutomationProperties.AutomationId="instance-settings:launch">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.java-runtime')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-java-help')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                ItemsSource="{x:Bind ViewModel.Launch.Runtimes, Mode=OneWay}"
+                                DisplayMemberPath="ExecutablePath"
+                                HorizontalAlignment="Stretch"
+                                SelectedItem="{x:Bind ViewModel.Launch.SelectedJava, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.java-runtime')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.minimum-memory')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-memory-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.Launch.MinimumHeap, Mode=TwoWay}"
+                                SpinButtonPlacementMode="Inline"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.minimum-memory')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.maximum-memory')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-memory-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.Launch.MaximumHeap, Mode=TwoWay}"
+                                SpinButtonPlacementMode="Inline"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.maximum-memory')}"
+                                AutomationProperties.AutomationId="instance-settings:maximum-memory" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-launch-arguments')}"
+                    AutomationProperties.AutomationId="instance-settings:arguments">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.launch-kind')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                SelectedIndex="{x:Bind ViewModel.Launch.TargetKind, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.launch-kind')}">
+                                <ComboBoxItem
+                                    Content="{x:Bind ViewModel.Text('desktop.launch-jar')}" />
+                                <ComboBoxItem
+                                    Content="{x:Bind ViewModel.Text('desktop.launch-argfile')}" />
+                            </ComboBox>
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.launch-target')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Launch.Target, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.launch-target')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.jvm-arguments')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Launch.JvmArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AcceptsReturn="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.jvm-arguments')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.server-arguments')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Launch.ServerArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AcceptsReturn="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.server-arguments')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.launch-advanced')}"
+                            Description="{x:Bind ViewModel.Text('desktop.launch-advanced-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.Launch.AdvancedMode, Mode=TwoWay}"
+                                IsEnabled="{x:Bind ViewModel.Launch.CanChangeAdvanced, Mode=OneWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.launch-advanced')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.launch-advanced-arguments')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.Launch.AdvancedMode, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Launch.AdvancedArguments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AcceptsReturn="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.launch-advanced-arguments')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.environment-variables')}"
+                            Description="{x:Bind ViewModel.Text('desktop.launch-environment-help')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <StackPanel
+                                Spacing="{ThemeResource SelectorBarItemSpacing}">
+                                <ItemsControl
+                                    ItemsSource="{x:Bind ViewModel.Launch.EnvironmentVariables}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate
+                                            x:DataType="vm:LaunchEnvironmentVariable">
+                                            <StackPanel>
+                                                <TextBox
+                                                    Header="{x:Bind NameLabel}"
+                                                    Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    Header="{x:Bind ValueLabel}"
+                                                    Text="{x:Bind Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    AcceptsReturn="True" />
+                                                <Button
+                                                    Content="{x:Bind RemoveLabel}"
+                                                    Click="OnRemoveEnvironment" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <Button
+                                    Content="{x:Bind ViewModel.Text('desktop.launch-add-environment')}"
+                                    Command="{x:Bind ViewModel.Launch.AddEnvironmentCommand}" />
+                            </StackPanel>
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.launch-preview')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch">
+                            <TextBlock
+                                Text="{x:Bind ViewModel.Launch.Preview, Mode=OneWay}"
+                                TextWrapping="Wrap"
+                                IsTextSelectionEnabled="True" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-lifecycle')}"
+                    IsExpanded="True">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.stop-command')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-stop-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.StopCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.stop-command')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.stop-timeout')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.StopTimeout, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.stop-timeout')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.auto-start')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-auto-start-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.AutoStart, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.auto-start')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.auto-start-delay')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.AutoStartDelay, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.auto-start-delay')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.auto-restart')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.AutoRestart, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.auto-restart')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-restart-attempts')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.MaximumRestartAttempts, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.settings-restart-attempts')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.restart-interval')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.RestartInterval, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.restart-interval')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.restart-reset')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.RestartReset, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.restart-reset')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.run-credential-alias')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-run-alias-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.RunCredentialAlias, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.run-credential-alias')}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-console')}"
+                    AutomationProperties.AutomationId="instance-settings:console">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.shortcut-commands')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-shortcuts-help')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <StackPanel>
+                                <ItemsControl
+                                    ItemsSource="{x:Bind ViewModel.Shortcuts}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBox
+                                                    Header="{Binding NameLabel}"
+                                                    Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox
+                                                    Header="{Binding CommandLabel}"
+                                                    Text="{Binding CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <Button
+                                                    Content="{Binding RemoveLabel}"
+                                                    Click="OnRemoveShortcut" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <Button
+                                    Content="{x:Bind ViewModel.Text('desktop.settings-add-shortcut')}"
+                                    Command="{x:Bind ViewModel.AddShortcutCommand}" />
+                            </StackPanel>
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-conpty')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-conpty-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.UseConPty, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-conpty')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-columns')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.TerminalColumns, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-columns')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-rows')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.TerminalRows, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-rows')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-input-encoding')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                ItemsSource="{x:Bind ViewModel.Encodings}"
+                                DisplayMemberPath="Label"
+                                SelectedValuePath="Value"
+                                SelectedValue="{x:Bind ViewModel.InputEncoding, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-input-encoding')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-output-encoding')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                ItemsSource="{x:Bind ViewModel.Encodings}"
+                                DisplayMemberPath="Label"
+                                SelectedValuePath="Value"
+                                SelectedValue="{x:Bind ViewModel.OutputEncoding, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-output-encoding')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-newline')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                ItemsSource="{x:Bind ViewModel.NewLines}"
+                                DisplayMemberPath="Label"
+                                SelectedValuePath="Value"
+                                SelectedValue="{x:Bind ViewModel.NewLine, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-newline')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.terminal-ansi')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.AnsiEnabled, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.terminal-ansi')}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-query-rcon')}">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.query-enabled')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-query-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.QueryEnabled, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.query-enabled')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.query-host')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.QueryHost, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.query-host')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.query-port')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.QueryPort, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.query-port')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.rcon-enabled')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ToggleSwitch
+                                IsOn="{x:Bind ViewModel.RconEnabled, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.rcon-enabled')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.rcon-port')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.RconPort, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.rcon-port')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.rcon-password')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-rcon-password-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <PasswordBox
+                                Password="{x:Bind ViewModel.RconPassword, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.rcon-password')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-clear-rcon-password')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <CheckBox
+                                IsChecked="{x:Bind ViewModel.ClearRconPassword, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.settings-clear-rcon-password')}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-content')}">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.update-kind')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-update-help')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <ComboBox
+                                SelectedIndex="{x:Bind ViewModel.UpdateKind, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.update-kind')}">
+                                <ComboBoxItem
+                                    Content="{x:Bind ViewModel.Text('desktop.settings-update-none')}" />
+                                <ComboBoxItem
+                                    Content="{x:Bind ViewModel.Text('desktop.settings-update-jar')}" />
+                                <ComboBoxItem
+                                    Content="{x:Bind ViewModel.Text('desktop.settings-update-channel')}" />
+                            </ComboBox>
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.update-source')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsJarUpdate, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.UpdateSource, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.update-source')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.update-target')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsJarUpdate, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.UpdateTarget, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.update-target')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.update-channel')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.IsChannelUpdate, Mode=OneWay}">
+                            <ComboBox
+                                ItemsSource="{x:Bind ViewModel.Channels, Mode=OneWay}"
+                                DisplayMemberPath="Name"
+                                SelectedItem="{x:Bind ViewModel.SelectedChannel, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.update-channel')}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-general')}"
+                    AutomationProperties.AutomationId="instance-settings:general">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.name')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.name')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-tags')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Tags, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AcceptsReturn="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.tags')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.notes')}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.Notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AcceptsReturn="True"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.notes')}"
+                                AutomationProperties.AutomationId="instance-settings:notes" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('field.working-directory')}"
+                            Description="{x:Bind ViewModel.Ownership, Mode=OneWay}"
+                            ContentAlignment="Vertical"
+                            HorizontalContentAlignment="Stretch"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <TextBox
+                                Text="{x:Bind ViewModel.WorkingDirectory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('field.working-directory')}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-primary-port')}"
+                            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+                            <NumberBox
+                                Value="{x:Bind ViewModel.PrimaryPort, Mode=TwoWay}"
+                                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.settings-primary-port')}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+                <settings:SettingsExpander
+                    Header="{x:Bind ViewModel.Text('desktop.settings-danger')}">
+                    <settings:SettingsExpander.Items>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-unregister-title')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-unregister-help')}">
+                            <Button
+                                Content="{x:Bind ViewModel.Text('desktop.settings-unregister-title')}"
+                                Command="{x:Bind ViewModel.UnregisterCommand}" />
+                        </settings:SettingsCard>
+                        <settings:SettingsCard
+                            Header="{x:Bind ViewModel.Text('desktop.settings-delete-directory-title')}"
+                            Description="{x:Bind ViewModel.Text('desktop.settings-delete-directory-help')}"
+                            Visibility="{x:Bind ViewModel.IsOwned, Mode=OneWay}">
+                            <Button
+                                Content="{x:Bind ViewModel.Text('desktop.settings-delete-directory-title')}"
+                                Command="{x:Bind ViewModel.DeleteDirectoryCommand}" />
+                        </settings:SettingsCard>
+                    </settings:SettingsExpander.Items>
+                </settings:SettingsExpander>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid
+            Grid.Row="3"
+            Padding="{ThemeResource TextControlThemePadding}"
+            ColumnSpacing="{ThemeResource SelectorBarItemSpacing}"
+            Visibility="{x:Bind ViewModel.HasData, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition
+                    Width="*" />
+                <ColumnDefinition
+                    Width="Auto" />
+                <ColumnDefinition
+                    Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Text="{x:Bind ViewModel.DirtyText, Mode=OneWay}"
+                TextWrapping="Wrap"
+                VerticalAlignment="Center" />
+            <Button
+                Grid.Column="1"
+                Content="{x:Bind ViewModel.Text('action.discard')}"
+                Command="{x:Bind ViewModel.DiscardCommand}" />
+            <Button
+                Grid.Column="2"
+                Content="{x:Bind ViewModel.Text('action.save')}"
+                Command="{x:Bind ViewModel.SaveCommand}"
+                Style="{ThemeResource AccentButtonStyle}"
+                AutomationProperties.AutomationId="instance-settings:save" />
+        </Grid>
+    </Grid>
+</UserControl>

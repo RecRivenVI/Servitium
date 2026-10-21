@@ -39,7 +39,7 @@
 - **X-05** 实例无 shell 启动，Java 参数数组与已登记运行时绑定；进程树由独立 Job Object 约束。秘密不得进入日志、事件、错误、诊断或公开响应；本地运行账户密码不经控制平面传输。安全不变量见[安全模型](design/security-threat_model.md)。
 - **X-06** Server 为授权与通信入口，Desktop/Web 不直连 Agent；Agent 主动连接并独立校验命令/路径。Server 停止不等于 Agent 崩溃：前者保持本地自治，后者依进程树策略回收。Desktop 退出不停止服务或实例。
 - **X-07** 保留 HMCL manifest 的 no-cache，以及 overrides 的恒不压缩、SHA-1 强 ETag/Range 等已证实兼容条件。参考新证据不能自行改变产品范围或协议；差异写入 debt、backlog 或研究记录，再由用户决定。
-- **X-08** 用户已允许先完成 Desktop、暂停 Web 与四项真实样本测试。用户现已授权依赖安全修复、Windows App SDK 最新稳定版升级与两轮桌面重写；首轮为导航外壳、登录、实例工作区和设置，采用手写 XAML、CommunityToolkit.Mvvm 与 SettingsCard，第二轮须用户验收首轮后再启动。按现有契约呈现，不为原型示意新增能力；当前工作见[计划](project/plan-desktop_round_one.md)。该安排不表示用户验收完成；旧 Gate/Profile 不恢复。
+- **X-08** 用户允许先完成 Desktop，Web 与四项真实样本测试继续暂停。2026-10-22 已授权两轮合一：收尾导航、登录、实例与设置，同时补齐原型展示的 Server/Agent/Client/契约能力，重写节点、分发、用户、活动并删除表单引擎。采用手写 XAML、CommunityToolkit.Mvvm 与 SettingsCard；新增能力仅限原型，不改变 X-04～X-06、安全模型、统一授权与 CSRF，协议/迁移/测试/文档同步。当前工作见[计划](project/plan-desktop_round_one.md)。该安排不表示用户验收或交付授权；旧 Gate/Profile 不恢复。
 - **X-09** 真实服务、ACL、关机、多主机、第二 Windows、真实 Minecraft/HMCL 与人工视觉验证使用 validations 中定义和独立外部目录；缺少环境如实写无法比较，不用历史结果或静态审查宣称当前完成。
 - **X-10** 交付为独立用户决定。没有明确验收与后续交付授权，不创建安装包、标签、发布或远程部署；提交与正常推送 develop 以用户当前明确授权为准，legacy 不动。
 

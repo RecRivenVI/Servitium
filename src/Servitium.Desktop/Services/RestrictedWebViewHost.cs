@@ -29,6 +29,9 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
     private TerminalConnection? _terminal;
     private bool _ready;
     private bool _disposed;
+    private readonly TaskCompletionSource _editorReady = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private string _editorLanguage = "plaintext";
+    private bool _editorReadOnly;
 
     internal RestrictedWebViewHost(
         AppServices services,
@@ -62,10 +65,13 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
     internal event EventHandler? EditorSaveRequested;
 
     internal event EventHandler? EditorDirtyChanged;
+    internal event EventHandler? EditorContentChanged;
 
     internal async Task LoadEditorAsync(string content, string language = "plaintext", bool readOnly = false)
     {
         EditorContent = content ?? string.Empty;
+        _editorLanguage = language;
+        _editorReadOnly = readOnly;
         if (_ready && _kind == "editor")
         {
             await PostAsync("editor.load", new { content = EditorContent, language, readOnly }).ConfigureAwait(true);
@@ -79,6 +85,7 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
         {
             await InitializeAsync().ConfigureAwait(true);
         }
+        catch (OperationCanceledException) when (_disposed) { }
         catch (Exception exception)
         {
             _webView.Visibility = Visibility.Collapsed;
@@ -154,15 +161,34 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
         core.NavigationCompleted += Completed;
         core.Navigate($"https://{VirtualHost}/{_kind}.html");
         await loaded.Task.ConfigureAwait(true);
+        if (_kind == "editor") { await _editorReady.Task.WaitAsync(TimeSpan.FromSeconds(30)).ConfigureAwait(true); }
         _ready = true;
         await PostAsync("theme.changed", new { theme = ActualTheme == ElementTheme.Dark ? "dark" : "light" }).ConfigureAwait(true);
         if (_kind == "terminal")
         {
+            await PostAsync("terminal.labels", new
+            {
+                language = _services.Settings.Current.Language,
+                search = _services.Localization.Get("desktop.terminal-search"),
+                find = _services.Localization.Get("desktop.terminal-find"),
+                bottom = _services.Localization.Get("desktop.terminal-bottom"),
+                clear = _services.Localization.Get("desktop.terminal-clear"),
+                copy = _services.Localization.Get("desktop.terminal-copy-all"),
+                export = _services.Localization.Get("desktop.terminal-export"),
+                terminal = _services.Localization.Get("desktop.terminal-label"),
+                truncated = _services.Localization.Get("desktop.terminal-truncated"),
+            }).ConfigureAwait(true);
             await PostAsync("terminal.settings", new { fontSize = _services.Settings.Current.TerminalFontSize }).ConfigureAwait(true);
         }
         if (_kind == "editor")
         {
-            await LoadEditorAsync(EditorContent).ConfigureAwait(true);
+            await PostAsync("editor.labels", new
+            {
+                language = _services.Settings.Current.Language,
+                label = _services.Localization.Get("desktop.editor-label"),
+                modified = _services.Localization.Get("desktop.editor-modified"),
+            }).ConfigureAwait(true);
+            await LoadEditorAsync(EditorContent, _editorLanguage, _editorReadOnly).ConfigureAwait(true);
         }
         else if ((_instance ?? _services.Session.SelectedInstance) is InstanceDto instance)
         {
@@ -192,7 +218,11 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
             using var document = JsonDocument.Parse(args.WebMessageAsJson);
             JsonElement root = document.RootElement;
             string? type = root.TryGetProperty("type", out JsonElement typeValue) ? typeValue.GetString() : null;
-            if (type == "terminal.input" && root.TryGetProperty("text", out JsonElement text))
+            if (type == "editor.ready" && _kind == "editor")
+            {
+                _ = _editorReady.TrySetResult();
+            }
+            else if (type == "terminal.input" && root.TryGetProperty("text", out JsonElement text))
             {
                 await RequireTerminal().SendInputAsync(text.GetString() ?? string.Empty, CancellationToken.None).ConfigureAwait(true);
             }
@@ -205,6 +235,7 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
             else if (type is "editor.dirty" or "editor.save" && root.TryGetProperty("content", out JsonElement content))
             {
                 EditorContent = content.GetString() ?? string.Empty;
+                EditorContentChanged?.Invoke(this, EventArgs.Empty);
                 bool nextDirty = root.TryGetProperty("dirty", out JsonElement dirty) && dirty.ValueKind == JsonValueKind.True;
                 if (nextDirty != IsEditorDirty)
                 {
@@ -276,6 +307,7 @@ internal sealed partial class RestrictedWebViewHost : Grid, IDisposable
         }
 
         _disposed = true;
+        _ = _editorReady.TrySetCanceled();
         Loaded -= OnLoaded;
         Unloaded -= OnUnloaded;
         if (_webView.CoreWebView2 is CoreWebView2 core)

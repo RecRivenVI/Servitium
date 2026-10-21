@@ -1,6 +1,6 @@
 # Servitium
 
-面向自有 Windows 主机的 Minecraft Java 服务端托管与 HMCL 整合内容分发平台。当前为开发源码，没有正式安装包；Desktop 等待界面重设计，Web 暂停，不能将当前分支视为已验收成品。
+面向自有 Windows 主机的 Minecraft Java 服务端托管与 HMCL 整合内容分发平台。当前为开发源码，没有正式安装包；Desktop 首轮重写正在验证，Web 暂停，不能将当前分支视为已验收成品。
 
 ## 支持的平台
 
@@ -24,6 +24,7 @@ Copy-Item tools/build/Local.props.example tools/build/Local.props
 | 入口 | 内容 |
 | --- | --- |
 | [项目规范](documents/AGENTS.md) | 核心路径、事实来源与产品补充约束 |
+| [桌面使用](documents/usage/guide-desktop.md) | 连接、实例工作区、设置与验收 |
 | [当前进度](documents/project/status-development.md) | 当前状态、开放项、下三步 |
 | [产品范围](documents/project/overview-servitium.md) | 面向谁、做什么与不做什么 |
 | [系统架构](documents/design/architecture-system.md) | 部署、数据权威与通信 |

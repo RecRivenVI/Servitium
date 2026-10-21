@@ -30,13 +30,7 @@ public sealed class TerminalConnection : IDisposable
         await DetachAsync(cancellationToken).ConfigureAwait(false);
         Uri endpoint = new(_client.BaseAddress, "hubs/v1/terminal");
         _connection = new HubConnectionBuilder()
-            .WithUrl(endpoint, options =>
-            {
-                if (_client.SessionToken is string session)
-                {
-                    options.Headers["Cookie"] = "servitium.session=" + session;
-                }
-            })
+            .WithUrl(endpoint, _client.ConfigureHubAuthentication)
             .WithAutomaticReconnect()
             .Build();
         _ = _connection.On<TerminalOutputFrame>("output", frame =>

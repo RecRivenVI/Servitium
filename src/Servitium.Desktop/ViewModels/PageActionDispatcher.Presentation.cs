@@ -4,14 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Servitium.Contracts.Distribution;
-using Servitium.Contracts.Files;
 using Servitium.Contracts.Instances;
-using Servitium.Contracts.Mods;
 using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Operations;
 using Servitium.Contracts.Scheduling;
@@ -105,107 +102,16 @@ internal sealed partial class PageActionDispatcher
 
     private FileStream OpenUpload(string path)
     {
-        return string.IsNullOrWhiteSpace(path) || !File.Exists(path)
-            ? throw new ArgumentException(services.Localization.Get("error.not-found"))
-            : new FileStream(
-            path,
-            FileMode.Open,
-            FileAccess.Read,
-            FileShare.Read,
-            128 * 1024,
-            FileOptions.Asynchronous | FileOptions.SequentialScan);
+        return Services.FileTransferService.OpenUpload(services.Localization, path);
     }
 
-    private async Task<OperationAcceptedDto> UploadFileAsync(
-        InstanceDto instance,
-        string sourcePath,
-        string destinationPath,
-        string? modKind,
-        CancellationToken cancellationToken,
-        bool overwrite = false)
+    private Task<OperationAcceptedDto> UploadFileAsync(
+        InstanceDto instance, string sourcePath, string destinationPath, string? modKind, CancellationToken cancellationToken, bool overwrite = false)
     {
-        const int partSize = 8 * 1024 * 1024;
-        FileStream source = OpenUpload(sourcePath);
-        await using (source.ConfigureAwait(false))
-        {
-            var stopwatch = Stopwatch.StartNew();
-            ReportTransfer(Path.GetFileName(sourcePath), 0, source.Length, stopwatch, "uploading");
-            UploadSessionDto session = await services.Session.Client.CreateFileUploadAsync(
-                instance.Id,
-                instance.NodeId,
-                new CreateUploadSessionRequest(Path.GetFileName(sourcePath), destinationPath, source.Length, partSize, overwrite),
-                cancellationToken).ConfigureAwait(false);
-
-            try
-            {
-                using var fullHash = IncrementalHash.CreateHash(HashAlgorithmName.SHA256);
-                byte[] buffer = new byte[partSize];
-                for (int index = 0; ; index++)
-                {
-                    await _transferPause.WaitAsync(cancellationToken).ConfigureAwait(false);
-                    int length = await ReadPartAsync(source, buffer, cancellationToken).ConfigureAwait(false);
-                    if (length == 0)
-                    {
-                        break;
-                    }
-
-                    fullHash.AppendData(buffer, 0, length);
-                    string partHash = Convert.ToHexString(SHA256.HashData(buffer.AsSpan(0, length)));
-                    MemoryStream part = new(buffer, 0, length, writable: false, publiclyVisible: true);
-                    _ = await services.Session.Client.PutFileUploadPartAsync(
-                        instance.Id, instance.NodeId, session.Id, index, partHash, part, length, cancellationToken).ConfigureAwait(false);
-                    ReportTransfer(Path.GetFileName(sourcePath), source.Position, source.Length, stopwatch, "uploading");
-                }
-
-                string sha256 = Convert.ToHexString(fullHash.GetHashAndReset());
-                OperationAcceptedDto result = modKind is null
-                    ? await services.Session.Client.CompleteFileUploadAsync(
-                        instance.Id, instance.NodeId, session.Id, new CompleteUploadRequest(sha256), cancellationToken).ConfigureAwait(false)
-                    : await services.Session.Client.CompleteModUploadAsync(
-                        instance.Id, instance.NodeId, new UploadModRequest(session.Id, modKind, sha256), cancellationToken).ConfigureAwait(false);
-                ReportTransfer(Path.GetFileName(sourcePath), source.Length, source.Length, stopwatch, "succeeded");
-                return result;
-            }
-            catch (Exception uploadError)
-            {
-                ReportTransfer(
-                    Path.GetFileName(sourcePath),
-                    source.Position,
-                    source.Length,
-                    stopwatch,
-                    cancellationToken.IsCancellationRequested ? "cancelled" : "failed");
-                try
-                {
-                    await services.Session.Client.CancelFileUploadAsync(
-                        instance.Id, instance.NodeId, session.Id, CancellationToken.None).ConfigureAwait(false);
-                }
-                catch (Exception cleanupError)
-                {
-                    throw new AggregateException(uploadError, cleanupError);
-                }
-
-                throw;
-            }
-        }
+        Services.FileTransferService transfer = new(services.Session.Client, services.Localization, _transferPause,
+            progress => TransferProgressChanged?.Invoke(this, progress));
+        return transfer.UploadAsync(instance, sourcePath, destinationPath, modKind, cancellationToken, overwrite);
     }
-
-    private static async Task<int> ReadPartAsync(Stream source, byte[] buffer, CancellationToken cancellationToken)
-    {
-        int total = 0;
-        while (total < buffer.Length)
-        {
-            int read = await source.ReadAsync(buffer.AsMemory(total), cancellationToken).ConfigureAwait(false);
-            if (read == 0)
-            {
-                break;
-            }
-
-            total += read;
-        }
-
-        return total;
-    }
-
     private async Task<T> UploadStreamAsync<T>(
         string path,
         Func<Stream, CancellationToken, Task<T>> upload,
@@ -264,50 +170,8 @@ internal sealed partial class PageActionDispatcher
 
     private static List<(string Source, string Relative)> EnumerateDroppedFiles(IReadOnlyList<string> paths)
     {
-        List<(string Source, string Relative)> result = [];
-        foreach (string path in paths)
-        {
-            if (File.Exists(path))
-            {
-                result.Add((path, Path.GetFileName(path)));
-                continue;
-            }
-
-            DirectoryInfo root = new(path);
-            if (!root.Exists || (root.Attributes & FileAttributes.ReparsePoint) != 0)
-            {
-                throw new ArgumentException("A dropped path is invalid or is a reparse point.", nameof(paths));
-            }
-
-            Stack<DirectoryInfo> pending = new();
-            pending.Push(root);
-            while (pending.TryPop(out DirectoryInfo? directory))
-            {
-                foreach (FileInfo file in directory.EnumerateFiles())
-                {
-                    if ((file.Attributes & FileAttributes.ReparsePoint) != 0)
-                    {
-                        throw new ArgumentException("A dropped file is a reparse point.", nameof(paths));
-                    }
-
-                    result.Add((file.FullName, Path.Combine(root.Name, Path.GetRelativePath(root.FullName, file.FullName))));
-                }
-
-                foreach (DirectoryInfo child in directory.EnumerateDirectories())
-                {
-                    if ((child.Attributes & FileAttributes.ReparsePoint) != 0)
-                    {
-                        throw new ArgumentException("A dropped directory is a reparse point.", nameof(paths));
-                    }
-
-                    pending.Push(child);
-                }
-            }
-        }
-
-        return result;
+        return Services.FileTransferService.EnumerateDroppedFiles(paths);
     }
-
     private void ReportTransfer(
         string fileName,
         long completed,
@@ -315,53 +179,11 @@ internal sealed partial class PageActionDispatcher
         Stopwatch stopwatch,
         string state)
     {
-        double seconds = Math.Max(stopwatch.Elapsed.TotalSeconds, 0.001);
-        double speed = completed / seconds;
-        TimeSpan? remaining = speed <= 0 || completed >= total
-            ? null
-            : TimeSpan.FromSeconds((total - completed) / speed);
-        TransferProgressChanged?.Invoke(
-            this,
-            new TransferProgressEventArgs(fileName, completed, total, speed, remaining, state));
+        TransferProgressChanged?.Invoke(this, TransferProgressEventArgs.Create(fileName, completed, total, stopwatch, state));
     }
-
-    private sealed class TransferPauseGate
-    {
-        private readonly Lock _sync = new();
-        private TaskCompletionSource? _resume;
-
-        internal void Pause()
-        {
-            lock (_sync)
-            {
-                _resume ??= new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            }
-        }
-
-        internal void Resume()
-        {
-            TaskCompletionSource? resume;
-            lock (_sync)
-            {
-                resume = _resume;
-                _resume = null;
-            }
-
-            _ = (resume?.TrySetResult());
-        }
-
-        internal Task WaitAsync(CancellationToken cancellationToken)
-        {
-            lock (_sync)
-            {
-                return _resume?.Task.WaitAsync(cancellationToken) ?? Task.CompletedTask;
-            }
-        }
-    }
-
     private sealed partial class ProgressReadStream(
         Stream inner,
-        TransferPauseGate pause,
+        Services.TransferPauseGate pause,
         Action<long> report) : Stream
     {
         private long _lastReported;
@@ -432,7 +254,7 @@ internal sealed partial class PageActionDispatcher
 
     private sealed partial class ProgressWriteStream(
         Stream inner,
-        TransferPauseGate pause,
+        Services.TransferPauseGate pause,
         Action<long> report) : Stream
     {
         private long _written;

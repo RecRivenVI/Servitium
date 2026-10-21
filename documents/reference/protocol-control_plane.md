@@ -442,7 +442,7 @@ Unsubscribe(scope)
 Resume(lastEventId)  请求补发最近事件（上限 200 条）
 ```
 
-服务端在每次订阅与每次推送前执行授权校验。无权限的订阅返回错误且不建立。
+服务端在每次订阅与每次推送前执行授权校验。无权限的订阅返回错误且不建立。`global` 只允许 Owner 与 Administrator；普通账户连接后由当前页面订阅明确获授权的范围。客户端不保留被拒绝的订阅，切换账户时清除旧范围和补发游标。
 
 ### 4.2 事件信封
 
@@ -483,11 +483,11 @@ Resume(lastEventId)  请求补发最近事件（上限 200 条）
 | `hmcl.integrity-alert` | global | Channel、Release、缺失条目数 |
 | `audit.security-event` | global（仅 O/A） | 事件类别摘要 |
 | `session.revoked` | 定向到该用户 | 原因 |
-| `authorization.changed` | 定向到该用户 | 需重新拉取权限 |
+| `authorization.changed` | global（仅 O/A） | 受影响的用户标识 |
 
 ### 4.4 授权变更的即时生效
 
-服务端在授权变更后向受影响的连接推送 `authorization.changed` 并主动关闭其不再被允许的订阅（含终端）。客户端收到后重新拉取 `GET /api/v1/auth/me` 并刷新界面。
+服务端先发布管理员可见的 `authorization.changed` 事件，再向受影响的事件连接定向发送 SignalR 控制消息 `authorizationChanged`，载荷为 `{ userId, reason }`，随后中断连接并关闭相关终端。该控制消息独立于事件订阅，普通账户不必获取 global 权限。客户端收到后清除旧订阅并重新读取认证状态；身份或实例授权发生变化时立即卸载旧视图，不能由未保存提示阻止。
 
 ## 5. `/hubs/v1/terminal`
 

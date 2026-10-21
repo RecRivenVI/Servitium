@@ -26,6 +26,8 @@ internal sealed partial class DesktopSettingsService : IDisposable
 
     internal DesktopSettings Current { get; private set; } = Defaults();
 
+    internal event EventHandler? Changed;
+
     internal async Task LoadAsync(CancellationToken cancellationToken)
     {
         _ = Directory.CreateDirectory(DataDirectory);
@@ -74,6 +76,7 @@ internal sealed partial class DesktopSettingsService : IDisposable
 
         File.Move(temporary, SettingsPath, overwrite: true);
         Current = settings;
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     private static DesktopSettings Defaults()

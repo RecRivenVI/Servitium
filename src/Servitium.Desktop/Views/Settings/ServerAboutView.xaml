@@ -1,0 +1,31 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Settings.ServerAboutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls">
+    <StackPanel
+        Spacing="{ThemeResource SelectorBarItemSpacing}">
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.Text('desktop.settings-system')}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch">
+            <TextBlock
+                Text="{x:Bind ViewModel.SystemInformation, Mode=OneWay}"
+                TextWrapping="Wrap"
+                IsTextSelectionEnabled="True" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.Text('action.backup-database')}"
+            Description="{x:Bind ViewModel.BackupRestriction}">
+            <Button
+                Content="{x:Bind ViewModel.Text('action.backup-database')}"
+                Command="{x:Bind ViewModel.BackupCommand}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.Text('action.export-diagnostics')}">
+            <Button
+                Content="{x:Bind ViewModel.Text('action.export-diagnostics')}"
+                Command="{x:Bind ViewModel.ExportDiagnosticsCommand}" />
+        </settings:SettingsCard>
+    </StackPanel>
+</UserControl>

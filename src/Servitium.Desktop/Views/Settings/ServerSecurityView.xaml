@@ -1,0 +1,302 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Settings.ServerSecurityView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls">
+    <StackPanel
+        Spacing="{ThemeResource SelectorBarItemSpacing}">
+        <InfoBar
+            IsOpen="True"
+            IsClosable="False"
+            Severity="Warning"
+            Message="{x:Bind ViewModel.Text('desktop.settings-network-help')}" />
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ListenAddress.Title}"
+            Description="{x:Bind ViewModel.ListenAddress.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.ListenAddress.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:listenAddress"
+                AutomationProperties.Name="{x:Bind ViewModel.ListenAddress.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ListenPort.Title}"
+            Description="{x:Bind ViewModel.ListenPort.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.ListenPort.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:listenPort"
+                AutomationProperties.Name="{x:Bind ViewModel.ListenPort.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.PathBase.Title}"
+            Description="{x:Bind ViewModel.PathBase.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.PathBase.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:pathBase"
+                AutomationProperties.Name="{x:Bind ViewModel.PathBase.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.PublicBaseUrl.Title}"
+            Description="{x:Bind ViewModel.PublicBaseUrl.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.PublicBaseUrl.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:publicBaseUrl"
+                AutomationProperties.Name="{x:Bind ViewModel.PublicBaseUrl.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.CorsOrigins.Title}"
+            Description="{x:Bind ViewModel.CorsOrigins.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.CorsOrigins.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AcceptsReturn="True"
+                AutomationProperties.AutomationId="setting:corsOrigins"
+                AutomationProperties.Name="{x:Bind ViewModel.CorsOrigins.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ResponseCompressionEnabled.Title}"
+            Description="{x:Bind ViewModel.ResponseCompressionEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.ResponseCompressionEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:responseCompressionEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.ResponseCompressionEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TrustedProxyMode.Title}"
+            Description="{x:Bind ViewModel.TrustedProxyMode.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.TrustedProxyMode.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:trustedProxyMode"
+                AutomationProperties.Name="{x:Bind ViewModel.TrustedProxyMode.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TrustedProxyNetworks.Title}"
+            Description="{x:Bind ViewModel.TrustedProxyNetworks.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.TrustedProxyNetworks.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AcceptsReturn="True"
+                AutomationProperties.AutomationId="setting:trustedProxyNetworks"
+                AutomationProperties.Name="{x:Bind ViewModel.TrustedProxyNetworks.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ForwardedForHeader.Title}"
+            Description="{x:Bind ViewModel.ForwardedForHeader.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.ForwardedForHeader.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:forwardedForHeader"
+                AutomationProperties.Name="{x:Bind ViewModel.ForwardedForHeader.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TlsCertificateSource.Title}"
+            Description="{x:Bind ViewModel.TlsCertificateSource.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ComboBox
+                ItemsSource="{x:Bind ViewModel.TlsCertificateSource.Choices}"
+                DisplayMemberPath="Label"
+                SelectedValuePath="Value"
+                SelectedValue="{x:Bind ViewModel.TlsCertificateSource.Value, Mode=OneWay}"
+                SelectionChanged="OnChoiceChanged"
+                Tag="{x:Bind ViewModel.TlsCertificateSource}"
+                AutomationProperties.AutomationId="setting:tlsCertificateSource"
+                AutomationProperties.Name="{x:Bind ViewModel.TlsCertificateSource.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TlsCertificatePath.Title}"
+            Description="{x:Bind ViewModel.TlsCertificatePath.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.TlsCertificatePath.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:tlsCertificatePath"
+                AutomationProperties.Name="{x:Bind ViewModel.TlsCertificatePath.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TlsCertificatePassword.Title}"
+            Description="{x:Bind ViewModel.TlsCertificatePassword.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <StackPanel>
+                <PasswordBox
+                    Password="{x:Bind ViewModel.TlsCertificatePassword.Value, Mode=TwoWay}"
+                    AutomationProperties.AutomationId="setting:tlsCertificatePassword"
+                    AutomationProperties.Name="{x:Bind ViewModel.TlsCertificatePassword.Title}" />
+                <CheckBox
+                    Content="{x:Bind ViewModel.Text('desktop.secret-clear')}"
+                    IsChecked="{x:Bind ViewModel.TlsCertificatePassword.ClearSecret, Mode=TwoWay}" />
+            </StackPanel>
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TlsCertificateThumbprint.Title}"
+            Description="{x:Bind ViewModel.TlsCertificateThumbprint.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.TlsCertificateThumbprint.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AutomationProperties.AutomationId="setting:tlsCertificateThumbprint"
+                AutomationProperties.Name="{x:Bind ViewModel.TlsCertificateThumbprint.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.TotpDriftSteps.Title}"
+            Description="{x:Bind ViewModel.TotpDriftSteps.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.TotpDriftSteps.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:totpDriftSteps"
+                AutomationProperties.Name="{x:Bind ViewModel.TotpDriftSteps.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.UserFailureLimit.Title}"
+            Description="{x:Bind ViewModel.UserFailureLimit.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.UserFailureLimit.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:userFailureLimit"
+                AutomationProperties.Name="{x:Bind ViewModel.UserFailureLimit.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.IpFailureLimit.Title}"
+            Description="{x:Bind ViewModel.IpFailureLimit.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.IpFailureLimit.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:ipFailureLimit"
+                AutomationProperties.Name="{x:Bind ViewModel.IpFailureLimit.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.IpFailureWindowMinutes.Title}"
+            Description="{x:Bind ViewModel.IpFailureWindowMinutes.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.IpFailureWindowMinutes.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:ipFailureWindowMinutes"
+                AutomationProperties.Name="{x:Bind ViewModel.IpFailureWindowMinutes.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.IpBanMinutes.Title}"
+            Description="{x:Bind ViewModel.IpBanMinutes.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.IpBanMinutes.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:ipBanMinutes"
+                AutomationProperties.Name="{x:Bind ViewModel.IpBanMinutes.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.SessionIpValidationEnabled.Title}"
+            Description="{x:Bind ViewModel.SessionIpValidationEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.SessionIpValidationEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:sessionIpValidationEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.SessionIpValidationEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.UserFileManagementEnabled.Title}"
+            Description="{x:Bind ViewModel.UserFileManagementEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.UserFileManagementEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:userFileManagementEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.UserFileManagementEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ApiKeysEnabled.Title}"
+            Description="{x:Bind ViewModel.ApiKeysEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.ApiKeysEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:apiKeysEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.ApiKeysEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.ArchiveConcurrencyLimit.Title}"
+            Description="{x:Bind ViewModel.ArchiveConcurrencyLimit.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.ArchiveConcurrencyLimit.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:archiveConcurrencyLimit"
+                AutomationProperties.Name="{x:Bind ViewModel.ArchiveConcurrencyLimit.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.DownloadConcurrencyLimit.Title}"
+            Description="{x:Bind ViewModel.DownloadConcurrencyLimit.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.DownloadConcurrencyLimit.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:downloadConcurrencyLimit"
+                AutomationProperties.Name="{x:Bind ViewModel.DownloadConcurrencyLimit.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.UploadConcurrencyLimit.Title}"
+            Description="{x:Bind ViewModel.UploadConcurrencyLimit.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.UploadConcurrencyLimit.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:uploadConcurrencyLimit"
+                AutomationProperties.Name="{x:Bind ViewModel.UploadConcurrencyLimit.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.PrivateSourceAllowList.Title}"
+            Description="{x:Bind ViewModel.PrivateSourceAllowList.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.PrivateSourceAllowList.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AcceptsReturn="True"
+                AutomationProperties.AutomationId="setting:privateSourceAllowList"
+                AutomationProperties.Name="{x:Bind ViewModel.PrivateSourceAllowList.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.SessionIdleHours.Title}"
+            Description="{x:Bind ViewModel.SessionIdleHours.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.SessionIdleHours.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:sessionIdleHours"
+                AutomationProperties.Name="{x:Bind ViewModel.SessionIdleHours.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.SessionAbsoluteHours.Title}"
+            Description="{x:Bind ViewModel.SessionAbsoluteHours.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <NumberBox
+                Value="{x:Bind ViewModel.SessionAbsoluteHours.Number, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:sessionAbsoluteHours"
+                AutomationProperties.Name="{x:Bind ViewModel.SessionAbsoluteHours.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.AdvancedRawCommandsEnabled.Title}"
+            Description="{x:Bind ViewModel.AdvancedRawCommandsEnabled.Description, Mode=OneWay}"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.AdvancedRawCommandsEnabled.IsOn, Mode=TwoWay}"
+                AutomationProperties.AutomationId="setting:advancedRawCommandsEnabled"
+                AutomationProperties.Name="{x:Bind ViewModel.AdvancedRawCommandsEnabled.Title}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            Header="{x:Bind ViewModel.EmbedAllowedOrigins.Title}"
+            Description="{x:Bind ViewModel.EmbedAllowedOrigins.Description, Mode=OneWay}"
+            ContentAlignment="Vertical"
+            HorizontalContentAlignment="Stretch"
+            IsEnabled="{x:Bind ViewModel.CanEdit, Mode=OneWay}">
+            <TextBox
+                Text="{x:Bind ViewModel.EmbedAllowedOrigins.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                AcceptsReturn="True"
+                AutomationProperties.AutomationId="setting:embedAllowedOrigins"
+                AutomationProperties.Name="{x:Bind ViewModel.EmbedAllowedOrigins.Title}" />
+        </settings:SettingsCard>
+        <Button
+            Content="{x:Bind ViewModel.Text('desktop.settings-test-tls')}"
+            Command="{x:Bind ViewModel.TestTlsCommand}" />
+    </StackPanel>
+</UserControl>

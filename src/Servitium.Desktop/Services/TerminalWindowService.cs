@@ -4,8 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
-using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -98,6 +96,7 @@ internal sealed partial class TerminalWindow : Window, IDisposable
 {
     private readonly RestrictedWebViewHost _host;
     private readonly AppWindow _appWindow;
+    private readonly AppServices _services;
     private bool _disposed;
 
     internal TerminalWindow(AppServices services, InstanceDto instance, string nodeName)
@@ -105,6 +104,7 @@ internal sealed partial class TerminalWindow : Window, IDisposable
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(instance);
         ArgumentException.ThrowIfNullOrWhiteSpace(nodeName);
+        _services = services;
         InstanceId = instance.Id;
         Title = services.Localization.Format("terminal.window-title", instance.Name, nodeName);
         TerminalConnection connection = services.Session.Client.CreateTerminalConnection();
@@ -123,11 +123,13 @@ internal sealed partial class TerminalWindow : Window, IDisposable
             presenter.PreferredMinimumHeight = 420;
         }
 
-        if (AppWindowTitleBar.IsCustomizationSupported())
-        {
-            _appWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
-            _appWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-        }
+        WindowThemeService.Apply((FrameworkElement)Content, _appWindow, services.Settings.Current.Theme);
+        services.Settings.Changed += OnSettingsChanged;
+    }
+
+    private void OnSettingsChanged(object? sender, EventArgs args)
+    {
+        _ = DispatcherQueue.TryEnqueue(() => { if (!_disposed && Content is FrameworkElement root) { WindowThemeService.Apply(root, _appWindow, _services.Settings.Current.Theme); } });
     }
 
     internal Guid InstanceId { get; }
@@ -142,6 +144,7 @@ internal sealed partial class TerminalWindow : Window, IDisposable
         }
 
         _disposed = true;
+        _services.Settings.Changed -= OnSettingsChanged;
         _host.Dispose();
     }
 }

@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
-
+using Servitium.Application.Identity;
 using Servitium.Domain.Identity;
 using Servitium.Infrastructure.Identity;
 using Servitium.Infrastructure.Persistence;
@@ -87,6 +89,45 @@ public sealed class IdentityCascadeTests
                 Directory.Delete(root, recursive: true);
             }
         }
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task Sqlite账户列表按真实时间排序并保留用户与受限会话过滤()
+    {
+        string root = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"servitium-identity-lists-{Guid.NewGuid():N}")).FullName;
+        using SqliteWriteCoordinator coordinator = new();
+        try
+        {
+            TestContextFactory factory = new(new DbContextOptionsBuilder<ServitiumDbContext>().UseSqlite("Data Source=" + Path.Combine(root, "server.db") + ";Pooling=False").Options);
+            Guid user = Guid.NewGuid(), other = Guid.NewGuid();
+            Guid olderSession = Guid.NewGuid(), newerSession = Guid.NewGuid(), olderKey = Guid.NewGuid(), newerKey = Guid.NewGuid();
+            DateTimeOffset older = new(2026, 10, 21, 12, 0, 0, TimeSpan.FromHours(8));
+            DateTimeOffset newer = new(2026, 10, 21, 5, 0, 0, TimeSpan.Zero);
+            using (ServitiumDbContext context = factory.CreateDbContext())
+            {
+                await context.Database.MigrateAsync().ConfigureAwait(true);
+                context.Users.AddRange(User(user, "LISTED", Role.User), User(other, "OTHER", Role.User));
+                context.Sessions.AddRange(
+                    new SessionRow { Id = olderSession, UserId = user, TokenHash = new string('a', 64), LastSeenAt = older },
+                    new SessionRow { Id = newerSession, UserId = user, TokenHash = new string('b', 64), LastSeenAt = newer },
+                    new SessionRow { Id = Guid.NewGuid(), UserId = user, TokenHash = new string('c', 64), LastSeenAt = newer.AddHours(1), IsRestricted = true },
+                    new SessionRow { Id = Guid.NewGuid(), UserId = other, TokenHash = new string('d', 64), LastSeenAt = newer.AddHours(2) });
+                context.ApiKeys.AddRange(
+                    new ApiKeyRow { Id = olderKey, UserId = user, Name = "Older", KeyHash = new string('e', 64), Scope = "full", CreatedAt = older },
+                    new ApiKeyRow { Id = newerKey, UserId = user, Name = "Newer", KeyHash = new string('f', 64), Scope = "full", CreatedAt = newer },
+                    new ApiKeyRow { Id = Guid.NewGuid(), UserId = other, Name = "Other", KeyHash = new string('1', 64), Scope = "full", CreatedAt = newer.AddHours(2) });
+                _ = await context.SaveChangesAsync().ConfigureAwait(true);
+            }
+            SqliteIdentityStore store = new(factory, coordinator);
+            IReadOnlyList<StoredSession> sessions = await store.ListSessionsAsync(user, CancellationToken.None).ConfigureAwait(true);
+            Assert.Equal([newerSession, olderSession], sessions.Select(session => session.Id));
+            Assert.All(sessions, session => { Assert.Equal(user, session.UserId); Assert.False(session.IsRestricted); });
+            IReadOnlyList<StoredApiKey> keys = await store.ListApiKeysAsync(user, CancellationToken.None).ConfigureAwait(true);
+            Assert.Equal([newerKey, olderKey], keys.Select(key => key.Id));
+            Assert.All(keys, key => Assert.Equal(user, key.UserId));
+        }
+        finally { Directory.Delete(root, recursive: true); }
     }
 
     private static UserRow User(Guid id, string userName, Role role)

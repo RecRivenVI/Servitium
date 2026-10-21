@@ -1,0 +1,88 @@
+<UserControl
+    x:Class="Servitium.Desktop.Views.Settings.LocalNotificationsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:settings="using:CommunityToolkit.WinUI.Controls">
+    <StackPanel
+        Spacing="{ThemeResource SelectorBarItemSpacing}">
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('desktop.local-close-tray')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.CloseToTray, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('desktop.local-close-tray')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('desktop.local-pause')}">
+            <ComboBox
+                SelectedIndex="{x:Bind ViewModel.PauseIndex, Mode=TwoWay}"
+                AutomationProperties.AutomationId="preferences:pause">
+                <ComboBoxItem
+                    Content="{x:Bind ViewModel.Text('desktop.pause-none')}" />
+                <ComboBoxItem
+                    Content="{x:Bind ViewModel.Text('desktop.pause-thirty')}" />
+                <ComboBoxItem
+                    Content="{x:Bind ViewModel.Text('desktop.pause-hour')}" />
+                <ComboBoxItem
+                    Content="{x:Bind ViewModel.Text('desktop.pause-restart')}" />
+            </ComboBox>
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.instance-crashed.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.InstanceCrashed, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.instance-crashed.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.auto-restart-exhausted.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.RestartExhausted, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.auto-restart-exhausted.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.node-offline.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.NodeOffline, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.node-offline.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.node-online.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.NodeOnline, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.node-online.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.operation-completed.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.OperationCompleted, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.operation-completed.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.operation-failed.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.OperationFailed, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.operation-failed.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.hmcl-published.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.HmclPublished, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.hmcl-published.title')}" />
+        </settings:SettingsCard>
+        <settings:SettingsCard
+            IsEnabled="{x:Bind ViewModel.CanInteract, Mode=OneWay}"
+            Header="{x:Bind ViewModel.Text('notification.hmcl-integrity-alert.title')}">
+            <ToggleSwitch
+                IsOn="{x:Bind ViewModel.HmclIntegrityAlert, Mode=TwoWay}"
+                AutomationProperties.Name="{x:Bind ViewModel.Text('notification.hmcl-integrity-alert.title')}" />
+        </settings:SettingsCard>
+    </StackPanel>
+</UserControl>
