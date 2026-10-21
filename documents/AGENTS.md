@@ -25,7 +25,7 @@
 | --- | --- |
 | .NET SDK | [global.json](../global.json)，不在脚本另定版本 |
 | 产品版本与公共编译设置 | [Directory.Build.props](../Directory.Build.props) |
-| NuGet、Windows App SDK、MVVM、xUnit | [Directory.Packages.props](../Directory.Packages.props) 与各锁文件；本轮不升级 Windows App SDK |
+| NuGet、Windows App SDK、MVVM、SettingsCard、xUnit | [Directory.Packages.props](../Directory.Packages.props) 与各锁文件 |
 | Desktop 本地终端/编辑器依赖 | [package.json](../src/Servitium.Desktop/WebAssetsSource/package.json) 与锁文件；这些资源不是 Web 管理端 |
 | 本机 SDK、产物根与参考仓库位置 | 被忽略的 tools/build/Local.props；字段定义见[本机配置](reference/configuration-development.md) |
 | 命令 | [开发工作流](development/workflow-development.md)和 tools 下的实际入口 |
@@ -39,8 +39,8 @@
 - **X-05** 实例无 shell 启动，Java 参数数组与已登记运行时绑定；进程树由独立 Job Object 约束。秘密不得进入日志、事件、错误、诊断或公开响应；本地运行账户密码不经控制平面传输。安全不变量见[安全模型](design/security-threat_model.md)。
 - **X-06** Server 为授权与通信入口，Desktop/Web 不直连 Agent；Agent 主动连接并独立校验命令/路径。Server 停止不等于 Agent 崩溃：前者保持本地自治，后者依进程树策略回收。Desktop 退出不停止服务或实例。
 - **X-07** 保留 HMCL manifest 的 no-cache，以及 overrides 的恒不压缩、SHA-1 强 ETag/Range 等已证实兼容条件。参考新证据不能自行改变产品范围或协议；差异写入 debt、backlog 或研究记录，再由用户决定。
-- **X-08** 用户已允许先完成 Desktop、暂停 Web 与四项真实样本测试。该例外只影响先后，不表示用户验收完成；本轮界面由外部评审另行设计，不改界面、不升级 Windows App SDK。旧 Gate/Profile 已退役，不保留为新的流程要求。
+- **X-08** 用户已允许先完成 Desktop、暂停 Web 与四项真实样本测试。用户现已授权依赖安全修复、Windows App SDK 最新稳定版升级与两轮桌面重写；首轮为导航外壳、登录、实例工作区和设置，采用手写 XAML、CommunityToolkit.Mvvm 与 SettingsCard，第二轮须用户验收首轮后再启动。按现有契约呈现，不为原型示意新增能力；当前工作见[计划](project/plan-desktop_round_one.md)。该安排不表示用户验收完成；旧 Gate/Profile 不恢复。
 - **X-09** 真实服务、ACL、关机、多主机、第二 Windows、真实 Minecraft/HMCL 与人工视觉验证使用 validations 中定义和独立外部目录；缺少环境如实写无法比较，不用历史结果或静态审查宣称当前完成。
-- **X-10** 交付为独立用户决定。没有明确验收与后续交付授权，不创建安装包、标签、发布或远程部署；本轮只授权一个 Update 检查点并正常推送 develop，legacy 不动。
+- **X-10** 交付为独立用户决定。没有明确验收与后续交付授权，不创建安装包、标签、发布或远程部署；提交与正常推送 develop 以用户当前明确授权为准，legacy 不动。
 
 存量代码与规范不符的内容见[技术债](project/debt-rules.md)，不以补充规则放宽。确认过的产品和设计依据保留正文；其中退役的治理引用不再约束当前工作流。

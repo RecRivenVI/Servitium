@@ -17,7 +17,7 @@ Copy-Item tools/build/Local.props.example tools/build/Local.props
 ./tools/test/Test.ps1
 ```
 
-当前依赖存在 NU1903 还原阻塞，详见[进度](documents/project/status-development.md)；不通过降低警告等级绕过。运行服务与客户端见[工作流](documents/development/workflow-development.md)。
+依赖安全修复已解除还原阻塞；桌面首轮重写进行中，详见[进度](documents/project/status-development.md)。运行服务与客户端见[工作流](documents/development/workflow-development.md)。
 
 ## 文档
 

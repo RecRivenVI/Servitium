@@ -4,12 +4,12 @@
 
 | 规则 | 位置 | 影响与建议 |
 | --- | --- | --- |
-| T-03/T-04、C-09 | [运行债](debt-runtime.md) | 整理前已有 NU1903、真实场景不足；保留失败，不改变断言/超时/审计 |
+| T-03/T-04、C-09 | [运行债](debt-runtime.md) | 真实场景仍不足；依赖安全修复已恢复全量测试，不改变断言/超时/审计 |
 | DN-09/U-01～08、C-07 | [Desktop 债](debt-desktop.md) | C# 整页、巨型分派/硬编码，等待外部设计后修复 |
 | DN-03/C-04 | 八项目、Application 端口与 Server 编排 | 部分层仅一实现，端点直接依赖具体存储；有测试用途的接口保留，其余随业务拆分审视 |
 | DN-04/C-07 | Ports.cs、*Models.cs、TransportContracts.cs、部分测试夹具 | 多主要类型/超 600 行和长方法；本轮不大规模拆类 |
 | C-02/C-03 | 输入/归档/SSRF/路径检查及回退 | 安全检查有真实不受信输入，不应因“防御编程”一刀切删除；其他保护需逐项证明可达失败 |
-| C-05/C-08 | ServitiumTestClient.cs | 本轮确认零外部调用后移出旧客户端；正式 ApiClient 保留，未更改功能 |
+| C-05/C-08 | ServitiumTestClient.cs、ServitiumApiException.cs | 无调用旧客户端已移出；同文件中仍使用的正式异常已恢复为独立文件，Problem Details 回归通过 |
 | C-06 | Desktop/Agent 的测试启动开关 | 保留以维持现有场景；后续集中调试入口，不能把探针当产品能力 |
 | DN-07/C-09/C-10 | Desktop AppServices、TimeProvider/IClock、部分空 catch/抑制项 | 手工服务集合/时间与日志风格不完全统一；按具体失败审查，不新增一层兜底 |
 | G-03/F-01/F-02 | appsettings/HostOptions、错误码常量/JSON/手工协议表、产品名的本地化值 | SDK/依赖/公共编译与本机路径已收敛；其余领域默认值/协议映射仍有重复事实，需以选项/生成来源逐项收敛 |

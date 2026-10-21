@@ -4,7 +4,6 @@
 
 | 规则/位置 | 影响 | 建议 |
 | --- | --- | --- |
-| T-04、C-09；Client 的 SignalR 传递依赖及相关锁文件 | NU1903 阻断还原/构建，公告 GHSA-334f-vvp4-7g6p；Client/Desktop 测试无法比较 | 单独安排依赖安全修复，不禁用审计或降低警告 |
 | X-04/X-05、T-03；WindowsPathPolicy、LocalAuthenticationPipeService、进程宿主 | 服务/ACL/第二平台和真实故障恢复没有当前完整证据；管道“天然不跨网络”的旧说明错误 | 保留本机 PID/SID/路径检查，并专门验证远程拒绝/ACL；按真实场景定义执行 |
 | G-03/F-01；RequestSecurity、EventsConnection 与 protocol-control_plane | CSRF 实际 X-CSRF-Token/400，旧文字为另一头名/403；双方实现一致但契约漂移 | 裁定后一次同步，不本轮改接口行为 |
 | G-03、T-03；agent-control.proto / AgentCommandDispatcher | protobuf 信封为 bytes JSON 载荷，旧文字称按类型 protobuf；兼容性检查不覆盖 DTO 变化 | 明确协议真实边界后补兼容回归 |
