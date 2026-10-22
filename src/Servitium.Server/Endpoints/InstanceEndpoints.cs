@@ -31,7 +31,7 @@ using Servitium.Server.Security;
 
 namespace Servitium.Server.Endpoints;
 
-internal static class InstanceEndpoints
+internal static partial class InstanceEndpoints
 {
     internal static void MapInstanceEndpoints(this WebApplication app)
     {
@@ -84,6 +84,9 @@ internal static class InstanceEndpoints
             .WithMetadata(new RequiredAuthorization(ServitiumAction.View, ResourceKind.Instance));
         _ = instances.MapGet("/{instanceId:guid}/metrics", GetMetricsAsync)
             .ProducesJson<InstanceMetricsDto>()
+            .WithMetadata(new RequiredAuthorization(ServitiumAction.View, ResourceKind.Instance));
+        _ = instances.MapGet("/{instanceId:guid}/metrics/history", ListMetricHistoryAsync)
+            .ProducesJson<CursorPage<InstanceMetricSampleDto>>()
             .WithMetadata(new RequiredAuthorization(ServitiumAction.View, ResourceKind.Instance));
         _ = instances.MapGet("/{instanceId:guid}/players", GetPlayersAsync)
             .ProducesJson<PlayerListDto>()
@@ -141,6 +144,7 @@ internal static class InstanceEndpoints
             }
 
             InstanceDto[] items = [.. instances.Select(instance => ToDto(node.Id, node.Name, instance, null))];
+            if (principal.Role == Role.User && items.Length == 0) { continue; }
             CursorPage<InstanceDto> page = CursorPaginator.Page(
                 items,
                 instance => instance.Name.ToUpperInvariant(),
@@ -160,7 +164,9 @@ internal static class InstanceEndpoints
                 node.ProtocolMinor,
                 items.Length,
                 items.Count(instance => instance.Status == "Running"),
-                node.Configuration?.PublicAddress);
+                node.Configuration?.PublicAddress,
+                node.HostName,
+                node.IsLocal);
             groups.Add(new InstanceGroupDto(nodeDto, page.Items, page.NextCursor));
         }
 
@@ -869,7 +875,8 @@ internal static class InstanceEndpoints
             telemetry?.OnlinePlayers,
             response.StartedAt,
             telemetry?.CpuPercent,
-            telemetry?.MemoryBytes);
+            telemetry?.MemoryBytes,
+            response.Software);
     }
 
     private static async Task<(Guid NodeId, AgentInstanceResponse Instance)?> FindAsync(

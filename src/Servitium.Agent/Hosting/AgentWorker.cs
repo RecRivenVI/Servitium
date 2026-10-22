@@ -121,11 +121,12 @@ internal sealed partial class AgentWorker(
                 CredentialOrRegistrationToken = credential,
                 AgentVersion = typeof(AgentWorker).Assembly.GetName().Version?.ToString() ?? "0.0.0",
                 ProtocolMajor = 1,
-                ProtocolMinor = 0,
+                ProtocolMinor = 1,
                 OperatingSystem = RuntimeInformation.OSDescription,
                 Architecture = RuntimeInformation.OSArchitecture.ToString(),
                 MachineFingerprint = MachineFingerprint(),
                 NodeName = options.NodeName,
+                HostName = Environment.MachineName,
             },
         }, cancellationToken).ConfigureAwait(false);
 

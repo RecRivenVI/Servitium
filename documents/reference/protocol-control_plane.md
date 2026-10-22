@@ -254,6 +254,8 @@ Location: /api/v1/operations/{operationId}
 | `POST /api/v1/nodes/{id}/credential/revoke` | 吊销凭据 | O/A | |
 | `GET /api/v1/nodes/{id}/metrics` | 指标时间序列 | O/A | |
 
+节点列表与详情的 `hostName` 来自 Agent 握手，`isLocal` 表示连接来自 Server 回环接口，只作展示，不参与授权。旧 Agent 或迁移前数据未提供的字段保持 null。节点指标的 `diskTotalBytes` 为数据卷总容量，旧样本保持 null；当前值与最近 24 小时历史来自真实采样，并保留分页。普通账户只能在获授权的实例分组里获得所在节点的展示信息，不能读取节点管理端点。
+
 ### 3.4 `java-runtimes`
 
 | 方法与路径 | 说明 | 权限 | 长操作 |
@@ -266,6 +268,8 @@ Location: /api/v1/operations/{operationId}
 | `DELETE /api/v1/nodes/{nodeId}/java-runtimes/{id}` | 取消登记，`?deleteFiles=true` 仅对导入型有效 | O/A | ✔ |
 
 ### 3.5 `instances`
+
+`InstanceDto` 和 `AgentInstanceResponse` 新增可选 `Software`，包含明确版本、加载器、来源、原因与读取时间；旧镜像缺省为未知。识别格式、刷新方式和未知分支定义在[实例软件识别](format-instance_software.md)，既有实例授权与对账指令不变。
 
 | 方法与路径 | 说明 | 权限 | 长操作 |
 | --- | --- | --- | --- |
@@ -289,6 +293,8 @@ Location: /api/v1/operations/{operationId}
 | `POST /api/v1/instances/{id}/rcon/command` | 通过 RCON 执行命令 | O/A/U | |
 | `GET /api/v1/instances/{id}/logs` | 读取日志文件（按行范围、关键字） | O/A/U | |
 | `POST /api/v1/instances/batch/{action}` | 批量 start/stop/restart/force-stop/unregister | O/A | ✔ |
+
+`GET /api/v1/instances/{id}/metrics/history` 使用与实例查看相同的统一授权，按 `since`、`cursor`、`limit` 分页读取最近最多 24 小时样本。每个节点/实例/UTC 分钟保留最新 CPU、内存与可选玩家数；乱序上报不能覆盖较新样本。时间来自 Agent 事件，旧消息缺少时间时记 Server 实际收到的时间；不补零或制造离线数据。存储按保留期清理，离线节点也经后台维护清理，节点移除时级联回收。
 
 ### 3.6 `files`
 
@@ -315,6 +321,8 @@ Location: /api/v1/operations/{operationId}
 | `PUT /uploads/{uploadId}/parts/{index}` | 上传分片 | |
 | `POST /uploads/{uploadId}/complete` | 合并 | ✔ |
 | `DELETE /uploads/{uploadId}` | 取消 | |
+
+文件列表条目的可选 `isLocked` 为三态观察：true 表示独占打开被占用阻止，false 表示本次探测未观察到占用，null 表示目录或权限/文件状态使其无法判定。探测不读取或写入内容，只检查当前可否独占打开；它与后续实际操作之间存在竞争，不能保证目录或多文件动作安全，因此所有写入仍要求实例停止。
 
 ### 3.7 `configurations`
 
@@ -552,7 +560,7 @@ message ServerMessage {
 
 ### 6.3 握手
 
-`Hello` 携带：节点凭据（或注册令牌）、Agent 版本、协议主次版本、平台信息、机器指纹。
+`Hello` 携带：节点凭据（或注册令牌）、Agent 版本、协议主次版本、平台信息、机器指纹与主机名（字段 9）。主机名是报告元数据，不用于认证；本次次版本为 1，主版本仍为 1，新增可选字段不改变既有字段编号或授权。旧 Agent 未发送主机名时保留未知。
 
 `Welcome` 返回：节点标识、协商后的协议版本、服务端时间、节点级配置快照。
 

@@ -1,11 +1,12 @@
 using Servitium.Contracts.Instances;
 using Servitium.Desktop.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Servitium.Desktop.ViewModels.Instances;
 
-internal sealed class InstanceRow(InstanceDto value, LocalizationService localization, bool reachable)
+internal sealed partial class InstanceRow(InstanceDto value, LocalizationService localization, bool reachable) : ObservableObject
 {
-    public InstanceDto Value { get; } = value;
+    public InstanceDto Value { get; private set; } = value;
     public string Name => Value.Name;
     public bool IsReachable { get; } = reachable;
     public string State => IsReachable ? Value.Status : "Unreachable";
@@ -22,7 +23,12 @@ internal sealed class InstanceRow(InstanceDto value, LocalizationService localiz
         "Creating" => "desktop.instance-state-creating",
         _ => "desktop.instance-state-unknown",
     });
-    public string Version => localization.Get("desktop.version-not-reported");
+    public string Version => InstanceSoftwarePresentation.Summary(Value.Software, localization);
+    internal void ApplySoftware(InstanceSoftwareDto? software)
+    {
+        Value = Value with { Software = software };
+        OnPropertyChanged(nameof(Value)); OnPropertyChanged(nameof(Version));
+    }
     public string Detail => Value.Status == "Running" && Value.OnlinePlayers is int count
         ? localization.Format("desktop.players-count", count) : Status;
     public bool NeedsAttention => !IsReachable || Value.Status is "Crashed" or "Failed" or "Unknown";

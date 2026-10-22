@@ -335,7 +335,9 @@ internal static class NodeEndpoints
             node.ProtocolMinor,
             total,
             running,
-            node.Configuration?.PublicAddress);
+            node.Configuration?.PublicAddress,
+            node.HostName,
+            node.IsLocal);
     }
 
     private static async Task<IResult> GetNodeAsync(HttpContext context, Guid nodeId, INodeControlStore store, CancellationToken cancellationToken)
@@ -355,6 +357,8 @@ internal static class NodeEndpoints
                 node.Architecture,
                 node.CreatedAt,
                 node.LastSeenAt,
+                node.HostName,
+                node.IsLocal,
                 configuration = node.Configuration,
             });
     }

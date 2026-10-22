@@ -42,6 +42,7 @@ message Hello {
   string architecture = 6;
   string machine_fingerprint = 7;
   string node_name = 8;
+  string host_name = 9;
 }
 
 message Welcome {

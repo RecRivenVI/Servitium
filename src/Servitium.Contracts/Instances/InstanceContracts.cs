@@ -18,6 +18,7 @@ namespace Servitium.Contracts.Instances;
 /// <param name="LastStartedAt">最近启动时间。</param>
 /// <param name="CpuPercent">最近一次采样的 CPU 百分比。</param>
 /// <param name="MemoryBytes">最近一次采样的内存字节数。</param>
+/// <param name="Software">实际启动目标的软件元数据；旧 Agent 保持为空。</param>
 public sealed record InstanceDto(
     Guid Id,
     Guid NodeId,
@@ -32,7 +33,8 @@ public sealed record InstanceDto(
     int? OnlinePlayers = null,
     DateTimeOffset? LastStartedAt = null,
     double? CpuPercent = null,
-    long? MemoryBytes = null);
+    long? MemoryBytes = null,
+    InstanceSoftwareDto? Software = null);
 
 /// <summary>实例详情及其启动与运行配置。</summary>
 public sealed record InstanceDetailsDto(

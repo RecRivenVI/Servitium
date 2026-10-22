@@ -159,6 +159,10 @@
                         Text="{x:Bind ViewModel.Version, Mode=OneWay}"
                         TextWrapping="Wrap" />
                     <TextBlock
+                        Text="{x:Bind ViewModel.SoftwareNote, Mode=OneWay}"
+                        Style="{ThemeResource CaptionTextBlockStyle}"
+                        TextWrapping="Wrap" />
+                    <TextBlock
                         Text="{x:Bind ViewModel.Text('desktop.player-address')}"
                         Style="{ThemeResource BodyStrongTextBlockStyle}" />
                     <TextBlock

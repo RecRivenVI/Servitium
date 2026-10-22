@@ -42,7 +42,7 @@ internal sealed partial class NodeMetricSampler(AgentStorageOptions storage, ICl
             DriveInfo drive = new(root);
             long usedMemory = checked((long)Math.Min(memory.TotalPhysical - memory.AvailablePhysical, long.MaxValue));
             long totalMemory = checked((long)Math.Min(memory.TotalPhysical, long.MaxValue));
-            return new(now, cpuPercent, usedMemory, totalMemory, drive.AvailableFreeSpace, receiveRate, sendRate, TimeSpan.FromMilliseconds(Environment.TickCount64));
+            return new(now, cpuPercent, usedMemory, totalMemory, drive.AvailableFreeSpace, receiveRate, sendRate, TimeSpan.FromMilliseconds(Environment.TickCount64), drive.TotalSize);
         }
     }
 

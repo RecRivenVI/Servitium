@@ -99,6 +99,11 @@ public sealed class ControlPlaneEndToEndTests
                 "--node-name", "Synthetic node");
             Guid nodeId = await WaitForNodeAsync(client, agent, server, TimeSpan.FromSeconds(20)).ConfigureAwait(true);
 
+            NodeDetailsDto node = (await client.GetFromJsonAsync<NodeDetailsDto>(new Uri($"/api/v1/nodes/{nodeId:D}", UriKind.Relative)).ConfigureAwait(true))!;
+            Assert.Equal(Environment.MachineName, node.HostName);
+            Assert.True(node.IsLocal);
+            Assert.Equal(1, node.ProtocolMinor);
+
             using HttpResponseMessage javaResponse = await client.PostAsJsonAsync(
                 new Uri($"/api/v1/nodes/{nodeId:D}/java-runtimes", UriKind.Relative),
                 new RegisterJavaRuntimeRequest(FindJavaExecutable())).ConfigureAwait(true);
@@ -325,6 +330,7 @@ public sealed class ControlPlaneEndToEndTests
                 new SendInstanceCommandRequest(literalCommand)).ConfigureAwait(true);
             Assert.Equal(HttpStatusCode.OK, commandResponse.StatusCode);
             _ = await WaitForInstanceOutputAsync(client, nodeId, imported.Id, "fixture-input:" + literalCommand, TimeSpan.FromSeconds(10), agent, server).ConfigureAwait(true);
+            await WaitForInstanceMetricHistoryAsync(client, imported.Id, TimeSpan.FromSeconds(30)).ConfigureAwait(true);
             using HttpResponseMessage stopResponse = await client.PostAsync(
                 new Uri($"/api/v1/instances/{imported.Id:D}/stop?nodeId={nodeId:D}", UriKind.Relative),
                 content: null).ConfigureAwait(true);
@@ -470,6 +476,27 @@ public sealed class ControlPlaneEndToEndTests
         }
     }
 
+    private static async Task WaitForInstanceMetricHistoryAsync(HttpClient client, Guid instanceId, TimeSpan timeout)
+    {
+        using CancellationTokenSource cancellation = new(timeout);
+        while (true)
+        {
+            using HttpResponseMessage response = await client.GetAsync(new Uri($"/api/v1/instances/{instanceId:D}/metrics/history", UriKind.Relative), cancellation.Token).ConfigureAwait(true);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            using JsonDocument document = JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancellation.Token).ConfigureAwait(true));
+            JsonElement samples = document.RootElement.GetProperty("items");
+            if (samples.GetArrayLength() > 0)
+            {
+                InstanceMetricSampleDto sample = samples[0].Deserialize<InstanceMetricSampleDto>(JsonSerializerOptions.Web)!;
+                Assert.True(sample.MemoryBytes > 0);
+                Assert.InRange(sample.CpuPercent, 0, 100);
+                Assert.True(sample.SampledAt >= DateTimeOffset.UtcNow.AddMinutes(-2));
+                return;
+            }
+            await Task.Delay(100, cancellation.Token).ConfigureAwait(true);
+        }
+    }
+
     private static async Task WaitForNodeMetricAsync(HttpClient client, Guid nodeId, TimeSpan timeout)
     {
         using CancellationTokenSource cancellation = new(timeout);
@@ -482,6 +509,8 @@ public sealed class ControlPlaneEndToEndTests
             using var document = JsonDocument.Parse(await response.Content.ReadAsStringAsync(cancellation.Token).ConfigureAwait(true));
             if (document.RootElement.GetProperty("items").GetArrayLength() > 0)
             {
+                JsonElement sample = document.RootElement.GetProperty("items")[0];
+                Assert.True(sample.GetProperty("diskTotalBytes").GetInt64() >= sample.GetProperty("diskFreeBytes").GetInt64());
                 return;
             }
 

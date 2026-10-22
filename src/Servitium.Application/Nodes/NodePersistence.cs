@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Agent;
 using Servitium.Contracts.Scheduling;
+using Servitium.Contracts.Instances;
 
 namespace Servitium.Application.Nodes;
 
@@ -23,7 +24,9 @@ public sealed record StoredNode(
     DateTimeOffset CreatedAt,
     DateTimeOffset? LastSeenAt,
     bool CredentialRevoked,
-    UpdateNodeRequest? Configuration = null);
+    UpdateNodeRequest? Configuration = null,
+    string? HostName = null,
+    bool? IsLocal = null);
 
 /// <summary>一次性节点注册令牌快照。</summary>
 public sealed record StoredNodeRegistrationToken(
@@ -74,6 +77,8 @@ public interface INodeControlStore
     Task<IReadOnlyList<StoredNode>> ListNodesAsync(CancellationToken cancellationToken);
     /// <summary>更新节点控制平面属性快照。</summary>
     Task UpdateNodeAsync(StoredNode node, CancellationToken cancellationToken);
+    /// <summary>只更新已认证连接的主机与协议元数据，保留用户配置。</summary>
+    Task UpdateConnectionDetailsAsync(StoredNode node, CancellationToken cancellationToken);
     /// <summary>从控制平面移除节点及其凭据。</summary>
     Task RemoveNodeAsync(Guid nodeId, CancellationToken cancellationToken);
     /// <summary>更新节点心跳与状态。</summary>
@@ -94,6 +99,10 @@ public interface INodeControlStore
     Task AddMetricAsync(StoredNodeMetric metric, DateTimeOffset retentionCutoff, CancellationToken cancellationToken);
     /// <summary>读取指定节点在时间范围内的指标。</summary>
     Task<IReadOnlyList<StoredNodeMetric>> ListMetricsAsync(Guid nodeId, DateTimeOffset since, CancellationToken cancellationToken);
+    /// <summary>按分钟保存实例历史样本并清理过期样本。</summary>
+    Task AddInstanceMetricAsync(StoredInstanceMetric metric, DateTimeOffset retentionCutoff, CancellationToken cancellationToken);
+    /// <summary>读取指定节点和实例的真实指标历史。</summary>
+    Task<IReadOnlyList<InstanceMetricSampleDto>> ListInstanceMetricsAsync(Guid nodeId, Guid instanceId, DateTimeOffset since, CancellationToken cancellationToken);
     /// <summary>原子替换节点的实例、Java 与计划任务镜像。</summary>
     Task ReplaceMirrorAsync(StoredNodeMirror mirror, CancellationToken cancellationToken);
     /// <summary>应用 Agent 自治事件产生的实例状态变化。</summary>

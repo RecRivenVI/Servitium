@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -58,6 +59,9 @@ public sealed class RetentionMaintenanceService(
                     $"DELETE FROM Operations WHERE CompletedAt IS NOT NULL AND CompletedAt < {operationCutoff}", cancellationToken).ConfigureAwait(false);
                 int metrics = await context.Database.ExecuteSqlInterpolatedAsync(
                     $"DELETE FROM NodeMetrics WHERE SampledAt < {metricCutoff}", cancellationToken).ConfigureAwait(false);
+                long instanceMetricCutoff = metricCutoff.ToUnixTimeMilliseconds();
+                metrics += await context.InstanceMetrics.Where(row => row.SampledAtUnixMilliseconds < instanceMetricCutoff)
+                    .ExecuteDeleteAsync(cancellationToken).ConfigureAwait(false);
                 int expired = 0;
                 expired += await context.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM IpBans WHERE ExpiresAt <= {now}", cancellationToken).ConfigureAwait(false);
                 expired += await context.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM IdempotencyRecords WHERE ExpiresAt <= {now}", cancellationToken).ConfigureAwait(false);

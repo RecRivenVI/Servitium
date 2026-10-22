@@ -64,6 +64,7 @@ internal static class GeneratedProtocolContract
         new("GET", "/api/v1/instances/{instanceId}/files/uploads/{uploadId}", "getApiV1InstancesInstanceIdFilesUploadsUploadId", [200], [], ["application/json"]),
         new("GET", "/api/v1/instances/{instanceId}/logs", "getApiV1InstancesInstanceIdLogs", [200], [], ["application/json"]),
         new("GET", "/api/v1/instances/{instanceId}/metrics", "getApiV1InstancesInstanceIdMetrics", [200], [], ["application/json"]),
+        new("GET", "/api/v1/instances/{instanceId}/metrics/history", "getApiV1InstancesInstanceIdMetricsHistory", [200], [], ["application/json"]),
         new("GET", "/api/v1/instances/{instanceId}/mods", "getApiV1InstancesInstanceIdMods", [200], [], ["application/json"]),
         new("GET", "/api/v1/instances/{instanceId}/mods/{modId}", "getApiV1InstancesInstanceIdModsModId", [200], [], ["application/json"]),
         new("GET", "/api/v1/instances/{instanceId}/mods/{modId}/config-files", "getApiV1InstancesInstanceIdModsModIdConfigFiles", [200], [], ["application/json"]),

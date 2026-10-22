@@ -19,6 +19,56 @@ namespace Servitium.Desktop.Tests;
 
 public sealed partial class InstanceConsoleViewModelTests
 {
+    [Fact]
+    public async Task SoftwareIsReadAgainAfterAuthoritativeStatusReconciliationAndUnknownClearsOldVersion()
+    {
+        InstanceDto instance = new(Guid.NewGuid(), Guid.NewGuid(), "合成实例", "Stopped", @"D:\Isolated\Instance", false, []);
+        InstanceSoftwareDto? software = new("1.21.1", "Fabric", "0.16.10", "fabric-launch-manifest", null, DateTimeOffset.UnixEpoch);
+        bool reconciled = false;
+        using RefreshingSoftwareHandler handler = new(request =>
+        {
+            if (request.RequestUri!.AbsolutePath.EndsWith("/status", StringComparison.Ordinal))
+            {
+                reconciled = true;
+                return new InstanceRuntimeDto(instance.Id, instance.NodeId, "Stopped", null, null, null, []);
+            }
+            return new InstanceDetailsDto(instance with { Software = reconciled ? software : null }, new(Guid.NewGuid(), 64, 128, [], "jar", "server.jar", []), null, null, 1);
+        });
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:58132"), handler: handler);
+        using InstanceConsoleViewModel model = new(Localization(), client, instance, null, true, false, []);
+        await model.LoadAsync().ConfigureAwait(true);
+        Assert.Equal("1.21.1 · Fabric · 0.16.10", model.Version);
+        model.Command = "say unsent";
+        software = new(null, null, null, "unknown", "metadata-unreadable", DateTimeOffset.UtcNow);
+        await model.LoadAsync().ConfigureAwait(true);
+        Assert.Equal("尚未报告版本", model.Version);
+        Assert.Contains("无法读取", model.SoftwareNote, StringComparison.Ordinal);
+        Assert.Equal("say unsent", model.Command);
+    }
+
+    private sealed partial class RefreshingSoftwareHandler(Func<HttpRequestMessage, object> respond) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+            Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = JsonContent.Create(respond(request)) });
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task SoftwareUsesAgentMetadataAndOfflineSnapshotRemainsExplicit(bool reachable)
+    {
+        InstanceDto instance = new(Guid.NewGuid(), Guid.NewGuid(), "misleading-forge-9.9", "Stopped", @"D:\Isolated\Instance", false, [],
+            Software: new("1.21.1", "Fabric", "0.16.10", "fabric-launch-manifest", null, DateTimeOffset.UnixEpoch));
+        using ConsoleHandler handler = new(instance, "Stopped");
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:58132"), handler: handler);
+        using InstanceConsoleViewModel model = new(Localization(), client, instance, null, reachable, false, []);
+        await model.LoadAsync().ConfigureAwait(true);
+        Assert.Equal("1.21.1 · Fabric · 0.16.10", model.Version);
+        Assert.DoesNotContain("9.9", model.Version, StringComparison.Ordinal);
+        Assert.Contains(reachable ? "启动文件" : "节点离线", model.SoftwareNote, StringComparison.Ordinal);
+        Assert.Equal(instance.Software, model.Software);
+    }
+
     [Theory]
     [InlineData("Running", true, true)]
     [InlineData("Stopped", true, false)]

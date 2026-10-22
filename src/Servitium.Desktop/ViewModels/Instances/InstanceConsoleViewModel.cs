@@ -42,6 +42,8 @@ internal sealed partial class InstanceConsoleViewModel(
     public string Resources { get; private set => SetProperty(ref field, value); } = string.Empty;
     public string Java { get; private set => SetProperty(ref field, value); } = string.Empty;
     public string Version { get; private set => SetProperty(ref field, value); } = string.Empty;
+    public InstanceSoftwareDto? Software => _details?.Instance.Software;
+    public string SoftwareNote => InstanceSoftwarePresentation.Note(Software, IsReachable, Localization);
     public string WorkingDirectory => instance.WorkingDirectory;
     public string Address => instance.PrimaryPort is int port && node?.PublicAddress is { Length: > 0 } host
         ? host + ":" + port.ToString(System.Globalization.CultureInfo.InvariantCulture) : Text("desktop.address-not-reported");
@@ -63,7 +65,7 @@ internal sealed partial class InstanceConsoleViewModel(
         {
             _details = await client.GetInstanceAsync(instance.Id, token).ConfigureAwait(true);
             Java = Text(administrator ? "desktop.java-not-reported" : "desktop.java-administrator-only");
-            Version = Text("desktop.version-not-reported");
+            NotifySoftware();
             PlayerNames = [];
             Players = Text("desktop.players-not-running"); Resources = Text("desktop.metrics-not-running");
             if (!IsReachable)
@@ -71,6 +73,8 @@ internal sealed partial class InstanceConsoleViewModel(
                 StateMessage = Text("desktop.instance-offline-next"); NotifyState(); return;
             }
             _runtime = await client.GetInstanceStatusAsync(instance.Id, instance.NodeId, token).ConfigureAwait(true);
+            _details = await client.GetInstanceAsync(instance.Id, token).ConfigureAwait(true);
+            NotifySoftware();
             RecentOutput = string.Join(Environment.NewLine, _runtime.RecentOutput);
             SetRuntimeMessage(); NotifyState();
             if (administrator)
@@ -88,7 +92,6 @@ internal sealed partial class InstanceConsoleViewModel(
                     {
                         PlayerListDto players = await client.GetInstancePlayersAsync(instance.Id, instance.NodeId, token).ConfigureAwait(true);
                         Players = Format("desktop.console-players", players.Online, players.Maximum); PlayerNames = players.Players;
-                        Version = players.Version ?? Text("desktop.version-not-reported");
                     }
                     catch (ServitiumApiException exception) when (exception.Code is "query-disabled" or "query-unavailable" or "query-failed" or "query-timeout")
                     {
@@ -99,6 +102,12 @@ internal sealed partial class InstanceConsoleViewModel(
             }
             NotifyState();
         });
+    }
+
+    private void NotifySoftware()
+    {
+        Version = InstanceSoftwarePresentation.Summary(Software, Localization);
+        OnPropertyChanged(nameof(Software)); OnPropertyChanged(nameof(SoftwareNote));
     }
 
     private void SetRuntimeMessage()
@@ -138,6 +147,7 @@ internal sealed partial class InstanceConsoleViewModel(
                 NodeStatusChangedPayload? nodeState = value.Payload.Deserialize<NodeStatusChangedPayload>(JsonSerializerOptions.Web);
                 if (nodeState?.NodeId != instance.NodeId) { return false; }
                 IsReachable = nodeState.Status == "Online";
+                OnPropertyChanged(nameof(SoftwareNote));
                 if (!IsReachable)
                 {
                     StateMessage = Text("desktop.instance-offline-next");

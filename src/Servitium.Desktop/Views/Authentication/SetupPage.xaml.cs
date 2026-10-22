@@ -26,7 +26,7 @@ internal sealed partial class SetupPage : Page
     private void OnLoaded(object sender, RoutedEventArgs args)
     {
 
-        _ = UserNameBox.Focus(FocusState.Keyboard);
+        if (!App.IsIsolatedTest) { _ = UserNameBox.Focus(FocusState.Keyboard); }
     }
 
     private void OnLayoutChanged(object sender, SizeChangedEventArgs args)

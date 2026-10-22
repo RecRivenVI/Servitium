@@ -27,6 +27,7 @@ using Servitium.Contracts.Mods;
 using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Operations;
 using Servitium.Contracts.Scheduling;
+using Servitium.Contracts.Transport;
 
 using Xunit;
 
@@ -136,6 +137,42 @@ public sealed class CoreEndpointWorkflowTests
         await test.ExpectAsync(HttpMethod.Delete, $"{schedules}/{test.Schedule.Id:D}", null, HttpStatusCode.NoContent).ConfigureAwait(true);
     }
 
+    [Fact]
+    public async Task 普通账户的实例分组不泄露未授权节点_授权后仅提供所在节点展示信息()
+    {
+        CoreEndpointContext test = await CoreEndpointContext.CreateAsync().ConfigureAwait(true);
+        await using System.Runtime.CompilerServices.ConfiguredAsyncDisposable cleanup = test.ConfigureAwait(true);
+        using HttpResponseMessage created = await test.Client.PostAsJsonAsync("/api/v1/users", new CreateUserRequest("operator", "Operator", "operator-strong-password", "User")).ConfigureAwait(true);
+        Assert.Equal(HttpStatusCode.Created, created.StatusCode);
+        UserDto user = (await created.Content.ReadFromJsonAsync<UserDto>().ConfigureAwait(true))!;
+
+        await test.ExpectAsync(HttpMethod.Post, "/api/v1/auth/login", new SignInRequest("operator", "operator-strong-password"), HttpStatusCode.OK).ConfigureAwait(true);
+        InstanceGroupsDto? ungranted = await test.Client.GetFromJsonAsync<InstanceGroupsDto>("/api/v1/instances/grouped").ConfigureAwait(true);
+        Assert.Empty(ungranted!.Groups);
+        await test.ExpectAsync(HttpMethod.Get, $"/api/v1/instances/{test.Instance.Id:D}", null, HttpStatusCode.Forbidden).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Get, $"/api/v1/nodes/{test.Node.Id:D}", null, HttpStatusCode.Forbidden).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Get, $"/api/v1/nodes/{test.Node.Id:D}/metrics", null, HttpStatusCode.Forbidden).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Get, $"/api/v1/instances/{test.Instance.Id:D}/metrics/history", null, HttpStatusCode.Forbidden).ConfigureAwait(true);
+
+        await test.ExpectAsync(HttpMethod.Post, "/api/v1/auth/login", new SignInRequest("owner", "correct-horse-battery-staple"), HttpStatusCode.OK).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Put, $"/api/v1/users/{user.Id:D}/grants", new ReplaceInstanceGrantsRequest([test.Instance.Id]), HttpStatusCode.OK).ConfigureAwait(true);
+        await test.ExpectAsync(HttpMethod.Post, "/api/v1/auth/login", new SignInRequest("operator", "operator-strong-password"), HttpStatusCode.OK).ConfigureAwait(true);
+        InstanceGroupsDto? granted = await test.Client.GetFromJsonAsync<InstanceGroupsDto>("/api/v1/instances/grouped").ConfigureAwait(true);
+        InstanceGroupDto group = Assert.Single(granted!.Groups);
+        Assert.Equal(test.Instance.Id, Assert.Single(group.Items).Id);
+        Assert.Equal(test.Instance.Software, group.Items[0].Software);
+        InstanceDetailsDto details = (await test.Client.GetFromJsonAsync<InstanceDetailsDto>($"/api/v1/instances/{test.Instance.Id:D}").ConfigureAwait(true))!;
+        Assert.Equal(test.Instance.Software, details.Instance.Software);
+        Assert.Equal("synthetic-host", group.Node.HostName);
+        Assert.True(group.Node.IsLocal);
+        Assert.Equal(1, group.Node.InstanceCount);
+        CursorPage<InstanceMetricSampleDto> first = (await test.Client.GetFromJsonAsync<CursorPage<InstanceMetricSampleDto>>($"/api/v1/instances/{test.Instance.Id:D}/metrics/history?limit=1").ConfigureAwait(true))!;
+        Assert.NotNull(first.NextCursor);
+        CursorPage<InstanceMetricSampleDto> next = (await test.Client.GetFromJsonAsync<CursorPage<InstanceMetricSampleDto>>($"/api/v1/instances/{test.Instance.Id:D}/metrics/history?limit=1&cursor={Uri.EscapeDataString(first.NextCursor)}").ConfigureAwait(true))!;
+        Assert.True(Assert.Single(first.Items).SampledAt < Assert.Single(next.Items).SampledAt);
+        await test.ExpectAsync(HttpMethod.Get, $"/api/v1/instances/{Guid.NewGuid():D}/metrics/history", null, HttpStatusCode.Forbidden).ConfigureAwait(true);
+    }
+
     private sealed class CoreEndpointContext : IAsyncDisposable
     {
         private readonly WebApplicationFactory<Program> _factory;
@@ -174,7 +211,8 @@ public sealed class CoreEndpointWorkflowTests
             DateTimeOffset now = new(2026, 8, 4, 0, 0, 0, TimeSpan.Zero);
             StructuredLaunchRequest launch = new(javaId, 512, 1024, ["-Dsynthetic=true"], "jar", "server.jar", ["nogui"]);
             UpdateInstanceRequest configuration = new("Synthetic", ["core"], "notes", launch, "stop", 60, false, true, 3, new(false, 25575, null), new(false, "127.0.0.1", 25565), PrimaryPort: 25565);
-            AgentInstanceResponse instance = new(instanceId, "Synthetic", @"D:\Synthetic\Managed", true, "Stopped", launch, ["core"], "notes", configuration, 1, [], null);
+            AgentInstanceResponse instance = new(instanceId, "Synthetic", @"D:\Synthetic\Managed", true, "Stopped", launch, ["core"], "notes", configuration, 1, [], null,
+                new("1.21.1", "Fabric", "0.16.10", "fabric-launch-manifest", null, now));
             AgentJavaRuntimeResponse java = new(javaId, @"C:\Synthetic\java.exe", "21.0.1", "Synthetic", "x64", "manual", false, now, "Synthetic VM");
             ScheduledTaskDetailsDto schedule = new(scheduleId, instanceId, "Synthetic", new("interval", 600, null, null, null), [new("send-console-command", "say test", false)], 3, "skip", true, 1, now.AddMinutes(10));
             FakeAgentGateway gateway = new(instance, java, schedule, now);
@@ -184,7 +222,7 @@ public sealed class CoreEndpointWorkflowTests
             await InitializeAndSignInAsync(client).ConfigureAwait(true);
 
             UpdateNodeRequest nodeConfiguration = new("Synthetic node", @"D:\Synthetic\Instances", "play.example.invalid", null, "notes", ["test"]);
-            StoredNode node = new(nodeId, "Synthetic node", "Online", "1.0.0", 1, 0, "Windows", "X64", "synthetic-machine", now, now, false, nodeConfiguration);
+            StoredNode node = new(nodeId, "Synthetic node", "Online", "1.0.0", 1, 0, "Windows", "X64", "synthetic-machine", now, now, false, nodeConfiguration, "synthetic-host", true);
             using (IServiceScope scope = factory.Services.CreateScope())
             {
                 INodeControlStore store = scope.ServiceProvider.GetRequiredService<INodeControlStore>();
@@ -194,6 +232,11 @@ public sealed class CoreEndpointWorkflowTests
                 Assert.NotNull(registered);
                 await store.ReplaceMirrorAsync(new(nodeId, [instance], [java], [schedule], now), CancellationToken.None).ConfigureAwait(true);
                 await store.AddMetricAsync(new(nodeId, new(now, 10, 100, 1000, 10000, 5, 6, TimeSpan.FromHours(1))), now.AddDays(-7), CancellationToken.None).ConfigureAwait(true);
+                DateTimeOffset sampleAt = DateTimeOffset.UtcNow.AddMinutes(-5);
+                for (int index = 0; index < 3; index++)
+                {
+                    await store.AddInstanceMetricAsync(new(nodeId, instanceId, new(sampleAt.AddMinutes(index), 10 + index, 1024 + index, null)), sampleAt.AddHours(-24), CancellationToken.None).ConfigureAwait(true);
+                }
             }
 
             return new(root, factory, client, gateway, node, instance, java, schedule, launch, configuration);

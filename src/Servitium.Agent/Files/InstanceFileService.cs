@@ -90,7 +90,10 @@ internal sealed class InstanceFileService(
             page.RemoveAt(pageSize);
         }
 
-        return new(page, nextCursor);
+        return new([.. page.Select(entry => entry.IsDirectory ? entry : entry with
+        {
+            IsLocked = FileOccupancyProbe.IsLocked(Resolve(instance.WorkingDirectory, entry.Path, allowRoot: false)),
+        })], nextCursor);
     }
 
     internal async Task<FileSystemStatusDto> GetStatusAsync(Guid instanceId, CancellationToken cancellationToken)

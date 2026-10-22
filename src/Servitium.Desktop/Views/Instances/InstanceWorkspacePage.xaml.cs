@@ -47,6 +47,7 @@ internal sealed partial class InstanceWorkspacePage : Page, INavigationGuard
 
     private void OnUnloaded(object sender, RoutedEventArgs args)
     {
+        if (TabHost.Content is InstanceConsolePage console) { console.ViewModel.PropertyChanged -= OnConsoleChanged; }
         _services.Session.Client.Events.EventReceived -= OnRealtimeEvent;
         ViewModel.PropertyChanged -= OnViewModelChanged;
         ViewModel.Dispose();
@@ -134,7 +135,17 @@ internal sealed partial class InstanceWorkspacePage : Page, INavigationGuard
         _visibleInstance = ViewModel.Selected.Value.Id;
         _services.Session.SelectedNode = ViewModel.SelectedNode;
         WorkspaceTabs.SelectedItem = WorkspaceTabs.Items.First(item => (item.Tag as string) == _tab);
+        if (TabHost.Content is InstanceConsolePage previous) { previous.ViewModel.PropertyChanged -= OnConsoleChanged; }
         TabHost.Content = ProductPageFactory.CreateInstanceTab(_tab, _services, _navigator);
+        if (TabHost.Content is InstanceConsolePage console) { console.ViewModel.PropertyChanged += OnConsoleChanged; }
+    }
+
+    private void OnConsoleChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs args)
+    {
+        if (args.PropertyName == nameof(InstanceConsoleViewModel.Software) && sender is InstanceConsoleViewModel console && _visibleInstance is Guid id)
+        {
+            ViewModel.ApplySoftware(id, console.Software);
+        }
     }
 
     public Task<bool> CanNavigateAwayAsync()
@@ -144,7 +155,11 @@ internal sealed partial class InstanceWorkspacePage : Page, INavigationGuard
             : TabHost.Content is INavigationGuard guard ? guard.CanNavigateAwayAsync() : Task.FromResult(true);
     }
 
-    private async void OnRefreshClick(object sender, RoutedEventArgs args) { await RefreshAsync().ConfigureAwait(true); }
+    private async void OnRefreshClick(object sender, RoutedEventArgs args)
+    {
+        await RefreshAsync().ConfigureAwait(true);
+        if (TabHost.Content is InstanceConsolePage console) { await console.ViewModel.LoadAsync().ConfigureAwait(true); }
+    }
     private async void OnCreateClick(object sender, RoutedEventArgs args) { await ShowCreationAsync().ConfigureAwait(true); }
     private async Task ShowCreationAsync()
     {

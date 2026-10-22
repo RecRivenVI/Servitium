@@ -26,6 +26,7 @@ namespace Servitium.Agent.ControlPlane;
 
 internal sealed class AgentCommandDispatcher(
     InstanceRegistry instances,
+    InstanceSoftwareInspector software,
     JavaRuntimeRegistry javaRuntimes,
     InstanceLifecycleService lifecycle,
     InstanceFileService files,
@@ -229,7 +230,7 @@ internal sealed class AgentCommandDispatcher(
     {
         LocalInstanceSnapshot updated = await instances.UpdateAsync(command.InstanceId, command.Request, DateTimeOffset.UtcNow, cancellationToken).ConfigureAwait(false);
         IReadOnlyList<LocalInstanceSnapshot> all = await instances.ListAsync(cancellationToken).ConfigureAwait(false);
-        return ToResponse(updated, all);
+        return await ToResponseAsync(updated, all, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<Contracts.Files.FileEntryDto> CompleteFileUploadAsync(ByteString payload, CancellationToken cancellationToken)
@@ -682,7 +683,7 @@ internal sealed class AgentCommandDispatcher(
         }
 
         IReadOnlyList<LocalInstanceSnapshot> all = await instances.ListAsync(cancellationToken).ConfigureAwait(false);
-        return ToResponse(result, all);
+        return await ToResponseAsync(result, all, cancellationToken).ConfigureAwait(false);
     }
 
     private async Task<object> UnregisterAsync(ByteString payload, CancellationToken cancellationToken)
@@ -706,10 +707,15 @@ internal sealed class AgentCommandDispatcher(
         IReadOnlyList<LocalInstanceSnapshot> snapshots = await instances.ListAsync(cancellationToken).ConfigureAwait(false);
         IReadOnlyList<AgentJavaRuntimeResponse> java = await javaRuntimes.ListAsync(cancellationToken).ConfigureAwait(false);
         IReadOnlyList<Contracts.Scheduling.ScheduledTaskDetailsDto> schedules = await scheduler.ListAllAsync(cancellationToken).ConfigureAwait(false);
-        return new([.. Enumerable.Select(snapshots, snapshot => ToResponse(snapshot, snapshots))], java, schedules, DateTimeOffset.UtcNow);
+        List<AgentInstanceResponse> responses = [];
+        foreach (LocalInstanceSnapshot snapshot in snapshots)
+        {
+            responses.Add(await ToResponseAsync(snapshot, snapshots, cancellationToken).ConfigureAwait(false));
+        }
+        return new(responses, java, schedules, DateTimeOffset.UtcNow);
     }
 
-    private static AgentInstanceResponse ToResponse(LocalInstanceSnapshot instance, IReadOnlyList<LocalInstanceSnapshot> all)
+    private async Task<AgentInstanceResponse> ToResponseAsync(LocalInstanceSnapshot instance, IReadOnlyList<LocalInstanceSnapshot> all, CancellationToken cancellationToken)
     {
         LocalInstanceRuntimeSettings settings = instance.RuntimeSettings;
         UpdateInstanceRequest configuration = new(
@@ -744,7 +750,8 @@ internal sealed class AgentCommandDispatcher(
             }
         }
 
-        return new(instance.Id, instance.Name, instance.WorkingDirectory, instance.OwnedByServitium, instance.Status, instance.Launch, instance.Tags, instance.Notes, configuration, instance.Revision, warnings, instance.StartedAt);
+        InstanceSoftwareDto metadata = await software.InspectAsync(instance.WorkingDirectory, instance.Launch, cancellationToken).ConfigureAwait(false);
+        return new(instance.Id, instance.Name, instance.WorkingDirectory, instance.OwnedByServitium, instance.Status, instance.Launch, instance.Tags, instance.Notes, configuration, instance.Revision, warnings, instance.StartedAt, metadata);
     }
 
     private static CommandResponse Success<T>(string commandId, T payload)

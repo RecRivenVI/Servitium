@@ -8,7 +8,8 @@ namespace Servitium.Contracts.Files;
 /// <param name="IsDirectory">是否目录。</param>
 /// <param name="Size">大小。</param>
 /// <param name="ModifiedAt">修改时间。</param>
-public sealed record FileEntryDto(string Path, bool IsDirectory, long Size, DateTimeOffset ModifiedAt);
+/// <param name="IsLocked">是否观察到阻止独占打开的占用；false 只表示探测时未观察到，null 表示未知。</param>
+public sealed record FileEntryDto(string Path, bool IsDirectory, long Size, DateTimeOffset ModifiedAt, bool? IsLocked = null);
 
 /// <summary>文件目录的游标分页结果。</summary>
 /// <param name="Items">当前页条目。</param>

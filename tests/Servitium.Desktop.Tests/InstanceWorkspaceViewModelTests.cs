@@ -17,6 +17,27 @@ namespace Servitium.Desktop.Tests;
 
 public sealed partial class InstanceWorkspaceViewModelTests
 {
+    [Fact]
+    public async Task SoftwareObservationUpdatesListAndTitleWithoutLosingSelectionAndUnknownNeverGuesses()
+    {
+        InstanceDto instance = Instance("Stopped");
+        using DetailsHandler handler = new(instance);
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:58132"), handler: handler);
+        using InstanceWorkspaceViewModel model = new(Localization(), client, false, (_, _) => Task.FromResult(false), _ => { });
+        model.ApplySnapshot([Group(instance, true)]);
+        await model.SelectAsync(model.Groups[0].Items[0]).ConfigureAwait(true);
+        InstanceRow selected = model.Selected!;
+        model.ApplySoftware(instance.Id, new("1.21.1", "NeoForge", "21.1.80", "fml-argument-file", null, DateTimeOffset.UtcNow));
+        Assert.Same(selected, model.Selected);
+        Assert.Equal("1.21.1 · NeoForge · 21.1.80", selected.Version);
+        Assert.Contains(selected.Version, model.Subtitle, StringComparison.Ordinal);
+        model.Filter = "合成";
+        Assert.Equal(selected.Version, model.Groups[0].Items[0].Version);
+        model.ApplySoftware(instance.Id, new(null, null, null, "unknown", "metadata-conflict", DateTimeOffset.UtcNow));
+        Assert.Equal("尚未报告版本", model.Groups[0].Items[0].Version);
+        Assert.DoesNotContain("NeoForge", model.Subtitle, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData("Running", true, false, true, true)]
     [InlineData("Stopped", true, true, false, false)]

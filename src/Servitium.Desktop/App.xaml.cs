@@ -17,6 +17,7 @@ namespace Servitium.Desktop;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "WinUI generated activation code declares the Application class public.")]
 public sealed partial class App : Application, IDisposable
 {
+    internal static bool IsIsolatedTest => Environment.GetCommandLineArgs().Any(value => value is "--isolated-test" or "--self-test");
     private MainWindow? _window;
     private AppServices? _services;
 
@@ -83,7 +84,8 @@ public sealed partial class App : Application, IDisposable
             _window = new MainWindow(_services, server);
             _services.WindowState.Restore(_window);
             _window.ApplyCurrentResponsiveLayout();
-            _window.Activate();
+            if (isolatedLaunch) { WindowStateService.GetAppWindow(_window).Show(false); }
+            else { _window.Activate(); }
             if (selfTest)
             {
                 _ = CompleteSelfTestAsync(_window);

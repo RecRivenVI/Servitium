@@ -97,6 +97,7 @@ builder.Services.AddSingleton(ArchiveSafetyLimits.Default);
 builder.Services.AddSingleton<SafeZipExtractor>();
 builder.Services.AddSingleton<SafeTarGzipExtractor>();
 builder.Services.AddSingleton<InstanceRegistry>();
+builder.Services.AddSingleton<InstanceSoftwareInspector>();
 builder.Services.AddSingleton<JavaRuntimeRegistry>();
 builder.Services.AddSingleton<InstanceLifecycleService>();
 builder.Services.AddSingleton<AgentFileTaskCoordinator>();

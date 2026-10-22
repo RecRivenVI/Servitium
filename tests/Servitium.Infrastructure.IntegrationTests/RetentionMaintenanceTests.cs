@@ -41,6 +41,9 @@ public sealed class RetentionMaintenanceTests
                 context.AuditLogs.AddRange(Audit(now.AddDays(-366)), Audit(now.AddDays(-364)));
                 context.Operations.AddRange(Operation(now.AddDays(-31)), Operation(now.AddDays(-29)));
                 context.NodeMetrics.AddRange(new NodeMetricRow { NodeId = nodeId, SampledAt = now.AddHours(-25) }, new NodeMetricRow { NodeId = nodeId, SampledAt = now.AddHours(-23) });
+                Guid instanceId = Guid.NewGuid();
+                context.InstanceMetrics.AddRange(new InstanceMetricRow { NodeId = nodeId, InstanceId = instanceId, Minute = now.AddHours(-25).ToUnixTimeSeconds() / 60, SampledAtUnixMilliseconds = now.AddHours(-25).ToUnixTimeMilliseconds() },
+                    new InstanceMetricRow { NodeId = nodeId, InstanceId = instanceId, Minute = now.AddHours(-23).ToUnixTimeSeconds() / 60, SampledAtUnixMilliseconds = now.AddHours(-23).ToUnixTimeMilliseconds() });
                 _ = context.IpBans.Add(new IpBanRow { Address = "192.0.2.1", ExpiresAt = now.AddMinutes(-1), ReasonCode = "synthetic" });
                 _ = context.IdempotencyRecords.Add(new IdempotencyRow { Key = "expired", RequestHash = new string('a', 64), ExpiresAt = now.AddMinutes(-1) });
                 _ = await context.SaveChangesAsync().ConfigureAwait(true);
@@ -53,7 +56,7 @@ public sealed class RetentionMaintenanceTests
             Assert.Equal(1, result.Activities);
             Assert.Equal(1, result.Audits);
             Assert.Equal(1, result.Operations);
-            Assert.Equal(1, result.Metrics);
+            Assert.Equal(2, result.Metrics);
             Assert.Equal(2, result.ExpiredSecurityState);
             using (ServitiumDbContext context = factory.CreateDbContext())
             {
@@ -61,6 +64,7 @@ public sealed class RetentionMaintenanceTests
                 Assert.Equal(2, await context.AuditLogs.CountAsync().ConfigureAwait(true));
                 _ = Assert.Single(await context.Operations.ToArrayAsync().ConfigureAwait(true));
                 _ = Assert.Single(await context.NodeMetrics.ToArrayAsync().ConfigureAwait(true));
+                _ = Assert.Single(await context.InstanceMetrics.ToArrayAsync().ConfigureAwait(true));
                 Assert.False(await context.IpBans.AnyAsync().ConfigureAwait(true));
                 Assert.False(await context.IdempotencyRecords.AnyAsync().ConfigureAwait(true));
                 Assert.Contains(await context.ActivityLogs.ToArrayAsync().ConfigureAwait(true), row => row.Action == "maintenance.retention");

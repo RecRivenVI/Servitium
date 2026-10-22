@@ -14,6 +14,8 @@ internal sealed class NodeRow
     internal uint ProtocolMinor { get; set; }
     internal string OperatingSystem { get; set; } = string.Empty;
     internal string Architecture { get; set; } = string.Empty;
+    internal string? HostName { get; set; }
+    internal bool? IsLocal { get; set; }
     internal string MachineFingerprint { get; set; } = string.Empty;
     internal DateTimeOffset CreatedAt { get; set; }
     internal DateTimeOffset? LastSeenAt { get; set; }
@@ -51,6 +53,7 @@ internal sealed class NodeMetricRow
     internal long MemoryUsedBytes { get; set; }
     internal long MemoryTotalBytes { get; set; }
     internal long DiskFreeBytes { get; set; }
+    internal long? DiskTotalBytes { get; set; }
     internal long NetworkReceiveBytesPerSecond { get; set; }
     internal long NetworkSendBytesPerSecond { get; set; }
     internal long UptimeTicks { get; set; }
@@ -99,6 +102,8 @@ public sealed partial class ServitiumDbContext
             _ = entity.Property(row => row.ProtocolMinor);
             _ = entity.Property(row => row.OperatingSystem).HasMaxLength(256);
             _ = entity.Property(row => row.Architecture).HasMaxLength(32);
+            _ = entity.Property(row => row.HostName).HasMaxLength(253);
+            _ = entity.Property(row => row.IsLocal);
             _ = entity.Property(row => row.MachineFingerprint).HasMaxLength(256);
             _ = entity.Property(row => row.CreatedAt);
             _ = entity.Property(row => row.LastSeenAt);
@@ -145,6 +150,7 @@ public sealed partial class ServitiumDbContext
             _ = entity.Property(row => row.MemoryUsedBytes);
             _ = entity.Property(row => row.MemoryTotalBytes);
             _ = entity.Property(row => row.DiskFreeBytes);
+            _ = entity.Property(row => row.DiskTotalBytes);
             _ = entity.Property(row => row.NetworkReceiveBytesPerSecond);
             _ = entity.Property(row => row.NetworkSendBytesPerSecond);
             _ = entity.Property(row => row.UptimeTicks);

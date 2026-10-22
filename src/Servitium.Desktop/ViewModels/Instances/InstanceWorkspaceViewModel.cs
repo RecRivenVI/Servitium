@@ -133,7 +133,15 @@ internal sealed partial class InstanceWorkspaceViewModel(
         if (Selected is null) { return; }
         _selectedId = id; select(Selected.Value); NotifySelection();
         Details = await client.GetInstanceAsync(id, token).ConfigureAwait(true);
+        ApplySoftware(id, Details.Instance.Software);
         OnPropertyChanged(nameof(CanUpdate)); UpdateCommand.NotifyCanExecuteChanged();
+    }
+
+    internal void ApplySoftware(Guid id, InstanceSoftwareDto? software)
+    {
+        _source = [.. _source.Select(group => group with { Items = [.. group.Items.Select(item => item.Id == id ? item with { Software = software } : item)] })];
+        foreach (InstanceRow row in Groups.SelectMany(group => group.Items).Concat(Selected is null ? [] : [Selected]).Distinct().Where(row => row.Value.Id == id)) { row.ApplySoftware(software); }
+        if (Selected?.Value.Id == id) { select(Selected.Value); OnPropertyChanged(nameof(Subtitle)); }
     }
 
     [RelayCommand(CanExecute = nameof(CanStart))]

@@ -26,7 +26,7 @@ internal sealed partial class LoginPage : Page
     private async void OnLoaded(object sender, RoutedEventArgs args)
     {
         await ViewModel.LoadAsync().ConfigureAwait(true);
-        _ = UserNameBox.Focus(FocusState.Keyboard);
+        if (!App.IsIsolatedTest) { _ = UserNameBox.Focus(FocusState.Keyboard); }
     }
 
     private void OnLayoutChanged(object sender, SizeChangedEventArgs args)

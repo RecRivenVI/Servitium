@@ -14,6 +14,7 @@ using Servitium.Contracts.Identity;
 using Servitium.Contracts.Distribution;
 using Servitium.Contracts.Instances;
 using Servitium.Contracts.Operations;
+using Servitium.Contracts.Nodes;
 using Servitium.Contracts.Settings;
 
 using Xunit;
@@ -22,6 +23,63 @@ namespace Servitium.Client.Tests;
 
 public sealed class ServitiumApiClientTests
 {
+    [Fact]
+    public async Task 旧实例响应软件字段缺省保留未知_新元数据完整回读()
+    {
+        const string oldJson = """
+            {"instance":{"id":"10000000-0000-4000-8000-000000000001","nodeId":"20000000-0000-4000-8000-000000000001","name":"fabric-9.9","status":"Stopped","workingDirectory":"synthetic","ownedByServitium":false,"tags":[]},"launch":{"javaRuntimeId":"30000000-0000-4000-8000-000000000001","minimumHeapMegabytes":64,"maximumHeapMegabytes":128,"jvmArguments":[],"targetKind":"jar","target":"server.jar","serverArguments":[]},"notes":null,"configuration":null,"revision":1}
+            """;
+        InstanceDetailsDto old = System.Text.Json.JsonSerializer.Deserialize<InstanceDetailsDto>(oldJson, System.Text.Json.JsonSerializerOptions.Web)!;
+        using DelegateHandler handler = new((_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        { Content = new StringContent(oldJson, Encoding.UTF8, "application/json") }));
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:5344"), handler: handler);
+        Assert.Null((await client.GetInstanceAsync(old.Instance.Id, CancellationToken.None).ConfigureAwait(true)).Instance.Software);
+        InstanceSoftwareDto software = new("1.21.1", "Fabric", "0.16.10", "fabric-launch-manifest", null, DateTimeOffset.UnixEpoch);
+        using DelegateHandler currentHandler = new((_, _) => Task.FromResult(Json(HttpStatusCode.OK, old with { Instance = old.Instance with { Software = software } })));
+        using ServitiumApiClient current = new(new Uri("http://127.0.0.1:5344"), handler: currentHandler);
+        Assert.Equal(software, (await current.GetInstanceAsync(old.Instance.Id, CancellationToken.None).ConfigureAwait(true)).Instance.Software);
+    }
+
+    [Fact]
+    public async Task 实例历史查询使用授权实例路径并保留真实样本与分页游标()
+    {
+        Guid id = Guid.NewGuid();
+        DateTimeOffset since = new(2026, 10, 22, 8, 0, 0, TimeSpan.FromHours(8));
+        using DelegateHandler handler = new((request, _) =>
+        {
+            Assert.Equal($"/api/v1/instances/{id:D}/metrics/history", request.RequestUri!.AbsolutePath);
+            Assert.Contains("cursor=page%2B2", request.RequestUri.Query, StringComparison.Ordinal);
+            return Task.FromResult(Json(HttpStatusCode.OK, new CursorPage<InstanceMetricSampleDto>([new(since, 25, 1024, null)], "next-page")));
+        });
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:5344"), handler: handler);
+        CursorPage<InstanceMetricSampleDto> result = await client.ListInstanceMetricHistoryAsync(id, since, "page+2", 100, CancellationToken.None).ConfigureAwait(true);
+        Assert.Equal("next-page", result.NextCursor);
+        Assert.Equal(since, Assert.Single(result.Items).SampledAt);
+        Assert.Null(result.Items[0].OnlinePlayers);
+    }
+
+    [Fact]
+    public async Task 旧节点响应缺少新增字段时保留未知而非虚构本机或磁盘容量()
+    {
+        const string nodeJson = """
+            {"items":[{"id":"10000000-0000-4000-8000-000000000001","name":"Legacy node","status":"Offline","agentVersion":"0.1","lastSeenAt":null}],"nextCursor":null}
+            """;
+        const string metricJson = """
+            {"items":[{"sampledAt":"2026-10-21T00:00:00Z","cpuPercent":10,"memoryUsedBytes":100,"memoryTotalBytes":1000,"diskFreeBytes":500,"networkReceiveBytesPerSecond":0,"networkSendBytesPerSecond":0,"uptime":"01:00:00"}],"nextCursor":null}
+            """;
+        using DelegateHandler handler = new((request, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            Content = new StringContent(request.RequestUri!.AbsolutePath.EndsWith("/metrics", StringComparison.Ordinal) ? metricJson : nodeJson, Encoding.UTF8, "application/json"),
+        }));
+        using ServitiumApiClient client = new(new Uri("http://127.0.0.1:5344"), handler: handler);
+        NodeDto node = Assert.Single((await client.ListNodesAsync(CancellationToken.None).ConfigureAwait(true)).Items);
+        Assert.Null(node.HostName);
+        Assert.Null(node.IsLocal);
+        NodeMetricsDto metric = Assert.Single((await client.ListNodeMetricsAsync(node.Id, null, CancellationToken.None).ConfigureAwait(true)).Items);
+        Assert.Null(metric.DiskTotalBytes);
+        Assert.Equal(500, metric.DiskFreeBytes);
+    }
+
     [Fact]
     public async Task 系统信息查询保留时间偏移的加号()
     {

@@ -110,7 +110,8 @@ public sealed record NodeMetricsPayload(
     long MemoryTotalBytes,
     long NetworkReceiveBytesPerSecond,
     long NetworkSendBytesPerSecond,
-    TimeSpan Uptime);
+    TimeSpan Uptime,
+    long? DiskTotalBytes = null);
 /// <summary>节点凭据轮换载荷。</summary>
 public sealed record NodeCredentialRotatedPayload(Guid NodeId);
 /// <summary>实例创建载荷。</summary>

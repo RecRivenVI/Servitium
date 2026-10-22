@@ -822,6 +822,17 @@ Java：{2}
   <data name="desktop.settings-update-none" xml:space="preserve"><value>不设置更新动作</value></data>
   <data name="desktop.setup-intro" xml:space="preserve"><value>创建所有者账户，用来管理当前连接的服务器。</value></data>
   <data name="desktop.setup-submit" xml:space="preserve"><value>创建所有者并继续</value></data>
+  <data name="desktop.software-advanced" xml:space="preserve"><value>高级启动参数不能可靠识别版本。请核对启动参数及服务端文件。</value></data>
+  <data name="desktop.software-conflict" xml:space="preserve"><value>启动元数据存在冲突。请核对启动文件、依赖及附加参数。</value></data>
+  <data name="desktop.software-dependency-missing" xml:space="preserve"><value>启动清单中的依赖文件缺失。请检查服务端安装是否完整。</value></data>
+  <data name="desktop.software-observed" xml:space="preserve"><value>已从启动文件读取；刷新控制台可重新读取。</value></data>
+  <data name="desktop.software-offline" xml:space="preserve"><value>节点离线；显示 {0} 读取的版本，恢复连接后刷新。</value></data>
+  <data name="desktop.software-target-missing" xml:space="preserve"><value>未找到启动文件。请在实例设置中核对路径。</value></data>
+  <data name="desktop.software-unknown" xml:space="preserve"><value>启动格式未提供可识别的版本。请核对服务端安装内容。</value></data>
+  <data name="desktop.software-unreadable" xml:space="preserve"><value>无法读取启动元数据。请检查文件是否完整、可读且未被独占。</value></data>
+  <data name="desktop.software-unsafe" xml:space="preserve"><value>元数据路径超出工作目录或含链接。请改用工作目录内的普通文件。</value></data>
+  <data name="desktop.software-vanilla" xml:space="preserve"><value>原版</value></data>
+  <data name="desktop.software-version-missing" xml:space="preserve"><value>已识别服务端类型，文件未明确记录完整版本。请核对安装内容。</value></data>
   <data name="desktop.sort-descending" xml:space="preserve"><value>降序排列</value></data>
   <data name="desktop.sort-files" xml:space="preserve"><value>排序方式</value></data>
   <data name="desktop.stop-timeout" xml:space="preserve"><value>停止等待时间（秒）</value></data>

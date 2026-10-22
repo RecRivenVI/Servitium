@@ -18,6 +18,8 @@ namespace Servitium.Contracts.Nodes;
 /// <param name="InstanceCount">实例总数。</param>
 /// <param name="RunningInstanceCount">运行中实例数。</param>
 /// <param name="PublicAddress">玩家可用的对外地址。</param>
+/// <param name="HostName">Agent 报告的主机名；旧节点未报告时为空。</param>
+/// <param name="IsLocal">Agent 是否从 Server 的回环接口连接；不用于授权。</param>
 public sealed record NodeDto(
     Guid Id,
     string Name,
@@ -31,7 +33,9 @@ public sealed record NodeDto(
     uint ProtocolMinor = 0,
     int InstanceCount = 0,
     int RunningInstanceCount = 0,
-    string? PublicAddress = null);
+    string? PublicAddress = null,
+    string? HostName = null,
+    bool? IsLocal = null);
 
 /// <summary>节点详情及其当前 Agent 配置镜像。</summary>
 public sealed record NodeDetailsDto(
@@ -45,7 +49,9 @@ public sealed record NodeDetailsDto(
     string Architecture,
     DateTimeOffset CreatedAt,
     DateTimeOffset? LastSeenAt,
-    UpdateNodeRequest Configuration);
+    UpdateNodeRequest Configuration,
+    string? HostName = null,
+    bool? IsLocal = null);
 
 /// <summary>节点注册令牌响应。</summary>
 /// <param name="Token">仅返回一次的明文令牌。</param>
@@ -123,6 +129,7 @@ public sealed record UpdateNodeRequest(
 /// <param name="NetworkReceiveBytesPerSecond">接收速率。</param>
 /// <param name="NetworkSendBytesPerSecond">发送速率。</param>
 /// <param name="Uptime">操作系统运行时长。</param>
+/// <param name="DiskTotalBytes">采样数据卷总容量；旧 Agent 未报告时为空。</param>
 public sealed record NodeMetricsDto(
     DateTimeOffset SampledAt,
     double CpuPercent,
@@ -131,7 +138,8 @@ public sealed record NodeMetricsDto(
     long DiskFreeBytes,
     long NetworkReceiveBytesPerSecond,
     long NetworkSendBytesPerSecond,
-    TimeSpan Uptime);
+    TimeSpan Uptime,
+    long? DiskTotalBytes = null);
 
 /// <summary>节点凭据轮换结果。</summary>
 /// <param name="Revision">新凭据修订号。</param>

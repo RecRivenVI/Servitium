@@ -14,6 +14,7 @@ using Servitium.Application.Nodes;
 using Servitium.Contracts.Agent.V1;
 using Servitium.Contracts.Events;
 using Servitium.Contracts.Nodes;
+using Servitium.Contracts.Instances;
 using Servitium.Server.Realtime;
 
 namespace Servitium.Server.AgentGateway;
@@ -50,7 +51,7 @@ internal sealed class AgentControlService(
         if (string.IsNullOrWhiteSpace(hello.CredentialOrRegistrationToken) || hello.CredentialOrRegistrationToken.Length > 512 ||
             string.IsNullOrWhiteSpace(hello.MachineFingerprint) || hello.MachineFingerprint.Length > 256 ||
             string.IsNullOrWhiteSpace(hello.AgentVersion) || hello.AgentVersion.Length > 64 ||
-            hello.OperatingSystem.Length > 256 || hello.Architecture.Length > 32 || hello.NodeName.Length > 128)
+            hello.OperatingSystem.Length > 256 || hello.Architecture.Length > 32 || hello.NodeName.Length > 128 || hello.HostName.Length > 253)
         {
             throw new RpcException(new Status(StatusCode.InvalidArgument, "validation-failed"));
         }
@@ -101,6 +102,17 @@ internal sealed class AgentControlService(
             node = await store.TryRegisterAsync(secretHash, node, credential, now, context.CancellationToken).ConfigureAwait(false) ?? throw new RpcException(new Status(StatusCode.PermissionDenied, "registration-token-invalid"));
         }
 
+        node = node with
+        {
+            HostName = string.IsNullOrWhiteSpace(hello.HostName) ? null : hello.HostName.Trim(),
+            IsLocal = isLocal,
+            OperatingSystem = hello.OperatingSystem,
+            Architecture = hello.Architecture,
+            ProtocolMajor = hello.ProtocolMajor,
+            ProtocolMinor = hello.ProtocolMinor,
+        };
+        await store.UpdateConnectionDetailsAsync(node, context.CancellationToken).ConfigureAwait(false);
+
         ByteString configuration = newCredential is null && node.Configuration is null
             ? ByteString.Empty
             : ByteString.CopyFromUtf8(JsonSerializer.Serialize(new AgentWelcomeConfiguration(newCredential, node.Configuration)));
@@ -111,7 +123,7 @@ internal sealed class AgentControlService(
             {
                 NodeId = node.Id.ToString("D"),
                 ProtocolMajor = 1,
-                ProtocolMinor = 0,
+                ProtocolMinor = 1,
                 ServerTime = Timestamp.FromDateTimeOffset(clock.UtcNow),
                 NodeConfiguration = configuration,
             },
@@ -299,7 +311,10 @@ internal sealed class AgentControlService(
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "agent-event-invalid"));
             }
 
-            instanceTelemetry.Update(metrics, clock.UtcNow);
+            DateTimeOffset observedAt = ReadSampleTime(agentEvent);
+            instanceTelemetry.Update(metrics, observedAt);
+            await store.AddInstanceMetricAsync(new(nodeId, metrics.InstanceId,
+                new InstanceMetricSampleDto(observedAt, metrics.CpuPercent, metrics.MemoryBytes, metrics.OnlinePlayers)), clock.UtcNow.AddHours(-24), cancellationToken).ConfigureAwait(false);
         }
         else if (agentEvent.Type == EventTypes.InstancePlayersChanged)
         {
@@ -337,6 +352,16 @@ internal sealed class AgentControlService(
         }
     }
 
+    private DateTimeOffset ReadSampleTime(AgentEvent agentEvent)
+    {
+        DateTimeOffset observedAt;
+        try { observedAt = agentEvent.OccurredAt?.ToDateTimeOffset() ?? clock.UtcNow; }
+        catch (InvalidOperationException) { throw new RpcException(new Status(StatusCode.InvalidArgument, "agent-event-invalid")); }
+        return observedAt > clock.UtcNow.AddMinutes(1)
+            ? throw new RpcException(new Status(StatusCode.InvalidArgument, "agent-event-invalid"))
+            : observedAt;
+    }
+
     private async Task HandleNodeMetricAsync(Guid nodeId, string expectedScope, AgentEvent agentEvent, CancellationToken cancellationToken)
     {
         NodeMetricsDto sample;
@@ -353,6 +378,7 @@ internal sealed class AgentControlService(
         DateTimeOffset now = clock.UtcNow;
         if (!double.IsFinite(sample.CpuPercent) || sample.CpuPercent is < 0 or > 100 ||
             sample.MemoryUsedBytes < 0 || sample.MemoryTotalBytes < sample.MemoryUsedBytes || sample.DiskFreeBytes < 0 ||
+            sample.DiskTotalBytes is long totalDisk && totalDisk < sample.DiskFreeBytes ||
             sample.NetworkReceiveBytesPerSecond < 0 || sample.NetworkSendBytesPerSecond < 0 || sample.Uptime < TimeSpan.Zero ||
             sample.SampledAt < now.AddMinutes(-2) || sample.SampledAt > now.AddMinutes(1))
         {
@@ -372,7 +398,8 @@ internal sealed class AgentControlService(
                 sample.MemoryTotalBytes,
                 sample.NetworkReceiveBytesPerSecond,
                 sample.NetworkSendBytesPerSecond,
-                sample.Uptime),
+                sample.Uptime,
+                sample.DiskTotalBytes),
             cancellationToken).ConfigureAwait(false);
     }
 

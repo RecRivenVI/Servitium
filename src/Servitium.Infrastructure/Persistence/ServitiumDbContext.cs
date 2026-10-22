@@ -277,6 +277,7 @@ public sealed partial class ServitiumDbContext(DbContextOptions<ServitiumDbConte
         ConfigureSecurityState(modelBuilder);
         ConfigureUploadSessions(modelBuilder);
         ConfigureNodes(modelBuilder);
+        ConfigureInstanceMetrics(modelBuilder);
         ConfigureHmcl(modelBuilder);
     }
 

@@ -60,6 +60,6 @@ public sealed class AgentCommandDispatcherTests
     private static AgentCommandDispatcher CreatePayloadOnlyDispatcher()
     {
         // 该组测试只进入每个分支的 JSON 边界；损坏载荷必须在触碰任何运行服务前被拒绝。
-        return new(null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!);
+        return new(null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!, null!);
     }
 }

@@ -822,6 +822,17 @@ Server time: {8}</value></data>
   <data name="desktop.settings-update-none" xml:space="preserve"><value>No update action</value></data>
   <data name="desktop.setup-intro" xml:space="preserve"><value>Create the owner account for the connected server.</value></data>
   <data name="desktop.setup-submit" xml:space="preserve"><value>Create owner and continue</value></data>
+  <data name="desktop.software-advanced" xml:space="preserve"><value>Advanced launch arguments cannot reliably identify the version. Check the arguments and server files.</value></data>
+  <data name="desktop.software-conflict" xml:space="preserve"><value>Launch metadata conflicts. Check the launch file, dependencies, and additional arguments.</value></data>
+  <data name="desktop.software-dependency-missing" xml:space="preserve"><value>A dependency in the launch manifest is missing. Check that the server installation is complete.</value></data>
+  <data name="desktop.software-observed" xml:space="preserve"><value>Read from the launch files. Refresh the console to read them again.</value></data>
+  <data name="desktop.software-offline" xml:space="preserve"><value>Node offline. Showing the version read at {0}; refresh after reconnecting.</value></data>
+  <data name="desktop.software-target-missing" xml:space="preserve"><value>The launch file was not found. Check its path in instance settings.</value></data>
+  <data name="desktop.software-unknown" xml:space="preserve"><value>The launch format does not provide a recognized version. Check the server installation.</value></data>
+  <data name="desktop.software-unreadable" xml:space="preserve"><value>Launch metadata could not be read. Check that the file is complete, readable, and not exclusively locked.</value></data>
+  <data name="desktop.software-unsafe" xml:space="preserve"><value>The metadata path leaves the working directory or contains a link. Use a regular file inside the working directory.</value></data>
+  <data name="desktop.software-vanilla" xml:space="preserve"><value>Vanilla</value></data>
+  <data name="desktop.software-version-missing" xml:space="preserve"><value>The server type was identified, but the files do not record a complete version. Check the installation.</value></data>
   <data name="desktop.sort-descending" xml:space="preserve"><value>Sort descending</value></data>
   <data name="desktop.sort-files" xml:space="preserve"><value>Sort by</value></data>
   <data name="desktop.stop-timeout" xml:space="preserve"><value>Graceful stop timeout (seconds)</value></data>

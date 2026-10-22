@@ -16,7 +16,7 @@ using Servitium.Application.Abstractions;
 
 namespace Servitium.Infrastructure.Nodes;
 
-internal sealed class SqliteNodeControlStore(
+internal sealed partial class SqliteNodeControlStore(
     IDbContextFactory<ServitiumDbContext> contextFactory,
     SqliteWriteCoordinator writeCoordinator,
     IClock clock) : INodeControlStore
@@ -173,6 +173,23 @@ internal sealed class SqliteNodeControlStore(
             cancellationToken);
     }
 
+    public Task UpdateConnectionDetailsAsync(StoredNode node, CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(node);
+        return writeCoordinator.ExecuteAsync(async () =>
+        {
+            using ServitiumDbContext context = await contextFactory.CreateDbContextAsync(cancellationToken).ConfigureAwait(false);
+            _ = await context.Nodes.Where(row => row.Id == node.Id && !row.CredentialRevoked)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(row => row.HostName, node.HostName)
+                    .SetProperty(row => row.IsLocal, node.IsLocal)
+                    .SetProperty(row => row.OperatingSystem, node.OperatingSystem)
+                    .SetProperty(row => row.Architecture, node.Architecture)
+                    .SetProperty(row => row.ProtocolMajor, node.ProtocolMajor)
+                    .SetProperty(row => row.ProtocolMinor, node.ProtocolMinor), cancellationToken).ConfigureAwait(false);
+        }, cancellationToken);
+    }
+
     public Task UpdateHeartbeatAsync(Guid nodeId, string status, string agentVersion, DateTimeOffset lastSeenAt, CancellationToken cancellationToken)
     {
         return writeCoordinator.ExecuteAsync(
@@ -294,6 +311,7 @@ internal sealed class SqliteNodeControlStore(
                     MemoryUsedBytes = sample.MemoryUsedBytes,
                     MemoryTotalBytes = sample.MemoryTotalBytes,
                     DiskFreeBytes = sample.DiskFreeBytes,
+                    DiskTotalBytes = sample.DiskTotalBytes,
                     NetworkReceiveBytesPerSecond = sample.NetworkReceiveBytesPerSecond,
                     NetworkSendBytesPerSecond = sample.NetworkSendBytesPerSecond,
                     UptimeTicks = sample.Uptime.Ticks,
@@ -318,7 +336,8 @@ internal sealed class SqliteNodeControlStore(
                 row.DiskFreeBytes,
                 row.NetworkReceiveBytesPerSecond,
                 row.NetworkSendBytesPerSecond,
-                TimeSpan.FromTicks(row.UptimeTicks))))];
+                TimeSpan.FromTicks(row.UptimeTicks),
+                row.DiskTotalBytes)))];
     }
 
     public Task ReplaceMirrorAsync(StoredNodeMirror mirror, CancellationToken cancellationToken)
@@ -433,6 +452,8 @@ internal sealed class SqliteNodeControlStore(
             ProtocolMinor = node.ProtocolMinor,
             OperatingSystem = node.OperatingSystem,
             Architecture = node.Architecture,
+            HostName = node.HostName,
+            IsLocal = node.IsLocal,
             MachineFingerprint = node.MachineFingerprint,
             CreatedAt = node.CreatedAt,
             LastSeenAt = node.LastSeenAt,
@@ -456,7 +477,9 @@ internal sealed class SqliteNodeControlStore(
             row.CreatedAt,
             row.LastSeenAt,
             row.CredentialRevoked,
-            string.IsNullOrWhiteSpace(row.ConfigurationJson) ? null : JsonSerializer.Deserialize<UpdateNodeRequest>(row.ConfigurationJson));
+            string.IsNullOrWhiteSpace(row.ConfigurationJson) ? null : JsonSerializer.Deserialize<UpdateNodeRequest>(row.ConfigurationJson),
+            row.HostName,
+            row.IsLocal);
     }
 
     private static NodeRegistrationTokenRow ToRow(StoredNodeRegistrationToken token)

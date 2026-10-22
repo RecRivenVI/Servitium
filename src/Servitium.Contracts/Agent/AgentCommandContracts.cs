@@ -168,6 +168,7 @@ public sealed record AgentJavaRuntimeResponse(
 /// <param name="Revision">本地修订号。</param>
 /// <param name="Warnings">非阻断配置警告代码。</param>
 /// <param name="StartedAt">最近一次启动时间。</param>
+/// <param name="Software">实际启动目标的软件元数据。</param>
 public sealed record AgentInstanceResponse(
     Guid Id,
     string Name,
@@ -180,7 +181,8 @@ public sealed record AgentInstanceResponse(
     UpdateInstanceRequest? Configuration = null,
     long Revision = 0,
     IReadOnlyList<string>? Warnings = null,
-    DateTimeOffset? StartedAt = null);
+    DateTimeOffset? StartedAt = null,
+    InstanceSoftwareDto? Software = null);
 
 /// <summary>Agent 用于控制平面对账的完整本地快照。</summary>
 /// <param name="Instances">实例登记。</param>

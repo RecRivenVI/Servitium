@@ -32,6 +32,43 @@ public sealed class InstanceFileServiceTests
     private static readonly string[] SecondPageNames = ["c.txt"];
 
     [Fact]
+    public async Task 文件列表观察独占占用和未知权限_探测不修改内容且不放开运行时写入()
+    {
+        using FileServiceContext test = await FileServiceContext.CreateAsync().ConfigureAwait(true);
+        string lockedPath = Path.Combine(test.WorkingDirectory, "locked.txt");
+        string freePath = Path.Combine(test.WorkingDirectory, "free.txt");
+        string readOnlyPath = Path.Combine(test.WorkingDirectory, "read-only.txt");
+        await File.WriteAllTextAsync(lockedPath, "locked fixture").ConfigureAwait(true);
+        await File.WriteAllTextAsync(freePath, "free fixture").ConfigureAwait(true);
+        await File.WriteAllTextAsync(readOnlyPath, "read-only fixture").ConfigureAwait(true);
+        _ = Directory.CreateDirectory(Path.Combine(test.WorkingDirectory, "directory"));
+        DateTime timestamp = File.GetLastWriteTimeUtc(freePath);
+        File.SetAttributes(readOnlyPath, FileAttributes.ReadOnly);
+        try
+        {
+            using (FileStream occupied = new(lockedPath, FileMode.Open, FileAccess.Read, FileShare.None))
+            {
+                IReadOnlyList<FileEntryDto> entries = await test.Files.ListAsync(test.InstanceId, string.Empty, CancellationToken.None).ConfigureAwait(true);
+                Assert.True(entries.Single(entry => entry.Path == "locked.txt").IsLocked);
+                Assert.False(entries.Single(entry => entry.Path == "free.txt").IsLocked);
+                Assert.Null(entries.Single(entry => entry.Path == "read-only.txt").IsLocked);
+                Assert.Null(entries.Single(entry => entry.IsDirectory).IsLocked);
+            }
+            IReadOnlyList<FileEntryDto> released = await test.Files.ListAsync(test.InstanceId, string.Empty, CancellationToken.None).ConfigureAwait(true);
+            Assert.False(released.Single(entry => entry.Path == "locked.txt").IsLocked);
+            Assert.Equal("free fixture", await File.ReadAllTextAsync(freePath).ConfigureAwait(true));
+            Assert.Equal(timestamp, File.GetLastWriteTimeUtc(freePath));
+            _ = await test.Instances.UpdateRuntimeAsync(test.InstanceId, "Running", 1234, DateTimeOffset.UtcNow, null, DateTimeOffset.UtcNow, CancellationToken.None).ConfigureAwait(true);
+            IReadOnlyList<FileEntryDto> running = await test.Files.ListAsync(test.InstanceId, string.Empty, CancellationToken.None).ConfigureAwait(true);
+            Assert.False(running.Single(entry => entry.Path == "free.txt").IsLocked);
+            DomainException blocked = await Assert.ThrowsAsync<DomainException>(() => test.Files.WriteTextAsync(test.InstanceId, "free.txt", "overwrite", "utf-8", CancellationToken.None)).ConfigureAwait(true);
+            Assert.Equal("instance-not-stopped", blocked.Code);
+            Assert.Equal("free fixture", await File.ReadAllTextAsync(freePath).ConfigureAwait(true));
+        }
+        finally { File.SetAttributes(readOnlyPath, FileAttributes.Normal); }
+    }
+
+    [Fact]
     [Trait("Category", "Integration")]
     [Trait("TestId", "INT-800")]
     [Trait("TestId", "INT-710")]
